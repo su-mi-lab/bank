@@ -2,6 +2,7 @@
 
 namespace Bank;
 
+use Bank\Driver\Platform\ConnectionInterface;
 use Bank\Sql\SqlInterface;
 
 /**
@@ -12,51 +13,51 @@ class Bank implements RepoInterface
 {
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function find(AdapterInterface $adapter, SqlInterface $query): array
+    public static function find(ConnectionInterface $conn, SqlInterface $query): array
     {
         // TODO: Implement find() method.
     }
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function findAll(AdapterInterface $adapter, SqlInterface $query): array
+    public static function findAll(ConnectionInterface $conn, SqlInterface $query): array
     {
         // TODO: Implement findAll() method.
     }
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function insert(AdapterInterface $adapter, SqlInterface $query): array
+    public static function insert(ConnectionInterface $conn, SqlInterface $query): array
     {
         // TODO: Implement insert() method.
     }
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function update(AdapterInterface $adapter, SqlInterface $query): array
+    public static function update(ConnectionInterface $conn, SqlInterface $query): array
     {
         // TODO: Implement update() method.
     }
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function delete(AdapterInterface $adapter, SqlInterface $query): array
+    public static function delete(ConnectionInterface $conn, SqlInterface $query): array
     {
         // TODO: Implement delete() method.
     }

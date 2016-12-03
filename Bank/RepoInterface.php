@@ -2,6 +2,7 @@
 
 namespace Bank;
 
+use Bank\Driver\Platform\ConnectionInterface;
 use Bank\Sql\SqlInterface;
 
 /**
@@ -12,38 +13,38 @@ interface RepoInterface
 {
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function find(AdapterInterface $adapter, SqlInterface $query): array;
+    public static function find(ConnectionInterface $conn, SqlInterface $query): array;
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function findAll(AdapterInterface $adapter, SqlInterface $query): array;
+    public static function findAll(ConnectionInterface $conn, SqlInterface $query): array;
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function insert(AdapterInterface $adapter, SqlInterface $query): array;
+    public static function insert(ConnectionInterface $conn, SqlInterface $query): array;
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function update(AdapterInterface $adapter, SqlInterface $query): array;
+    public static function update(ConnectionInterface $conn, SqlInterface $query): array;
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ConnectionInterface $conn
      * @param SqlInterface $query
      * @return array
      */
-    public static function delete(AdapterInterface $adapter, SqlInterface $query): array;
+    public static function delete(ConnectionInterface $conn, SqlInterface $query): array;
 
 }
