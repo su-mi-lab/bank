@@ -1,7 +1,7 @@
 {
     "name": "bank-lab/bank",
-    "description": "bank",
-    "keywords": [],
+    "description": "Data mapper",
+    "keywords": ["Data mapper"],
     "license": "MIT",
     "support": {
         "issues": "https://github.com/bank-lab/bank/issues",
