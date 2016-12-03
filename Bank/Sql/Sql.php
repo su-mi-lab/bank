@@ -2,7 +2,11 @@
 
 namespace Bank\Sql;
 
-class Sql
+/**
+ * Class Sql
+ * @package Bank\Sql
+ */
+class Sql implements SqlInterface
 {
 
 }

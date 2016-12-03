@@ -3,10 +3,10 @@
 namespace Bank;
 
 /**
- * Class Bank
+ * Interface RepoInterface
  * @package Bank
  */
-class Bank implements RepoInterface
+interface RepoInterface
 {
 
 }

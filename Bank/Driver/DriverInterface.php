@@ -3,10 +3,10 @@
 namespace Bank\Driver\Platform;
 
 /**
- * Class Mysql
+ * Interface DriverInterface
  * @package Bank\Driver\Platform
  */
-class Mysql implements ConnectionInterface
+interface DriverInterface
 {
 
 }

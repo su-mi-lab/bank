@@ -2,7 +2,11 @@
 
 namespace Bank;
 
-class Adapter
+/**
+ * Class Adapter
+ * @package Bank
+ */
+class Adapter implements AdapterInterface
 {
 
 }

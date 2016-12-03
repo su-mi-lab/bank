@@ -2,7 +2,11 @@
 
 namespace Bank\Driver\Platform;
 
-class Driver
+/**
+ * Class Driver
+ * @package Bank\Driver\Platform
+ */
+class Driver implements DriverInterface
 {
 
 }
