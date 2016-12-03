@@ -10,37 +10,63 @@ class Mysql implements ConnectionInterface
 {
 
     /**
+     * @var \PDO
+     */
+    private $pdo;
+
+    /**
      * Begin transaction
      *
-     * @return ConnectionInterface
+     * @return bool
      */
-    public function beginTransaction(): ConnectionInterface
+    public function beginTransaction(): bool
     {
-        // TODO: Implement beginTransaction() method.
+        return $this->pdo->beginTransaction();
     }
 
     /**
      * Commit
      *
-     * @return ConnectionInterface
+     * @return bool
      */
-    public function commit(): ConnectionInterface
+    public function commit(): bool
     {
-        // TODO: Implement commit() method.
+        return $this->pdo->commit();
     }
 
     /**
      * Rollback
      *
-     * @return ConnectionInterface
+     * @return bool
      */
-    public function rollback(): ConnectionInterface
+    public function rollback(): bool
     {
-        // TODO: Implement rollback() method.
+        return $this->pdo->rollBack();
     }
 
-    public function execute($sql)
+    /**
+     * @param string $sql
+     * @return int
+     */
+    public function exec(string $sql): int
     {
-        // TODO: Implement execute() method.
+        return $this->pdo->exec($sql);
+    }
+
+    /**
+     * @return int
+     */
+    public function lastInsertId(): int
+    {
+        return $this->pdo->lastInsertId();
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public function quote($string): string
+    {
+        return $this->pdo->quote($string);
     }
 }

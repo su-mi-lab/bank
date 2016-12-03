@@ -11,23 +11,38 @@ interface ConnectionInterface
     /**
      * Begin transaction
      *
-     * @return ConnectionInterface
+     * @return bool
      */
-    public function beginTransaction(): ConnectionInterface;
+    public function beginTransaction(): bool;
 
     /**
      * Commit
      *
-     * @return ConnectionInterface
+     * @return bool
      */
-    public function commit(): ConnectionInterface;
+    public function commit(): bool;
 
     /**
      * Rollback
      *
-     * @return ConnectionInterface
+     * @return bool
      */
-    public function rollback(): ConnectionInterface;
+    public function rollback(): bool;
 
-    public function execute($sql);
+    /**
+     * @param string $statement
+     * @return int
+     */
+    public function exec(string $statement): int;
+
+    /**
+     * @return int
+     */
+    public function lastInsertId(): int;
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public function quote($string): string;
 }

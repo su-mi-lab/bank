@@ -3,7 +3,10 @@
 namespace Bank;
 
 use Bank\Driver\Platform\ConnectionInterface;
-use Bank\Sql\SqlInterface;
+use Bank\Sql\Query\Delete;
+use Bank\Sql\Query\Insert;
+use Bank\Sql\Query\Select;
+use Bank\Sql\Query\Update;
 
 /**
  * Class Bank
@@ -14,51 +17,51 @@ class Bank implements RepoInterface
 
     /**
      * @param ConnectionInterface $conn
-     * @param SqlInterface $query
+     * @param Select $query
      * @return array
      */
-    public static function find(ConnectionInterface $conn, SqlInterface $query): array
+    public static function find(ConnectionInterface $conn, Select $query): array
     {
-        // TODO: Implement find() method.
+        return $conn->exec($query->getQuery());
     }
 
     /**
      * @param ConnectionInterface $conn
-     * @param SqlInterface $query
+     * @param Select $query
      * @return array
      */
-    public static function findAll(ConnectionInterface $conn, SqlInterface $query): array
+    public static function findAll(ConnectionInterface $conn, Select $query): array
     {
-        // TODO: Implement findAll() method.
+        return $conn->exec($query->getQuery());
     }
 
     /**
      * @param ConnectionInterface $conn
-     * @param SqlInterface $query
-     * @return array
+     * @param Insert $query
+     * @return int
      */
-    public static function insert(ConnectionInterface $conn, SqlInterface $query): array
+    public static function insert(ConnectionInterface $conn, Insert $query): int
     {
-        // TODO: Implement insert() method.
+        return $conn->exec($query->getQuery());
     }
 
     /**
      * @param ConnectionInterface $conn
-     * @param SqlInterface $query
-     * @return array
+     * @param Update $query
+     * @return int
      */
-    public static function update(ConnectionInterface $conn, SqlInterface $query): array
+    public static function update(ConnectionInterface $conn, Update $query): int
     {
-        // TODO: Implement update() method.
+        return $conn->exec($query->getQuery());
     }
 
     /**
      * @param ConnectionInterface $conn
-     * @param SqlInterface $query
-     * @return array
+     * @param Delete $query
+     * @return int
      */
-    public static function delete(ConnectionInterface $conn, SqlInterface $query): array
+    public static function delete(ConnectionInterface $conn, Delete $query): int
     {
-        // TODO: Implement delete() method.
+        return $conn->exec($query->getQuery());
     }
 }

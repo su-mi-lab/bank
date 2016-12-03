@@ -13,11 +13,30 @@ class Adapter implements AdapterInterface
 {
 
     /**
+     * @var string
+     */
+    private $platform;
+
+    /**
+     * @var DriverInterface
+     */
+    private $driver;
+
+    /**
+     * @var SqlInterface
+     */
+    private $sql;
+
+    function __construct()
+    {
+    }
+
+    /**
      * @return DriverInterface
      */
     public function getDriver(): DriverInterface
     {
-        // TODO: Implement getDriver() method.
+        return $this->driver;
     }
 
     /**
@@ -25,6 +44,14 @@ class Adapter implements AdapterInterface
      */
     public function getSql(): SqlInterface
     {
-        // TODO: Implement getSql() method.
+        return $this->sql;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlatform(): string
+    {
+        return $this->platform;
     }
 }

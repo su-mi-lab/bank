@@ -8,12 +8,20 @@ namespace Bank\Driver\Platform;
  */
 class Driver implements DriverInterface
 {
+    /**
+     * @var ConnectionInterface;
+     */
+    private $conn;
+
+    function __construct()
+    {
+    }
 
     /**
      * @return ConnectionInterface
      */
     public function getConnection(): ConnectionInterface
     {
-        // TODO: Implement getConnection() method.
+        return $this->conn;
     }
 }

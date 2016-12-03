@@ -20,4 +20,9 @@ interface AdapterInterface
      * @return SqlInterface
      */
     public function getSql(): SqlInterface;
+
+    /**
+     * @return string
+     */
+    public function getPlatform(): string;
 }
