@@ -8,5 +8,8 @@ namespace Bank\Driver\Platform;
  */
 interface DriverInterface
 {
-
+    /**
+     * @return ConnectionInterface
+     */
+    public function getConnection(): ConnectionInterface;
 }
