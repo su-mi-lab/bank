@@ -21,6 +21,6 @@ class Delete implements QueryInterface
      */
     public function getQuery(): string
     {
-        return $this->builder->buildDeleteQuery();
+        return $this->builder->buildDeleteQuery($this);
     }
 }

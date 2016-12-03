@@ -21,6 +21,6 @@ class Update implements QueryInterface
      */
     public function getQuery(): string
     {
-        return $this->builder->buildUpdateQuery();
+        return $this->builder->buildUpdateQuery($this);
     }
 }

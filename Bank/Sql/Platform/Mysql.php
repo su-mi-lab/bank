@@ -3,6 +3,10 @@
 namespace Bank\Sql\Platform;
 
 use Bank\Sql\BuilderInterface;
+use Bank\Sql\Query\Delete;
+use Bank\Sql\Query\Insert;
+use Bank\Sql\Query\Select;
+use Bank\Sql\Query\Update;
 
 /**
  * Class Mysql
@@ -12,42 +16,38 @@ class Mysql implements BuilderInterface
 {
 
     /**
+     * @param Select $query
      * @return string
      */
-    public function buildQuery(): string
+    public function buildSelectQuery(Select $query): string
     {
-        // TODO: Implement getStatement() method.
+
     }
 
     /**
+     * @param Insert $query
      * @return string
      */
-    public function buildSelectQuery(): string
+    public function buildInsertQuery(Insert $query): string
     {
-        // TODO: Implement buildSelectQuery() method.
+
     }
 
     /**
+     * @param Update $query
      * @return string
      */
-    public function buildInsertQuery(): string
+    public function buildUpdateQuery(Update $query): string
     {
-        // TODO: Implement buildInsertQuery() method.
+
     }
 
     /**
+     * @param Delete $query
      * @return string
      */
-    public function buildUpdateQuery(): string
+    public function buildDeleteQuery(Delete $query): string
     {
-        // TODO: Implement buildUpdateQuery() method.
-    }
-
-    /**
-     * @return string
-     */
-    public function buildDeleteQuery(): string
-    {
-        // TODO: Implement buildDeleteQuery() method.
+        
     }
 }

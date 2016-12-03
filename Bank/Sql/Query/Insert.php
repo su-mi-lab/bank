@@ -21,6 +21,6 @@ class Insert implements QueryInterface
      */
     public function getQuery(): string
     {
-        return $this->builder->buildInsertQuery();
+        return $this->builder->buildInsertQuery($this);
     }
 }

@@ -21,6 +21,6 @@ class Select implements QueryInterface
      */
     public function getQuery(): string
     {
-        return $this->builder->buildSelectQuery();
+        return $this->builder->buildSelectQuery($this);
     }
 }
