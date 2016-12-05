@@ -9,10 +9,10 @@ use Bank\Sql\Query\Select;
 use Bank\Sql\Query\Update;
 
 /**
- * Class Bank
+ * Class Repo
  * @package Bank
  */
-class Bank implements RepoInterface
+class Repo implements RepoInterface
 {
 
     /**
@@ -22,7 +22,13 @@ class Bank implements RepoInterface
      */
     public static function find(ConnectionInterface $conn, Select $query): array
     {
-        return $conn->query($query->getQuery());
+        $stmt = $conn->query($query->getQuery());
+
+        foreach ($stmt as $row) {
+            return $row;
+        }
+
+        return array();
     }
 
     /**
@@ -32,7 +38,14 @@ class Bank implements RepoInterface
      */
     public static function findAll(ConnectionInterface $conn, Select $query): array
     {
-        return $conn->query($query->getQuery());
+        $stmt = $conn->query($query->getQuery());
+
+        $result = [];
+        foreach ($stmt as $row) {
+            $result[] = $row;
+        }
+
+        return $result;
     }
 
     /**

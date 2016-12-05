@@ -20,7 +20,10 @@ class Mysql implements BuilderInterface
      */
     public function buildSelectQuery(Select $query): string
     {
+        $sql = "SELECT * ";
+        $sql .= "FROM ".$query->getFrom();
 
+        return $sql;
     }
 
     /**
