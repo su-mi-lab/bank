@@ -14,6 +14,12 @@ class Mysql implements ConnectionInterface
      */
     private $pdo;
 
+    function __construct($dns, $user, $password)
+    {
+        $this->pdo = new \PDO('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');
+        $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+    }
+
     /**
      * Begin transaction
      *
@@ -51,6 +57,15 @@ class Mysql implements ConnectionInterface
     public function exec(string $sql): int
     {
         return $this->pdo->exec($sql);
+    }
+
+    /**
+     * @param string $sql
+     * @return \PDOStatement
+     */
+    public function query(string $sql)
+    {
+        return $this->pdo->query($sql);
     }
 
     /**

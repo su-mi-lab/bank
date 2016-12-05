@@ -1,6 +1,6 @@
 <?php
 
-namespace Bank\Sql;
+namespace Bank\Sql\Platform;
 use Bank\Sql\Query\Delete;
 use Bank\Sql\Query\Insert;
 use Bank\Sql\Query\Select;

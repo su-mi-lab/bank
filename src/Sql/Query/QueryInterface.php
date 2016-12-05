@@ -1,10 +1,10 @@
 <?php
 
-namespace Bank\Sql;
+namespace Bank\Sql\Query;
 
 /**
  * Interface QueryInterface
- * @package Bank\Driver\Platform
+ * @package Bank\Sql\Query
  */
 interface QueryInterface
 {

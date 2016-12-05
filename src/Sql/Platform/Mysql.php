@@ -2,7 +2,6 @@
 
 namespace Bank\Sql\Platform;
 
-use Bank\Sql\BuilderInterface;
 use Bank\Sql\Query\Delete;
 use Bank\Sql\Query\Insert;
 use Bank\Sql\Query\Select;

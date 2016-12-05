@@ -1,6 +1,8 @@
 <?php
 
-namespace Bank\Driver\Platform;
+namespace Bank\Driver;
+
+use Bank\Driver\Platform\ConnectionInterface;
 
 /**
  * Class Driver
@@ -13,8 +15,10 @@ class Driver implements DriverInterface
      */
     private $conn;
 
-    function __construct()
+    function __construct($platform, $dns, $user, $password)
     {
+        $conn = "\\Bank\\Driver\\Platform\\".$platform;
+        $this->conn = new $conn($dns, $user, $password);
     }
 
     /**

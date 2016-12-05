@@ -2,7 +2,7 @@
 
 namespace Bank;
 
-use Bank\Driver\Platform\DriverInterface;
+use Bank\Driver\DriverInterface;
 use Bank\Sql\SqlInterface;
 
 /**

@@ -1,6 +1,8 @@
 <?php
 
-namespace Bank\Driver\Platform;
+namespace Bank\Driver;
+
+use Bank\Driver\Platform\ConnectionInterface;
 
 /**
  * Interface DriverInterface

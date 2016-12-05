@@ -2,19 +2,12 @@
 
 namespace Bank\Sql\Query;
 
-use Bank\Sql\BuilderInterface;
-use Bank\Sql\QueryInterface;
-
 /**
  * Class Delete
  * @package Bank\Sql\Query
  */
-class Delete implements QueryInterface
+class Delete extends Query
 {
-    /**
-     * @var BuilderInterface
-     */
-    private $builder;
 
     /**
      * @return string

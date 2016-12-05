@@ -22,7 +22,7 @@ class Bank implements RepoInterface
      */
     public static function find(ConnectionInterface $conn, Select $query): array
     {
-        return $conn->exec($query->getQuery());
+        return $conn->query($query->getQuery());
     }
 
     /**
@@ -32,7 +32,7 @@ class Bank implements RepoInterface
      */
     public static function findAll(ConnectionInterface $conn, Select $query): array
     {
-        return $conn->exec($query->getQuery());
+        return $conn->query($query->getQuery());
     }
 
     /**
@@ -42,7 +42,7 @@ class Bank implements RepoInterface
      */
     public static function insert(ConnectionInterface $conn, Insert $query): int
     {
-        return $conn->exec($query->getQuery());
+        return $conn->query($query->getQuery());
     }
 
     /**
@@ -52,7 +52,7 @@ class Bank implements RepoInterface
      */
     public static function update(ConnectionInterface $conn, Update $query): int
     {
-        return $conn->exec($query->getQuery());
+        return $conn->query($query->getQuery());
     }
 
     /**
@@ -62,6 +62,6 @@ class Bank implements RepoInterface
      */
     public static function delete(ConnectionInterface $conn, Delete $query): int
     {
-        return $conn->exec($query->getQuery());
+        return $conn->query($query->getQuery());
     }
 }

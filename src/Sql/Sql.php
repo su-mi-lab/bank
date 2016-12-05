@@ -2,6 +2,7 @@
 
 namespace Bank\Sql;
 
+use Bank\Sql\Platform\BuilderInterface;
 use Bank\Sql\Query\Delete;
 use Bank\Sql\Query\Insert;
 use Bank\Sql\Query\Select;
@@ -13,13 +14,23 @@ use Bank\Sql\Query\Update;
  */
 class Sql implements SqlInterface
 {
+    /**
+     * @var BuilderInterface
+     */
+    private $builder;
+
+    function __construct($platform)
+    {
+        $builder = "\\Bank\\Sql\\Platform\\".$platform;
+        $this->builder = new $builder();
+    }
 
     /**
      * @return Select
      */
     public function getSelect(): Select
     {
-        return new Select;
+        return new Select($this->builder);
     }
 
     /**
@@ -27,7 +38,7 @@ class Sql implements SqlInterface
      */
     public function getInsert(): Insert
     {
-        return new Insert;
+        return new Insert($this->builder);
     }
 
     /**
@@ -35,7 +46,7 @@ class Sql implements SqlInterface
      */
     public function getUpdate(): Update
     {
-        return new Update;
+        return new Update($this->builder);
     }
 
     /**
@@ -43,6 +54,6 @@ class Sql implements SqlInterface
      */
     public function getDelete(): Delete
     {
-        return new Delete;
+        return new Delete($this->builder);
     }
 }

@@ -30,10 +30,16 @@ interface ConnectionInterface
     public function rollback(): bool;
 
     /**
-     * @param string $statement
+     * @param string $sql
      * @return int
      */
-    public function exec(string $statement): int;
+    public function exec(string $sql): int;
+
+    /**
+     * @param string $sql
+     * @return mixed
+     */
+    public function query(string $sql);
 
     /**
      * @return int

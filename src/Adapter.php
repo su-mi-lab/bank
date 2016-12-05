@@ -2,7 +2,9 @@
 
 namespace Bank;
 
-use Bank\Driver\Platform\DriverInterface;
+use Bank\Driver\Driver;
+use Bank\Driver\DriverInterface;
+use Bank\Sql\Sql;
 use Bank\Sql\SqlInterface;
 
 /**
@@ -27,8 +29,11 @@ class Adapter implements AdapterInterface
      */
     private $sql;
 
-    function __construct()
+    function __construct($dns, $user, $password)
     {
+        $this->platform = "Mysql";
+        $this->driver = new Driver($this->platform, $dns, $user, $password);
+        $this->sql = new Sql($this->platform);
     }
 
     /**

@@ -2,20 +2,12 @@
 
 namespace Bank\Sql\Query;
 
-use Bank\Sql\BuilderInterface;
-use Bank\Sql\QueryInterface;
-
 /**
  * Class Insert
  * @package Bank\Sql\Query
  */
-class Insert implements QueryInterface
+class Insert extends Query
 {
-    /**
-     * @var BuilderInterface
-     */
-    private $builder;
-
     /**
      * @return string
      */

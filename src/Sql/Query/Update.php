@@ -2,19 +2,12 @@
 
 namespace Bank\Sql\Query;
 
-use Bank\Sql\BuilderInterface;
-use Bank\Sql\QueryInterface;
-
 /**
  * Class Update
  * @package Bank\Sql\Query
  */
-class Update implements QueryInterface
+class Update extends Query
 {
-    /**
-     * @var BuilderInterface
-     */
-    private $builder;
 
     /**
      * @return string
