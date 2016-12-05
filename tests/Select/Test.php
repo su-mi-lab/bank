@@ -14,11 +14,10 @@ class Test extends PHPUnit_Framework_TestCase
         $this->adapter = new Adapter('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');;
     }
 
-    function testSample()
+    function testFrom()
     {
-        $conn = $this->adapter ->getDriver()->getConnection();
         $select = $this->adapter->getSql()->getSelect();
         $select->from('users');
-        $this->assertEquals("SELECT * FROM users", $select->getQuery());
+        $this->assertEquals("!SELECT * FROM users", $select->getQuery());
     }
 }
