@@ -2,8 +2,8 @@
 
 namespace Bank;
 
-use Bank\Driver\DriverInterface;
-use Bank\Sql\SqlInterface;
+use Bank\Platform\BuilderInterface;
+use Bank\Platform\ConnectionInterface;
 
 /**
  * Interface AdapterInterface
@@ -11,18 +11,15 @@ use Bank\Sql\SqlInterface;
  */
 interface AdapterInterface
 {
-    /**
-     * @return DriverInterface
-     */
-    public function getDriver(): DriverInterface;
 
     /**
-     * @return SqlInterface
+     * @return ConnectionInterface
      */
-    public function getSql(): SqlInterface;
+    public function getConnection(): ConnectionInterface;
 
     /**
-     * @return string
+     * @return BuilderInterface
      */
-    public function getPlatform(): string;
+    public function getQueryBuilder(): BuilderInterface;
+
 }

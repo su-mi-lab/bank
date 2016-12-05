@@ -2,10 +2,8 @@
 
 namespace Bank;
 
-use Bank\Driver\Driver;
-use Bank\Driver\DriverInterface;
-use Bank\Sql\Sql;
-use Bank\Sql\SqlInterface;
+use Bank\Platform\BuilderInterface;
+use Bank\Platform\ConnectionInterface;
 
 /**
  * Class Adapter
@@ -15,48 +13,39 @@ class Adapter implements AdapterInterface
 {
 
     /**
-     * @var string
+     * @var ConnectionInterface
      */
-    private $platform;
+    private $conn;
 
     /**
-     * @var DriverInterface
+     * @var BuilderInterface
      */
-    private $driver;
+    private $queryBuilder;
 
-    /**
-     * @var SqlInterface
-     */
-    private $sql;
 
     function __construct($dns, $user, $password)
     {
-        $this->platform = "Mysql";
-        $this->driver = new Driver($this->platform, $dns, $user, $password);
-        $this->sql = new Sql($this->platform, $this->driver->getConnection());
+        $platform = "Mysql";
+        $conn = "\\Bank\\Platform\\" . $platform . "\\Connection";
+        $queryBuilder = "\\Bank\\Platform\\".$platform."\\Builder";
+        $this->conn = new $conn($dns, $user, $password);
+        $this->queryBuilder = new $queryBuilder($this->conn);
+    }
+
+
+    /**
+     * @return ConnectionInterface
+     */
+    public function getConnection(): ConnectionInterface
+    {
+        return $this->conn;
     }
 
     /**
-     * @return DriverInterface
+     * @return BuilderInterface
      */
-    public function getDriver(): DriverInterface
+    public function getQueryBuilder(): BuilderInterface
     {
-        return $this->driver;
-    }
-
-    /**
-     * @return SqlInterface
-     */
-    public function getSql(): SqlInterface
-    {
-        return $this->sql;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPlatform(): string
-    {
-        return $this->platform;
+        return $this->queryBuilder;
     }
 }

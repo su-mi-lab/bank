@@ -1,6 +1,7 @@
 <?php
 
 use Bank\Adapter;
+use Bank\Query\Select;
 
 class Test extends PHPUnit_Framework_TestCase
 {
@@ -14,10 +15,15 @@ class Test extends PHPUnit_Framework_TestCase
         $this->adapter = new Adapter('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');;
     }
 
+    const FROM_TEST_QUERY = "SELECT * FROM `users`";
+
     function testFrom()
     {
-        $select = $this->adapter->getSql()->getSelect();
-        $select->from('users');
-        $this->assertEquals("SELECT * FROM users", $select->getQuery());
+        $select = new Select();
+        $select->from("users");
+        $this->assertEquals(
+            static::FROM_TEST_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
     }
 }

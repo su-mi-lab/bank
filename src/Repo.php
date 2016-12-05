@@ -2,11 +2,10 @@
 
 namespace Bank;
 
-use Bank\Driver\Platform\ConnectionInterface;
-use Bank\Sql\Query\Delete;
-use Bank\Sql\Query\Insert;
-use Bank\Sql\Query\Select;
-use Bank\Sql\Query\Update;
+use Bank\Query\Delete;
+use Bank\Query\Insert;
+use Bank\Query\Select;
+use Bank\Query\Update;
 
 /**
  * Class Repo
@@ -16,65 +15,47 @@ class Repo implements RepoInterface
 {
 
     /**
-     * @param ConnectionInterface $conn
+     * @param AdapterInterface $adapter
      * @param Select $query
      * @return array
      */
-    public static function find(ConnectionInterface $conn, Select $query): array
+    public static function find(AdapterInterface $adapter, Select $query): array
     {
-        $stmt = $conn->query($query->getQuery());
-
-        foreach ($stmt as $row) {
-            return $row;
-        }
-
-        return array();
     }
 
     /**
-     * @param ConnectionInterface $conn
+     * @param AdapterInterface $adapter
      * @param Select $query
      * @return array
      */
-    public static function findAll(ConnectionInterface $conn, Select $query): array
+    public static function findAll(AdapterInterface $adapter, Select $query): array
     {
-        $stmt = $conn->query($query->getQuery());
-
-        $result = [];
-        foreach ($stmt as $row) {
-            $result[] = $row;
-        }
-
-        return $result;
     }
 
     /**
-     * @param ConnectionInterface $conn
+     * @param AdapterInterface $adapter
      * @param Insert $query
      * @return int
      */
-    public static function insert(ConnectionInterface $conn, Insert $query): int
+    public static function insert(AdapterInterface $adapter, Insert $query): int
     {
-        return $conn->query($query->getQuery());
     }
 
     /**
-     * @param ConnectionInterface $conn
+     * @param AdapterInterface $adapter
      * @param Update $query
      * @return int
      */
-    public static function update(ConnectionInterface $conn, Update $query): int
+    public static function update(AdapterInterface $adapter, Update $query): int
     {
-        return $conn->query($query->getQuery());
     }
 
     /**
-     * @param ConnectionInterface $conn
+     * @param AdapterInterface $adapter
      * @param Delete $query
      * @return int
      */
-    public static function delete(ConnectionInterface $conn, Delete $query): int
+    public static function delete(AdapterInterface $adapter, Delete $query): int
     {
-        return $conn->query($query->getQuery());
     }
 }

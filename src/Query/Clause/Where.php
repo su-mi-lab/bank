@@ -1,10 +1,10 @@
 <?php
 
-namespace Bank\Sql\Query\Clause;
+namespace Bank\Query\Clause;
 
 /**
  * Class Where
- * @package Bank\Sql\Query
+ * @package Bank\Query
  */
 class Where
 {

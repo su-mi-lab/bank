@@ -1,14 +1,15 @@
 <?php
 
-namespace Bank\Sql\Platform;
-use Bank\Sql\Query\Delete;
-use Bank\Sql\Query\Insert;
-use Bank\Sql\Query\Select;
-use Bank\Sql\Query\Update;
+namespace Bank\Platform;
+
+use Bank\Query\Delete;
+use Bank\Query\Insert;
+use Bank\Query\Select;
+use Bank\Query\Update;
 
 /**
  * Interface BuilderInterface
- * @package Bank\Driver\Platform
+ * @package Bank\Platform
  */
 interface BuilderInterface
 {

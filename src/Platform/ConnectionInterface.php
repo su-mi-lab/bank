@@ -1,10 +1,10 @@
 <?php
 
-namespace Bank\Driver\Platform;
+namespace Bank\Platform;
 
 /**
  * Interface ConnectionInterface
- * @package Bank\Driver\Platform
+ * @package Bank\Platform
  */
 interface ConnectionInterface
 {

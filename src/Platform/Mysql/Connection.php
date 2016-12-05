@@ -1,14 +1,15 @@
 <?php
 
-namespace Bank\Driver\Platform;
+namespace Bank\Platform\Mysql;
+
+use Bank\Platform\ConnectionInterface;
 
 /**
- * Class Mysql
- * @package Bank\Driver\Platform
+ * Class Connection
+ * @package Bank\Platform\Mysql
  */
-class Mysql implements ConnectionInterface
+class Connection implements ConnectionInterface
 {
-
     /**
      * @var \PDO
      */
