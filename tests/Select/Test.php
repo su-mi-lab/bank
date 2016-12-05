@@ -18,6 +18,6 @@ class Test extends PHPUnit_Framework_TestCase
     {
         $select = $this->adapter->getSql()->getSelect();
         $select->from('users');
-        $this->assertEquals("!SELECT * FROM users", $select->getQuery());
+        $this->assertEquals("SELECT * FROM users", $select->getQuery());
     }
 }
