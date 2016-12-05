@@ -22,8 +22,13 @@ class Adapter implements AdapterInterface
      */
     private $queryBuilder;
 
-
-    function __construct($dns, $user, $password)
+    /**
+     * Adapter constructor.
+     * @param string $dns
+     * @param string $user
+     * @param string $password
+     */
+    function __construct(string $dns, string $user, string $password)
     {
         $platform = "Mysql";
         $conn = "\\Bank\\Platform\\" . $platform . "\\Connection";
@@ -31,7 +36,6 @@ class Adapter implements AdapterInterface
         $this->conn = new $conn($dns, $user, $password);
         $this->queryBuilder = new $queryBuilder($this->conn);
     }
-
 
     /**
      * @return ConnectionInterface

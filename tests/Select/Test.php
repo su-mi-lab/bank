@@ -16,13 +16,24 @@ class Test extends PHPUnit_Framework_TestCase
     }
 
     const FROM_TEST_QUERY = "SELECT * FROM `users`";
-
     function testFrom()
     {
         $select = new Select();
         $select->from("users");
         $this->assertEquals(
             static::FROM_TEST_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+    }
+
+    const FROM_TEST_ALIAS_QUERY = "SELECT * FROM `users` AS `u`";
+    function testFromAlias()
+    {
+        $select = new Select();
+        $select->from(["u" => "users"]);
+
+        $this->assertEquals(
+            static::FROM_TEST_ALIAS_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
     }

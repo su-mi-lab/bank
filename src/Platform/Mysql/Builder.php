@@ -19,7 +19,13 @@ class Builder extends QueryBuilder
     {
         $table = $from->getTable();
 
-        return "FROM `{$table}`";
+        if (is_array($table)) {
+            $alias = array_keys($table);
+            $table_name = array_values($table);
+            return "FROM `" . reset($table_name) . "` AS `" . reset($alias) . "`";
+        } else {
+            return "FROM `{$table}`";
+        }
     }
 
 }

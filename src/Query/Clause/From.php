@@ -8,7 +8,6 @@ namespace Bank\Query\Clause;
  */
 class From
 {
-
     /**
      * @var array|string
      */
