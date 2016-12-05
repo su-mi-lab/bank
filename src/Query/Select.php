@@ -20,7 +20,7 @@ class Select
     /**
      * @var Where
      */
-    private $where;
+    public $where;
 
     function __construct()
     {
@@ -44,6 +44,14 @@ class Select
     public function getFrom(): From
     {
         return $this->from;
+    }
+
+    /**
+     * @return Where
+     */
+    public function getWhere(): Where
+    {
+        return $this->where;
     }
 
 }

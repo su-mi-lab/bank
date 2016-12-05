@@ -8,60 +8,152 @@ namespace Bank\Query\Clause;
  */
 class Where
 {
+    /**
+     * @var array
+     */
+    private $conditions = [];
 
+    /**
+     * @param $col
+     * @param $val
+     * @return $this
+     */
     public function equalTo($col, $val)
     {
-//SELECT "user".* FROM "user" WHERE "col" = '値'
+        $this->addConditions($col, "=", $val);
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @param $val
+     * @return $this
+     */
     public function notEqualTo($col, $val)
     {
-//SELECT "user".* FROM "user" WHERE "col" != '値'
+        $this->addConditions($col, "!=", $val);
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @param $val
+     * @return $this
+     */
     public function greaterThan($col, $val)
     {
-//SELECT "user".* FROM "user" WHERE "col" > '値'
+        $this->addConditions($col, ">", $val);
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @param $val
+     * @return $this
+     */
     public function greaterThanOrEqualTo($col, $val)
     {
-//SELECT "user".* FROM "user" WHERE "col" >= '値'
+        $this->addConditions($col, ">=", $val);
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @param $val
+     * @return $this
+     */
     public function lessThan($col, $val)
     {
-//SELECT "user".* FROM "user" WHERE "col" < '値'
+        $this->addConditions($col, "<", $val);
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @param $val
+     * @return $this
+     */
     public function lessThanOrEqualTo($col, $val)
     {
-//SELECT "user".* FROM "user" WHERE "col" <= '値'
+        $this->addConditions($col, "<=", $val);
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @param $items
+     * @return $this
+     */
     public function in($col, $items)
     {
-//SELECT "user".* FROM "user" WHERE "col" IN ('値1', '値2')
+        $this->addConditions($col, "IN", $items);
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @return $this
+     */
     public function isNull($col)
     {
-//SELECT "user".* FROM "user" WHERE "col" IS NULL
+        $this->addConditions($col, "IS NULL");
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @return $this
+     */
     public function isNotNull($col)
     {
-//SELECT "user".* FROM "user" WHERE "col" IS NOT NULL
+        $this->addConditions($col, "IS NOT NULL");
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @param $val
+     * @return $this
+     */
     public function like($col, $val)
     {
-//SELECT "user".* FROM "user" WHERE "col" LIKE '%値1%'
+        $this->addConditions($col, "LIKE", $val);
+        return $this;
     }
 
+    /**
+     * @param $col
+     * @param $val
+     * @return $this
+     */
     public function notLike($col, $val)
     {
-//SELECT "user".* FROM "user" WHERE "col" NOT LIKE '%値1%'
+        $this->addConditions($col, "NOT LIKE", $val);
+        return $this;
+    }
+
+    /**
+     * @param $col
+     * @param $operator
+     * @param $val
+     * @param null $table
+     */
+    private function addConditions($col, $operator, $val = null, $table = null)
+    {
+        $this->conditions[] = [
+            'col' => $col,
+            'table' => $table,
+            'val' => $val,
+            'operator' => $operator
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getConditions()
+    {
+        return $this->conditions;
     }
 
 }

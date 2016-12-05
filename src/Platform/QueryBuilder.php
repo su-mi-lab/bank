@@ -2,8 +2,8 @@
 
 namespace Bank\Platform;
 
-
 use Bank\Query\Clause\From;
+use Bank\Query\Clause\Where;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
 use Bank\Query\Select;
@@ -43,6 +43,7 @@ abstract class QueryBuilder implements BuilderInterface
     {
         $sql = "SELECT * ";
         $sql .= $this->buildFrom($query->getFrom());
+        $sql .= $this->buildWhere($query->getWhere());
 
         return $sql;
     }
@@ -79,6 +80,14 @@ abstract class QueryBuilder implements BuilderInterface
      * @return string
      */
     abstract protected function buildFrom(From $from): string;
+
+    /**
+     * @param Where $where
+     * @return string
+     */
+    abstract protected function buildWhere(Where $where): string;
+
+
 
 
 }

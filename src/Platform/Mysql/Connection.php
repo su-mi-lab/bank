@@ -17,7 +17,7 @@ class Connection implements ConnectionInterface
 
     function __construct($dns, $user, $password)
     {
-        $this->pdo = new \PDO('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');
+        $this->pdo = new \PDO($dns, $user, $password);
         $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
     }
 
