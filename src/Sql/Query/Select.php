@@ -12,6 +12,11 @@ class Select extends Query
     private $from;
 
     /**
+     * @var
+     */
+    private $where;
+
+    /**
      * @return string
      */
     public function getQuery(): string
@@ -21,15 +26,18 @@ class Select extends Query
 
     /**
      * @param $table
-     * @return $this
+     * @return Select
      */
-    public function from($table)
+    public function from($table): Select
     {
         $this->from = $table;
         return $this;
     }
 
-    public function getFrom()
+    /**
+     * @return string
+     */
+    public function getFrom(): string
     {
         return $this->from;
     }

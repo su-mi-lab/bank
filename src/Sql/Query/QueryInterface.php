@@ -13,4 +13,10 @@ interface QueryInterface
      */
     public function getQuery(): string;
 
+    /**
+     * @param $string
+     * @return string
+     */
+    public function quote($string): string;
+
 }

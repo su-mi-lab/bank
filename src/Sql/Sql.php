@@ -2,6 +2,7 @@
 
 namespace Bank\Sql;
 
+use Bank\Driver\Platform\ConnectionInterface;
 use Bank\Sql\Platform\BuilderInterface;
 use Bank\Sql\Query\Delete;
 use Bank\Sql\Query\Insert;
@@ -19,10 +20,16 @@ class Sql implements SqlInterface
      */
     private $builder;
 
-    function __construct($platform)
+    /**
+     * @var ConnectionInterface
+     */
+    private $connection;
+
+    function __construct($platform, $connection)
     {
         $builder = "\\Bank\\Sql\\Platform\\".$platform;
         $this->builder = new $builder();
+        $this->connection = $connection;
     }
 
     /**
@@ -30,7 +37,7 @@ class Sql implements SqlInterface
      */
     public function getSelect(): Select
     {
-        return new Select($this->builder);
+        return new Select($this->builder, $this->connection);
     }
 
     /**
@@ -38,7 +45,7 @@ class Sql implements SqlInterface
      */
     public function getInsert(): Insert
     {
-        return new Insert($this->builder);
+        return new Insert($this->builder, $this->connection);
     }
 
     /**
@@ -46,7 +53,7 @@ class Sql implements SqlInterface
      */
     public function getUpdate(): Update
     {
-        return new Update($this->builder);
+        return new Update($this->builder, $this->connection);
     }
 
     /**
@@ -54,6 +61,6 @@ class Sql implements SqlInterface
      */
     public function getDelete(): Delete
     {
-        return new Delete($this->builder);
+        return new Delete($this->builder, $this->connection);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Bank\Sql\Query;
 
+use Bank\Driver\Platform\ConnectionInterface;
 use Bank\Sql\Platform\BuilderInterface;
 
 /**
@@ -15,8 +16,28 @@ abstract class Query implements QueryInterface
      */
     protected $builder;
 
-    function __construct($builder)
+    /**
+     * @var ConnectionInterface
+     */
+    protected $connection;
+
+    /**
+     * Query constructor.
+     * @param $builder
+     * @param $connection
+     */
+    function __construct($builder, $connection)
     {
         $this->builder = $builder;
+        $this->connection = $connection;
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public function quote($string):string
+    {
+        return $this->connection->query($string);
     }
 }

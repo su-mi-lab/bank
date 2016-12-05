@@ -33,7 +33,7 @@ class Adapter implements AdapterInterface
     {
         $this->platform = "Mysql";
         $this->driver = new Driver($this->platform, $dns, $user, $password);
-        $this->sql = new Sql($this->platform);
+        $this->sql = new Sql($this->platform, $this->driver->getConnection());
     }
 
     /**
