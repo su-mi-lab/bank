@@ -50,7 +50,7 @@ class Builder extends QueryBuilder
                     return $this->quote($item);
                 }, $val);
 
-                $val = "(".implode(" , ", $val).")";
+                $val = "(" . implode(" , ", $val) . ")";
             } else if (!empty($val)) {
                 $val = $this->quote($val);
             } else {
@@ -64,11 +64,7 @@ class Builder extends QueryBuilder
                 $col = $condition["table"] . "." . $col;
             }
 
-            if ($val) {
-                $query[] = "{$col} {$operator} {$val}";
-            } else {
-                $query[] = "{$col} {$operator}";
-            }
+            $query[] = ($val) ? "{$col} {$operator} {$val}" : "{$col} {$operator}";
 
             return $query;
         }, []);
