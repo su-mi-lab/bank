@@ -84,7 +84,7 @@ class Where
      * @param $items
      * @return $this
      */
-    public function in($col, $items)
+    public function include($col, $items)
     {
         $this->addConditions($col, "IN", $items);
         return $this;

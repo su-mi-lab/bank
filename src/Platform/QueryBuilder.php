@@ -54,7 +54,6 @@ abstract class QueryBuilder implements BuilderInterface
      */
     public function buildInsertQuery(Insert $query): string
     {
-
     }
 
     /**

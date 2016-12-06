@@ -53,7 +53,7 @@ class Test extends PHPUnit_Framework_TestCase
             ->isNull("id")
             ->like("id", "1%")
             ->notLike("id", "1%")
-            ->in("id", [1, 2, 3, 4]);
+            ->include("id", [1, 2, 3, 4]);
 
         $this->assertEquals(
             static::FROM_TEST_WHERE,
