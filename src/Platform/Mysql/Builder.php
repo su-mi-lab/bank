@@ -44,17 +44,17 @@ class Builder extends QueryBuilder
 
         $query = array_reduce($conditions, function ($query, $condition) {
 
-            $condition_val = $condition["val"];
+            $conditionVal = $condition["val"];
 
             $val = null;
-            if (is_array($condition_val)) {
+            if (is_array($conditionVal)) {
                 $val = array_map(function ($item) {
                     return $this->quote($item);
-                }, $condition_val);
+                }, $conditionVal);
 
                 $val = "(" . implode(" , ", $val) . ")";
-            } else if (!empty($condition_val)) {
-                $val = $this->quote($condition_val);
+            } else if (!empty($conditionVal)) {
+                $val = $this->quote($conditionVal);
             }
 
             $col = $condition["col"];
