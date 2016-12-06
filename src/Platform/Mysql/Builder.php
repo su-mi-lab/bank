@@ -21,19 +21,13 @@ class Builder extends QueryBuilder
     {
         $table = $from->getTable();
 
-        $from = null;
-        switch (is_array($table)) {
-            case true:
-                $alias = array_keys($table);
-                $tableName = array_values($table);
-                $from = "FROM `" . reset($tableName) . "` AS `" . reset($alias) . "`";
-                break;
-            default:
-                $from = "FROM `{$table}`";
-                break;
+        if (is_array($table)) {
+            $alias = array_keys($table);
+            $tableName = array_values($table);
+            return "FROM `" . reset($tableName) . "` AS `" . reset($alias) . "`";
         }
 
-        return $from;
+        return "FROM `{$table}`";
     }
 
     /**
@@ -50,18 +44,17 @@ class Builder extends QueryBuilder
 
         $query = array_reduce($conditions, function ($query, $condition) {
 
-            $val = $condition["val"];
+            $condition_val = $condition["val"];
 
-            if (is_array($val)) {
+            $val = null;
+            if (is_array($condition_val)) {
                 $val = array_map(function ($item) {
                     return $this->quote($item);
-                }, $val);
+                }, $condition_val);
 
                 $val = "(" . implode(" , ", $val) . ")";
-            } else if (!empty($val)) {
-                $val = $this->quote($val);
-            } else {
-                $val = null;
+            } else if (!empty($condition_val)) {
+                $val = $this->quote($condition_val);
             }
 
             $col = $condition["col"];
