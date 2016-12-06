@@ -5,6 +5,7 @@ namespace Bank\Platform\Mysql;
 use Bank\Platform\QueryBuilder;
 use Bank\Query\Clause\From;
 use Bank\Query\Clause\Where;
+use phpDocumentor\Reflection\DocBlock\Tags\Param;
 
 /**
  * Class Builder
@@ -20,13 +21,19 @@ class Builder extends QueryBuilder
     {
         $table = $from->getTable();
 
-        if (is_array($table)) {
-            $alias = array_keys($table);
-            $tableName = array_values($table);
-            return "FROM `" . reset($tableName) . "` AS `" . reset($alias) . "`";
-        } else {
-            return "FROM `{$table}`";
+        $from = null;
+        switch (is_array($table)) {
+            case true:
+                $alias = array_keys($table);
+                $tableName = array_values($table);
+                $from = "FROM `" . reset($tableName) . "` AS `" . reset($alias) . "`";
+                break;
+            default:
+                $from = "FROM `{$table}`";
+                break;
         }
+
+        return $from;
     }
 
     /**
