@@ -5,6 +5,10 @@ namespace Bank\Query\Clause;
 /**
  * Class Where
  * @package Bank\Query
+ *
+ * @property Where $nest
+ * @property Where $unNest
+ * @property Where $or
  */
 class Where
 {
@@ -12,6 +16,16 @@ class Where
      * @var array
      */
     private $conditions = [];
+
+    /**
+     * @var Where|null
+     */
+    private $parent;
+
+    function __construct($parent = null)
+    {
+        $this->parent = $parent;
+    }
 
     /**
      * @param $col
@@ -84,7 +98,7 @@ class Where
      * @param $items
      * @return $this
      */
-    public function include($col, $items)
+    public function include ($col, $items)
     {
         $this->addConditions($col, "IN", $items);
         return $this;
@@ -135,17 +149,27 @@ class Where
     /**
      * @param $col
      * @param $operator
-     * @param $val
-     * @param null $table
+     * @param null $val
      */
-    private function addConditions($col, $operator, $val = null, $table = null)
+    private function addConditions($col, $operator, $val = null)
     {
+
+        $join = (!empty($this->or)) ? "OR" : "AND";
+
         $this->conditions[] = [
             'col' => $col,
-            'table' => $table,
-            'val' => $val,
-            'operator' => $operator
+            'value' => $val,
+            'operator' => $operator,
+            'join' => $join
         ];
+    }
+
+    /**
+     * @return Where
+     */
+    private function getParent()
+    {
+        return $this->parent;
     }
 
     /**
@@ -154,6 +178,37 @@ class Where
     public function getConditions()
     {
         return $this->conditions;
+    }
+
+    /**
+     * @param $name
+     * @return Where|null
+     */
+    public function __get($name)
+    {
+        $returnObj = null;
+        switch ($name) {
+
+            case "nest":
+                $returnObj = new Where($this);
+                $this->addConditions(null, null, $returnObj);
+                break;
+            case "unNest":
+                $returnObj = $this->getParent();
+                break;
+
+            case "or":
+                $this->or = true;
+                $returnObj = $this;
+                break;
+
+            default:
+                $returnObj = null;
+                break;
+
+        }
+
+        return $returnObj;
     }
 
 }
