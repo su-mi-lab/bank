@@ -44,19 +44,7 @@ class Builder extends QueryBuilder
 
         $query = array_reduce($conditions, function ($query, $condition) {
 
-            $conditionVal = $condition["val"];
-
-            $val = null;
-            if (is_array($conditionVal)) {
-                $val = array_map(function ($item) {
-                    return $this->quote($item);
-                }, $conditionVal);
-
-                $val = "(" . implode(" , ", $val) . ")";
-            } else if (!empty($conditionVal)) {
-                $val = $this->quote($conditionVal);
-            }
-
+            $val = $this->castConditionValue($condition["val"]);
             $col = $condition["col"];
             $operator = $condition["operator"];
 
@@ -72,5 +60,25 @@ class Builder extends QueryBuilder
         $where = implode(" AND ", $query);
 
         return " WHERE {$where} ";
+    }
+
+    /**
+     * @param $conditionValue
+     * @return array|null|string
+     */
+    protected function castConditionValue($conditionValue)
+    {
+        $value = null;
+        if (is_array($conditionValue)) {
+            $value = array_map(function ($item) {
+                return $this->quote($item);
+            }, $conditionValue);
+
+            $value = "(" . implode(" , ", $value) . ")";
+        } else if (!empty($conditionValue)) {
+            $value = $this->quote($conditionValue);
+        }
+
+        return $value;
     }
 }
