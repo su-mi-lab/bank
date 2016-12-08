@@ -3,8 +3,8 @@
 namespace Bank\Query\Clause;
 
 /**
- * Class Where
- * @package Bank\Query
+ * Class From
+ * @package Bank\Query\Clause
  */
 class From
 {

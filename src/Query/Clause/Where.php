@@ -4,7 +4,7 @@ namespace Bank\Query\Clause;
 
 /**
  * Class Where
- * @package Bank\Query
+ * @package Bank\Query\Clause
  *
  * @property Where $nest
  * @property Where $unNest
