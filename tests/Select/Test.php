@@ -12,7 +12,7 @@ class Test extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->adapter = new Adapter('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');;
+        $this->adapter = new Adapter('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');
     }
 
     const FROM_TEST_QUERY = "SELECT * FROM `users`";
@@ -27,7 +27,7 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const FROM_TEST_ALIAS_QUERY = "SELECT * FROM `users` AS `u` WHERE u.id = '1' ";
+    const FROM_TEST_ALIAS_QUERY = "SELECT * FROM `users` AS `u` WHERE u.id = '1'";
 
     function testAlias()
     {
@@ -43,7 +43,7 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const WHERE_TEST_QUERY = "SELECT * FROM `users` WHERE id = '1' AND id != '1' AND id > '1' AND id >= '1' AND id < '1' AND id <= '1' AND id IS NULL AND id LIKE '1%' AND id NOT LIKE '1%' AND id IN ('1' , '2' , '3' , '4') ";
+    const WHERE_TEST_QUERY = "SELECT * FROM `users` WHERE id = '1' AND id != '1' AND id > '1' AND id >= '1' AND id < '1' AND id <= '1' AND id IS NULL AND id LIKE '1%' AND id NOT LIKE '1%' AND id IN ('1' , '2' , '3' , '4')";
 
     function testWhere()
     {
@@ -67,8 +67,8 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const WHERE_NEST_QUERY1 = "SELECT * FROM `users` WHERE id != '1' AND (id = '1' OR id IS NULL) ";
-    const WHERE_NEST_QUERY2 = "SELECT * FROM `users` WHERE (id = '1' OR id IS NULL) AND id != '1' ";
+    const WHERE_NEST_QUERY1 = "SELECT * FROM `users` WHERE id != '1' AND (id = '1' OR id IS NULL)";
+    const WHERE_NEST_QUERY2 = "SELECT * FROM `users` WHERE (id = '1' OR id IS NULL) AND id != '1'";
 
     function testNestWhere()
     {

@@ -15,7 +15,7 @@ class Select
     /**
      * @var From
      */
-    private $from;
+    public $from;
 
     /**
      * @var Where
@@ -36,22 +36,6 @@ class Select
     {
         $this->from->table($table);
         return $this;
-    }
-
-    /**
-     * @return From
-     */
-    public function getFrom(): From
-    {
-        return $this->from;
-    }
-
-    /**
-     * @return Where
-     */
-    public function getWhere(): Where
-    {
-        return $this->where;
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace Bank;
 
-use Bank\Platform\BuilderInterface;
+use Bank\Platform\QueryBuilderInterface;
 use Bank\Platform\ConnectionInterface;
 
 /**
@@ -18,7 +18,7 @@ class Adapter implements AdapterInterface
     private $conn;
 
     /**
-     * @var BuilderInterface
+     * @var QueryBuilderInterface
      */
     private $queryBuilder;
 
@@ -32,7 +32,8 @@ class Adapter implements AdapterInterface
     {
         $platform = "Mysql";
         $conn = "\\Bank\\Platform\\" . $platform . "\\Connection";
-        $queryBuilder = "\\Bank\\Platform\\".$platform."\\Builder";
+        $queryBuilder = "\\Bank\\Platform\\" . $platform . "\\Builder";
+
         $this->conn = new $conn($dns, $user, $password);
         $this->queryBuilder = new $queryBuilder($this->conn);
     }
@@ -46,9 +47,9 @@ class Adapter implements AdapterInterface
     }
 
     /**
-     * @return BuilderInterface
+     * @return QueryBuilderInterface
      */
-    public function getQueryBuilder(): BuilderInterface
+    public function getQueryBuilder(): QueryBuilderInterface
     {
         return $this->queryBuilder;
     }

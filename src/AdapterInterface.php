@@ -2,7 +2,7 @@
 
 namespace Bank;
 
-use Bank\Platform\BuilderInterface;
+use Bank\Platform\QueryBuilderInterface;
 use Bank\Platform\ConnectionInterface;
 
 /**
@@ -18,8 +18,8 @@ interface AdapterInterface
     public function getConnection(): ConnectionInterface;
 
     /**
-     * @return BuilderInterface
+     * @return QueryBuilderInterface
      */
-    public function getQueryBuilder(): BuilderInterface;
+    public function getQueryBuilder(): QueryBuilderInterface;
 
 }

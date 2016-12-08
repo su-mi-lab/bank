@@ -8,10 +8,10 @@ use Bank\Query\Select;
 use Bank\Query\Update;
 
 /**
- * Interface BuilderInterface
+ * Interface QueryBuilderInterface
  * @package Bank\Platform
  */
-interface BuilderInterface
+interface QueryBuilderInterface
 {
     /**
      * @param Select $query

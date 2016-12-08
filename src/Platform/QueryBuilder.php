@@ -13,7 +13,7 @@ use Bank\Query\Update;
  * Class Builder
  * @package Bank\Platform
  */
-abstract class QueryBuilder implements BuilderInterface
+abstract class QueryBuilder implements QueryBuilderInterface
 {
 
     const SELECT_CLAUSE = "SELECT";
@@ -25,6 +25,10 @@ abstract class QueryBuilder implements BuilderInterface
      */
     private $connection;
 
+    /**
+     * QueryBuilder constructor.
+     * @param $connection
+     */
     function __construct($connection)
     {
         $this->connection = $connection;
@@ -37,9 +41,13 @@ abstract class QueryBuilder implements BuilderInterface
     public function buildSelectQuery(Select $query): string
     {
         $sql = self::SELECT_CLAUSE;
-        $sql .= " * ";
-        $sql .= $this->buildFrom($query->getFrom());
-        $sql .= $this->buildWhere($query->getWhere());
+        $sql .= " *";
+        if ($from = $this->buildFrom($query->from)) {
+            $sql .= " " . self::FROM_CLAUSE . " " . $from;
+        }
+        if ($where = $this->buildWhere($query->where)) {
+            $sql .= " " . self::WHERE_CLAUSE . " " . $where;
+        }
 
         return $sql;
     }
@@ -74,108 +82,13 @@ abstract class QueryBuilder implements BuilderInterface
      * @param From $from
      * @return string
      */
-    protected function buildFrom(From $from): string
-    {
-        $table = $from->getTable();
-
-        list($alias, $tableName) = $this->divideFirstParam($table);
-
-        $from_clause = " `{$tableName}`";
-        if ($alias) {
-            $from_clause = " `" . $tableName . "` AS `" . $alias . "`";
-        }
-
-        return self::FROM_CLAUSE . $from_clause;
-    }
-
+    abstract protected function buildFrom(From $from): string;
 
     /**
      * @param Where $where
-     * @param bool $nest
      * @return string
      */
-    protected function buildWhere(Where $where, $nest = false): string
-    {
-        $conditions = $where->getConditions();
-
-        if (!$conditions) {
-            return "";
-        }
-
-        $query = array_reduce($conditions, function ($query, $condition) {
-
-            $conditionVal = $condition["value"] ?? null;
-            $col = $condition["col"] ?? null;
-            $operator = $condition["operator"] ?? null;
-            $join = $condition["join"] ?? null;
-
-            #region nest
-            if ($conditionVal instanceof Where) {
-                return $this->buildNestWhere($query, $conditionVal, $join);
-            }
-            #endregion
-
-            $value = $this->castWhereValue($conditionVal);
-
-            list($table, $column) = $this->divideFirstParam($col);
-            if ($table) {
-                $col = $table . "." . $column;
-            }
-
-            $where = ($value) ? "{$col} {$operator} {$value}" : "{$col} {$operator}";
-            if ($query) {
-                $where = " {$join} {$where}";
-            }
-
-            $query[] = $where;
-
-            return $query;
-        }, []);
-
-        $where = implode("", $query);
-
-        if (!$nest) {
-            $where = " " . self::WHERE_CLAUSE . " {$where} ";
-        }
-
-        return $where;
-    }
-
-    /**
-     * @param array $query
-     * @param Where $where
-     * @param string $join
-     * @return array
-     */
-    protected function buildNestWhere(array $query, Where $where, string $join): array
-    {
-        $nest = $this->enclosedInBracket($this->buildWhere($where, true));
-        if ($query) {
-            $nest = " {$join} {$nest}";
-        }
-        $query[] = $nest;
-        return $query;
-    }
-
-    /**
-     * @param $conditionVal
-     * @return string
-     */
-    protected function castWhereValue($conditionVal): string
-    {
-        $value = "";
-        if (is_array($conditionVal)) {
-            $value = array_map(function ($item) {
-                return $this->quote($item);
-            }, $conditionVal);
-
-            $value = $this->enclosedInBracket(implode(" , ", $value));
-        } else if (!empty($conditionVal)) {
-            $value = $this->quote($conditionVal);
-        }
-
-        return $value;
-    }
+    abstract protected function buildWhere(Where $where): string;
 
     /**
      * @param string $string
@@ -215,6 +128,5 @@ abstract class QueryBuilder implements BuilderInterface
             $value
         ];
     }
-
 
 }
