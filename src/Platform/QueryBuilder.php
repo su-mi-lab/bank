@@ -2,9 +2,9 @@
 
 namespace Bank\Platform;
 
-use Bank\Query\Clause\Column;
-use Bank\Query\Clause\From;
-use Bank\Query\Clause\Where;
+use Bank\Query\Builder\FromBuilder;
+use Bank\Query\Builder\WhereBuilder;
+use Bank\Query\Builder\SelectBuilder;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
 use Bank\Query\Select;
@@ -16,6 +16,7 @@ use Bank\Query\Update;
  */
 abstract class QueryBuilder implements QueryBuilderInterface
 {
+    use FromBuilder, WhereBuilder, SelectBuilder;
 
     const SELECT_CLAUSE = "SELECT";
     const FROM_CLAUSE = "FROM";
@@ -82,25 +83,6 @@ abstract class QueryBuilder implements QueryBuilderInterface
     {
 
     }
-
-    /**
-     * @param From $from
-     * @return string
-     */
-    abstract protected function buildFrom(From $from): string;
-
-    /**
-     * @param Where $where
-     * @return string
-     */
-    abstract protected function buildWhere(Where $where): string;
-
-    /**
-     * @param Column $column
-     * @return string
-     */
-    abstract protected function buildSelect(Column $column): string;
-
 
     /**
      * @param string $string
