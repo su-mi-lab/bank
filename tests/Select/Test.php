@@ -27,12 +27,15 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const FROM_TEST_ALIAS_QUERY = "SELECT * FROM `users` AS `u`";
+    const FROM_TEST_ALIAS_QUERY = "SELECT * FROM `users` AS `u` WHERE u.id = '1' ";
 
-    function testFromAlias()
+    function testAlias()
     {
         $select = new Select();
-        $select->from(["u" => "users"]);
+        $select
+            ->from(["u" => "users"])
+            ->where
+            ->equalTo(["u" => "id"], 1);
 
         $this->assertEquals(
             static::FROM_TEST_ALIAS_QUERY,
@@ -41,6 +44,7 @@ class Test extends PHPUnit_Framework_TestCase
     }
 
     const WHERE_TEST_QUERY = "SELECT * FROM `users` WHERE id = '1' AND id != '1' AND id > '1' AND id >= '1' AND id < '1' AND id <= '1' AND id IS NULL AND id LIKE '1%' AND id NOT LIKE '1%' AND id IN ('1' , '2' , '3' , '4') ";
+
     function testWhere()
     {
         $select = new Select();
@@ -65,6 +69,7 @@ class Test extends PHPUnit_Framework_TestCase
 
     const WHERE_NEST_QUERY1 = "SELECT * FROM `users` WHERE id != '1' AND (id = '1' OR id IS NULL) ";
     const WHERE_NEST_QUERY2 = "SELECT * FROM `users` WHERE (id = '1' OR id IS NULL) AND id != '1' ";
+
     function testNestWhere()
     {
         $select = new Select();

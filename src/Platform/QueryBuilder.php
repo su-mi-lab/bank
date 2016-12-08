@@ -78,22 +78,14 @@ abstract class QueryBuilder implements BuilderInterface
     {
         $table = $from->getTable();
 
-        if (is_array($table)) {
-            $alias = array_keys($table);
-            $tableName = array_values($table);
-            return self::FROM_CLAUSE . " `" . reset($tableName) . "` AS `" . reset($alias) . "`";
+        list($alias, $tableName) = $this->divideFirstParam($table);
+
+        $from_clause = " `{$tableName}`";
+        if ($alias) {
+            $from_clause = " `" . $tableName . "` AS `" . $alias . "`";
         }
 
-        return self::FROM_CLAUSE . " `{$table}`";
-    }
-
-    /**
-     * @param $string
-     * @return string
-     */
-    protected function quote($string):string
-    {
-        return $this->connection->quote($string);
+        return self::FROM_CLAUSE . $from_clause;
     }
 
 
@@ -125,9 +117,10 @@ abstract class QueryBuilder implements BuilderInterface
 
             $value = $this->castWhereValue($conditionVal);
 
-//            if (!empty($condition["table"])) {
-//                $col = $condition["table"] . "." . $col;
-//            }
+            list($table, $column) = $this->divideFirstParam($col);
+            if ($table) {
+                $col = $table . "." . $column;
+            }
 
             $where = ($value) ? "{$col} {$operator} {$value}" : "{$col} {$operator}";
             if ($query) {
@@ -156,7 +149,7 @@ abstract class QueryBuilder implements BuilderInterface
      */
     protected function buildNestWhere(array $query, Where $where, string $join): array
     {
-        $nest = '(' . $this->buildWhere($where, true) . ')';
+        $nest = $this->enclosedInBracket($this->buildWhere($where, true));
         if ($query) {
             $nest = " {$join} {$nest}";
         }
@@ -176,12 +169,51 @@ abstract class QueryBuilder implements BuilderInterface
                 return $this->quote($item);
             }, $conditionVal);
 
-            $value = "(" . implode(" , ", $value) . ")";
+            $value = $this->enclosedInBracket(implode(" , ", $value));
         } else if (!empty($conditionVal)) {
             $value = $this->quote($conditionVal);
         }
 
         return $value;
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    protected function quote(string $string):string
+    {
+        return $this->connection->quote($string);
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    protected function enclosedInBracket(string $string):string
+    {
+        return '(' . $string . ')';
+    }
+
+    /**
+     * @param $param
+     * @return array
+     */
+    protected function divideFirstParam($param): array
+    {
+        $key = null;
+        $value = $param;
+        if (is_array($param)) {
+            $key = array_keys($param);
+            $value = array_values($param);
+            $key = reset($key);
+            $value = reset($value);
+        }
+
+        return [
+            $key,
+            $value
+        ];
     }
 
 
