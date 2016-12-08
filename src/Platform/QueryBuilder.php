@@ -16,6 +16,10 @@ use Bank\Query\Update;
 abstract class QueryBuilder implements BuilderInterface
 {
 
+    const SELECT_CLAUSE = "SELECT";
+    const FROM_CLAUSE = "FROM";
+    const WHERE_CLAUSE = "WHERE";
+
     /**
      * @var ConnectionInterface
      */
@@ -27,21 +31,13 @@ abstract class QueryBuilder implements BuilderInterface
     }
 
     /**
-     * @param $string
-     * @return string
-     */
-    protected function quote($string):string
-    {
-        return $this->connection->quote($string);
-    }
-
-    /**
      * @param Select $query
      * @return string
      */
     public function buildSelectQuery(Select $query): string
     {
-        $sql = "SELECT * ";
+        $sql = self::SELECT_CLAUSE;
+        $sql .= " * ";
         $sql .= $this->buildFrom($query->getFrom());
         $sql .= $this->buildWhere($query->getWhere());
 
@@ -85,10 +81,19 @@ abstract class QueryBuilder implements BuilderInterface
         if (is_array($table)) {
             $alias = array_keys($table);
             $tableName = array_values($table);
-            return "FROM `" . reset($tableName) . "` AS `" . reset($alias) . "`";
+            return self::FROM_CLAUSE . " `" . reset($tableName) . "` AS `" . reset($alias) . "`";
         }
 
-        return "FROM `{$table}`";
+        return self::FROM_CLAUSE . " `{$table}`";
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    protected function quote($string):string
+    {
+        return $this->connection->quote($string);
     }
 
 
@@ -107,10 +112,10 @@ abstract class QueryBuilder implements BuilderInterface
 
         $query = array_reduce($conditions, function ($query, $condition) {
 
-            $conditionVal = $condition["value"];
-            $col = $condition["col"];
-            $operator = $condition["operator"];
-            $join = $condition["join"];
+            $conditionVal = $condition["value"] ?? null;
+            $col = $condition["col"] ?? null;
+            $operator = $condition["operator"] ?? null;
+            $join = $condition["join"] ?? null;
 
             #region nest
             if ($conditionVal instanceof Where) {
@@ -137,15 +142,16 @@ abstract class QueryBuilder implements BuilderInterface
         $where = implode("", $query);
 
         if (!$nest) {
-            $where = " WHERE {$where} ";
+            $where = " " . self::WHERE_CLAUSE . " {$where} ";
         }
 
         return $where;
     }
 
     /**
-     * @param $query
-     * @param $condition
+     * @param array $query
+     * @param Where $where
+     * @param string $join
      * @return array
      */
     protected function buildNestWhere(array $query, Where $where, string $join): array
