@@ -27,18 +27,34 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const FROM_TEST_ALIAS_QUERY = "SELECT * FROM `users` AS `u` WHERE u.id = '1'";
+    const COLUMN_TEST_QUERY = "SELECT 'id','name' FROM `users`";
+
+    function testColumn()
+    {
+        $select = new Select();
+        $select
+            ->from("users")
+            ->cols(['id', 'name']);
+
+        $this->assertEquals(
+            static::COLUMN_TEST_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+    }
+
+    const ALIAS_TEST_QUERY = "SELECT 'u'.'id' FROM `users` AS `u` WHERE u.id = '1'";
 
     function testAlias()
     {
         $select = new Select();
         $select
             ->from(["u" => "users"])
+            ->cols(['id'], 'u')
             ->where
             ->equalTo(["u" => "id"], 1);
 
         $this->assertEquals(
-            static::FROM_TEST_ALIAS_QUERY,
+            static::ALIAS_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
     }

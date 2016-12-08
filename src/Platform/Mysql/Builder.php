@@ -3,6 +3,7 @@
 namespace Bank\Platform\Mysql;
 
 use Bank\Platform\QueryBuilder;
+use Bank\Query\Clause\Column;
 use Bank\Query\Clause\From;
 use Bank\Query\Clause\Where;
 
@@ -12,6 +13,23 @@ use Bank\Query\Clause\Where;
  */
 class Builder extends QueryBuilder
 {
+
+    /**
+     * @param Column $column
+     * @return string
+     */
+    protected function buildSelect(Column $column): string
+    {
+        $columns = $column->getColumns();
+
+        if (!$columns) {
+            return " *";
+        }
+
+        return " " . $this->castSelectClause($columns);
+    }
+
+
     /**
      * @see QueryBuilder::buildFrom
      * @param From $from
@@ -114,6 +132,43 @@ class Builder extends QueryBuilder
         }
 
         return $value;
+    }
+
+    /**
+     * @param array $columns
+     * @return string
+     */
+    protected function castSelectClause(array $columns): string
+    {
+        $select = array_reduce($columns, function ($query, $column) {
+            list($table, $cols) = $this->divideFirstParam($column);
+            return $this->quoteSelectClause($cols, $table, $query);
+        }, []);
+
+        return implode(',', $select);
+    }
+
+    /**
+     * @param $column
+     * @param $table
+     * @param $list
+     * @return array
+     */
+    protected function quoteSelectClause($column, $table, $list): array
+    {
+        if (is_array($column)) {
+            return array_reduce($column, function ($list, $col) use ($table) {
+                return $this->quoteSelectClause($col, $table, $list);
+            }, $list);
+        }
+
+        $query = $this->quote($column);
+        if ($table) {
+            $query = $this->quote($table) . '.' . $query;
+        }
+
+        $list[] = $query;
+        return $list;
     }
 
 }

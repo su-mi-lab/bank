@@ -2,6 +2,7 @@
 
 namespace Bank\Query;
 
+use Bank\Query\Clause\Column;
 use Bank\Query\Clause\From;
 use Bank\Query\Clause\Where;
 
@@ -18,14 +19,23 @@ class Select
     public $from;
 
     /**
+     * @var Column
+     */
+    public $column;
+
+    /**
      * @var Where
      */
     public $where;
 
+    /**
+     * Select constructor.
+     */
     function __construct()
     {
         $this->where = new Where;
         $this->from = new From;
+        $this->column = new Column;
     }
 
     /**
@@ -35,6 +45,17 @@ class Select
     public function from($table): Select
     {
         $this->from->table($table);
+        return $this;
+    }
+
+    /**
+     * @param array $column
+     * @param $table
+     * @return Select
+     */
+    public function cols(array $column, string $table = null): Select
+    {
+        $this->column->addColumn($column, $table);
         return $this;
     }
 

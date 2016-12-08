@@ -11,7 +11,7 @@ class From
     /**
      * @var array|string
      */
-    private $table;
+    private $table = null;
 
     /**
      * @param $table
