@@ -12,6 +12,20 @@ namespace Bank\Query\Clause;
  */
 class Where
 {
+
+    const OPERATOR_EQUAL = "=";
+    const OPERATOR_NOT_EQUAL = "!=";
+    const OPERATOR_GREATER_THAN = ">";
+    const OPERATOR_GREATER_THAN_OR_EQUAL = ">=";
+    const OPERATOR_LESS_THAN = "<";
+    const OPERATOR_LESS_THAN_OR_EQUAL = "<=";
+    const OPERATOR_INCLUDE = "IN";
+    const OPERATOR_IS_NULL = "IS NULL";
+    const OPERATOR_IS_NOT_NULL = "IS NOT NULL";
+    const OPERATOR_LIKE = "LIKE";
+    const OPERATOR_NOT_LIKE = "NOT LIKE";
+
+
     /**
      * @var array
      */
@@ -22,6 +36,10 @@ class Where
      */
     private $parent;
 
+    /**
+     * Where constructor.
+     * @param null $parent
+     */
     function __construct($parent = null)
     {
         $this->parent = $parent;
@@ -34,7 +52,7 @@ class Where
      */
     public function equalTo($col, $val)
     {
-        $this->addConditions($col, "=", $val);
+        $this->addConditions($col, self::OPERATOR_EQUAL, $val);
         return $this;
     }
 
@@ -45,7 +63,7 @@ class Where
      */
     public function notEqualTo($col, $val)
     {
-        $this->addConditions($col, "!=", $val);
+        $this->addConditions($col, self::OPERATOR_NOT_EQUAL, $val);
         return $this;
     }
 
@@ -56,7 +74,7 @@ class Where
      */
     public function greaterThan($col, $val)
     {
-        $this->addConditions($col, ">", $val);
+        $this->addConditions($col, self::OPERATOR_GREATER_THAN, $val);
         return $this;
     }
 
@@ -67,7 +85,7 @@ class Where
      */
     public function greaterThanOrEqualTo($col, $val)
     {
-        $this->addConditions($col, ">=", $val);
+        $this->addConditions($col, self::OPERATOR_GREATER_THAN_OR_EQUAL, $val);
         return $this;
     }
 
@@ -78,7 +96,7 @@ class Where
      */
     public function lessThan($col, $val)
     {
-        $this->addConditions($col, "<", $val);
+        $this->addConditions($col, self::OPERATOR_LESS_THAN, $val);
         return $this;
     }
 
@@ -89,7 +107,7 @@ class Where
      */
     public function lessThanOrEqualTo($col, $val)
     {
-        $this->addConditions($col, "<=", $val);
+        $this->addConditions($col, self::OPERATOR_LESS_THAN_OR_EQUAL, $val);
         return $this;
     }
 
@@ -100,7 +118,7 @@ class Where
      */
     public function include ($col, $items)
     {
-        $this->addConditions($col, "IN", $items);
+        $this->addConditions($col, self::OPERATOR_INCLUDE, $items);
         return $this;
     }
 
@@ -110,7 +128,7 @@ class Where
      */
     public function isNull($col)
     {
-        $this->addConditions($col, "IS NULL");
+        $this->addConditions($col, self::OPERATOR_IS_NULL);
         return $this;
     }
 
@@ -120,7 +138,7 @@ class Where
      */
     public function isNotNull($col)
     {
-        $this->addConditions($col, "IS NOT NULL");
+        $this->addConditions($col, self::OPERATOR_IS_NOT_NULL);
         return $this;
     }
 
@@ -131,7 +149,7 @@ class Where
      */
     public function like($col, $val)
     {
-        $this->addConditions($col, "LIKE", $val);
+        $this->addConditions($col, self::OPERATOR_LIKE, $val);
         return $this;
     }
 
@@ -142,7 +160,7 @@ class Where
      */
     public function notLike($col, $val)
     {
-        $this->addConditions($col, "NOT LIKE", $val);
+        $this->addConditions($col, self::OPERATOR_NOT_LIKE, $val);
         return $this;
     }
 
@@ -153,7 +171,6 @@ class Where
      */
     private function addConditions($col, $operator, $val = null)
     {
-
         $join = (!empty($this->or)) ? "OR" : "AND";
 
         $this->conditions[] = [
@@ -196,12 +213,10 @@ class Where
             case "unNest":
                 $returnObj = $this->getParent();
                 break;
-
             case "or":
                 $this->or = true;
                 $returnObj = $this;
                 break;
-
             default:
                 $returnObj = null;
                 break;
