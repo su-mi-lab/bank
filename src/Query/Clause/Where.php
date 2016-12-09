@@ -48,9 +48,9 @@ class Where
     /**
      * @param $col
      * @param $val
-     * @return $this
+     * @return Where
      */
-    public function equalTo($col, $val)
+    public function equalTo($col, $val): Where
     {
         $this->addConditions($col, self::OPERATOR_EQUAL, $val);
         return $this;
@@ -59,9 +59,9 @@ class Where
     /**
      * @param $col
      * @param $val
-     * @return $this
+     * @return Where
      */
-    public function notEqualTo($col, $val)
+    public function notEqualTo($col, $val): Where
     {
         $this->addConditions($col, self::OPERATOR_NOT_EQUAL, $val);
         return $this;
@@ -70,9 +70,9 @@ class Where
     /**
      * @param $col
      * @param $val
-     * @return $this
+     * @return Where
      */
-    public function greaterThan($col, $val)
+    public function greaterThan($col, $val): Where
     {
         $this->addConditions($col, self::OPERATOR_GREATER_THAN, $val);
         return $this;
@@ -81,9 +81,9 @@ class Where
     /**
      * @param $col
      * @param $val
-     * @return $this
+     * @return Where
      */
-    public function greaterThanOrEqualTo($col, $val)
+    public function greaterThanOrEqualTo($col, $val): Where
     {
         $this->addConditions($col, self::OPERATOR_GREATER_THAN_OR_EQUAL, $val);
         return $this;
@@ -92,9 +92,9 @@ class Where
     /**
      * @param $col
      * @param $val
-     * @return $this
+     * @return Where
      */
-    public function lessThan($col, $val)
+    public function lessThan($col, $val): Where
     {
         $this->addConditions($col, self::OPERATOR_LESS_THAN, $val);
         return $this;
@@ -103,9 +103,9 @@ class Where
     /**
      * @param $col
      * @param $val
-     * @return $this
+     * @return Where
      */
-    public function lessThanOrEqualTo($col, $val)
+    public function lessThanOrEqualTo($col, $val): Where
     {
         $this->addConditions($col, self::OPERATOR_LESS_THAN_OR_EQUAL, $val);
         return $this;
@@ -114,9 +114,9 @@ class Where
     /**
      * @param $col
      * @param $items
-     * @return $this
+     * @return Where
      */
-    public function include ($col, $items)
+    public function include ($col, $items): Where
     {
         $this->addConditions($col, self::OPERATOR_INCLUDE, $items);
         return $this;
@@ -124,9 +124,9 @@ class Where
 
     /**
      * @param $col
-     * @return $this
+     * @return Where
      */
-    public function isNull($col)
+    public function isNull($col): Where
     {
         $this->addConditions($col, self::OPERATOR_IS_NULL);
         return $this;
@@ -134,9 +134,9 @@ class Where
 
     /**
      * @param $col
-     * @return $this
+     * @return Where
      */
-    public function isNotNull($col)
+    public function isNotNull($col): Where
     {
         $this->addConditions($col, self::OPERATOR_IS_NOT_NULL);
         return $this;
@@ -145,9 +145,9 @@ class Where
     /**
      * @param $col
      * @param $val
-     * @return $this
+     * @return Where
      */
-    public function like($col, $val)
+    public function like($col, $val): Where
     {
         $this->addConditions($col, self::OPERATOR_LIKE, $val);
         return $this;
@@ -156,9 +156,9 @@ class Where
     /**
      * @param $col
      * @param $val
-     * @return $this
+     * @return Where
      */
-    public function notLike($col, $val)
+    public function notLike($col, $val): Where
     {
         $this->addConditions($col, self::OPERATOR_NOT_LIKE, $val);
         return $this;
@@ -184,7 +184,7 @@ class Where
     /**
      * @return Where
      */
-    private function getParent()
+    private function getParent(): Where
     {
         return $this->parent;
     }
@@ -192,7 +192,7 @@ class Where
     /**
      * @return array
      */
-    public function getConditions()
+    public function getConditions(): array
     {
         return $this->conditions;
     }

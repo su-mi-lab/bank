@@ -4,6 +4,7 @@ namespace Bank\Query;
 
 use Bank\Query\Clause\Column;
 use Bank\Query\Clause\From;
+use Bank\Query\Clause\Group;
 use Bank\Query\Clause\Where;
 
 /**
@@ -29,6 +30,11 @@ class Select
     public $where;
 
     /**
+     * @var Group
+     */
+    public $group;
+
+    /**
      * Select constructor.
      */
     function __construct()
@@ -36,6 +42,7 @@ class Select
         $this->where = new Where;
         $this->from = new From;
         $this->column = new Column;
+        $this->group = new Group;
     }
 
     /**
@@ -56,6 +63,16 @@ class Select
     public function cols(array $column, string $table = null): Select
     {
         $this->column->addColumn($column, $table);
+        return $this;
+    }
+
+    /**
+     * @param $group
+     * @return Select
+     */
+    public function groupBy($group): Select
+    {
+        $this->group->addGroup($group);
         return $this;
     }
 

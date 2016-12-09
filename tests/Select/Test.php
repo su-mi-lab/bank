@@ -119,4 +119,30 @@ class Test extends PHPUnit_Framework_TestCase
         );
 
     }
+
+    const WHERE_GROUP_QUERY = "SELECT * FROM `users` GROUP BY 'id'";
+    const WHERE_GROUP_QUERY2 = "SELECT * FROM `users` AS `u` GROUP BY 'u.id','u.name'";
+
+    function testGroup()
+    {
+        $select = new Select();
+        $select->from("users")
+            ->groupBy('id');
+
+
+        $this->assertEquals(
+            static::WHERE_GROUP_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+
+        $select = new Select();
+        $select
+            ->from(['u' => "users"])
+            ->groupBy(['u.id', 'u.name']);
+
+        $this->assertEquals(
+            static::WHERE_GROUP_QUERY2,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+    }
 }

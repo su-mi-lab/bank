@@ -29,7 +29,7 @@ class Column
     /**
      * @return array
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }
