@@ -4,6 +4,7 @@ namespace Bank\Platform;
 
 use Bank\Query\Builder\FromBuilder;
 use Bank\Query\Builder\GroupBuilder;
+use Bank\Query\Builder\OrderBuilder;
 use Bank\Query\Builder\WhereBuilder;
 use Bank\Query\Builder\SelectBuilder;
 use Bank\Query\Delete;
@@ -17,12 +18,13 @@ use Bank\Query\Update;
  */
 abstract class QueryBuilder implements QueryBuilderInterface
 {
-    use FromBuilder, WhereBuilder, SelectBuilder, GroupBuilder;
+    use FromBuilder, WhereBuilder, SelectBuilder, GroupBuilder, OrderBuilder;
 
     const SELECT_CLAUSE = "SELECT";
     const FROM_CLAUSE = "FROM";
     const WHERE_CLAUSE = "WHERE";
     const GROUP_CLAUSE = "GROUP BY";
+    const ORDER_CLAUSE = "ORDER BY";
 
     /**
      * @var ConnectionInterface
@@ -58,6 +60,10 @@ abstract class QueryBuilder implements QueryBuilderInterface
         }
         if ($group = $this->buildGroup($query->group)) {
             $sql .= " " . self::GROUP_CLAUSE . " " . $group;
+        }
+
+        if ($order = $this->buildOrder($query->order)) {
+            $sql .= " " . self::ORDER_CLAUSE . " " . $order;
         }
 
         return $sql;

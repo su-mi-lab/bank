@@ -5,6 +5,7 @@ namespace Bank\Query;
 use Bank\Query\Clause\Column;
 use Bank\Query\Clause\From;
 use Bank\Query\Clause\Group;
+use Bank\Query\Clause\Order;
 use Bank\Query\Clause\Where;
 
 /**
@@ -35,6 +36,11 @@ class Select
     public $group;
 
     /**
+     * @var Order
+     */
+    public $order;
+
+    /**
      * Select constructor.
      */
     function __construct()
@@ -43,6 +49,7 @@ class Select
         $this->from = new From;
         $this->column = new Column;
         $this->group = new Group;
+        $this->order = new Order;
     }
 
     /**
@@ -76,4 +83,13 @@ class Select
         return $this;
     }
 
+    /**
+     * @param $group
+     * @return Select
+     */
+    public function orderBy($order): Select
+    {
+        $this->order->addOrder($order);
+        return $this;
+    }
 }

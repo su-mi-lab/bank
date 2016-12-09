@@ -145,4 +145,19 @@ class Test extends PHPUnit_Framework_TestCase
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
     }
+
+    const WHERE_ORDER_QUERY = "SELECT * FROM `users` AS `u` ORDER BY u.id desc,u.name asc";
+
+    function testOrder()
+    {
+        $select = new Select();
+        $select
+            ->from(["u" => "users"])
+            ->orderBy(['u.id desc', 'u.name asc']);
+
+        $this->assertEquals(
+            static::WHERE_ORDER_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+    }
 }
