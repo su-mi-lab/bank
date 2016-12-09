@@ -26,11 +26,11 @@ trait FromBuilder
 
         list($alias, $tableName) = $this->divideFirstParam($table);
 
-        $from_clause = "`{$tableName}`";
+        $fromClause = "`{$tableName}`";
         if ($alias) {
-            $from_clause = "`" . $tableName . "` AS `" . $alias . "`";
+            $fromClause = "`" . $tableName . "` AS `" . $alias . "`";
         }
 
-        return $from_clause;
+        return $fromClause;
     }
 }
