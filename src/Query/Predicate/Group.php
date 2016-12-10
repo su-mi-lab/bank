@@ -19,10 +19,10 @@ class Group
      */
     public function addGroup($groupBy): Group
     {
-        if (is_string($groupBy)) {
-            $this->groupBy[] = $groupBy;
-        } else if (is_array($groupBy)) {
+        if (is_array($groupBy)) {
             $this->groupBy = array_merge($groupBy, $this->groupBy);
+        } else if (is_string($groupBy)) {
+            $this->groupBy[] = $groupBy;
         }
 
         return $this;
