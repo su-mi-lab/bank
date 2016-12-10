@@ -26,7 +26,7 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const COLUMN_TEST_QUERY = "SELECT 'id','name' FROM `users`";
+    const COLUMN_TEST_QUERY = "SELECT `id`,`name` FROM `users`";
 
     function testColumn()
     {
@@ -39,13 +39,13 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const ALIAS_TEST_QUERY = "SELECT 'u'.'id' FROM `users` AS `u` WHERE u.id = '1'";
+    const ALIAS_TEST_QUERY = "SELECT `u`.`id` AS `users_id` FROM `users` AS `u` WHERE u.id = '1'";
 
     function testAlias()
     {
         $select = new Select(["u" => "users"]);
         $select
-            ->cols(['id'], 'u')
+            ->cols(['users_id' => 'id'], 'u')
             ->where
             ->equalTo(["u" => "id"], 1);
 
@@ -148,10 +148,17 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
+    const WHERE_EXPRESSION_QUERY = "SELECT COUNT(*) AS `count` FROM `users`";
+
     function testExpression()
     {
         $select = new Select('users');
 
+        $select->cols(['count' => new \Bank\Query\Predicate\Expression('COUNT(*)')]);
 
+        $this->assertEquals(
+            static::WHERE_EXPRESSION_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
     }
 }

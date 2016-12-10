@@ -9,6 +9,7 @@ use Bank\Query\Builder\WhereBuilder;
 use Bank\Query\Builder\SelectBuilder;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
+use Bank\Query\Predicate\Expression;
 use Bank\Query\Select;
 use Bank\Query\Update;
 
@@ -96,13 +97,18 @@ abstract class QueryBuilder implements QueryBuilderInterface
     }
 
     /**
-     * @param string $string
+     * @param string|Expression $value
+     * @param string $bracket
      * @return string
      */
-    protected function quote(string $string, string $bracket = "'"):string
+    protected function quote($value, string $bracket = "'"):string
     {
-        $string = trim($this->connection->quote($string), "'");
-        return $bracket . $string . $bracket;
+        if ($value instanceof Expression) {
+            return $value->getExpression();
+        }
+
+        $value = trim($this->connection->quote($value), "'");
+        return $bracket . $value . $bracket;
     }
 
     /**
