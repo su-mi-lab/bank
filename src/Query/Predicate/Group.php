@@ -1,10 +1,10 @@
 <?php
 
-namespace Bank\Query\Clause;
+namespace Bank\Query\Predicate;
 
 /**
  * Class Group
- * @package Bank\Query\Clause
+ * @package Bank\Query\Predicate
  */
 class Group
 {

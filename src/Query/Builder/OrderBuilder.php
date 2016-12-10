@@ -2,7 +2,7 @@
 
 namespace Bank\Query\Builder;
 
-use Bank\Query\Clause\Order;
+use Bank\Query\Predicate\Order;
 
 /**
  * Class OrderBuilder

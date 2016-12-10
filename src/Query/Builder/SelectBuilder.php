@@ -2,7 +2,7 @@
 
 namespace Bank\Query\Builder;
 
-use Bank\Query\Clause\Column;
+use Bank\Query\Predicate\Column;
 
 /**
  * Class SelectBuilder
@@ -27,18 +27,18 @@ trait SelectBuilder
             return " *";
         }
 
-        return " " . $this->castSelectClause($columns);
+        return " " . $this->castSelectPredicate($columns);
     }
 
     /**
      * @param array $columns
      * @return string
      */
-    protected function castSelectClause(array $columns): string
+    protected function castSelectPredicate(array $columns): string
     {
         $select = array_reduce($columns, function ($query, $column) {
             list($table, $cols) = $this->divideFirstParam($column);
-            return $this->quoteSelectClause($cols, $table, $query);
+            return $this->quoteSelectPredicate($cols, $table, $query);
         }, []);
 
         return implode(',', $select);
@@ -50,11 +50,11 @@ trait SelectBuilder
      * @param $list
      * @return array
      */
-    protected function quoteSelectClause($column, $table, $list): array
+    protected function quoteSelectPredicate($column, $table, $list): array
     {
         if (is_array($column)) {
             return array_reduce($column, function ($list, $col) use ($table) {
-                return $this->quoteSelectClause($col, $table, $list);
+                return $this->quoteSelectPredicate($col, $table, $list);
             }, $list);
         }
 

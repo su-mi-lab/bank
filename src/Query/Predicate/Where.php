@@ -1,10 +1,10 @@
 <?php
 
-namespace Bank\Query\Clause;
+namespace Bank\Query\Predicate;
 
 /**
  * Class Where
- * @package Bank\Query\Clause
+ * @package Bank\Query\Predicate
  *
  * @property Where $nest
  * @property Where $unNest

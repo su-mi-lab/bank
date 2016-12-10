@@ -2,7 +2,7 @@
 
 namespace Bank\Query\Builder;
 
-use Bank\Query\Clause\Group;
+use Bank\Query\Predicate\Group;
 
 /**
  * Class GroupBuilder

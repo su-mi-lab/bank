@@ -2,11 +2,11 @@
 
 namespace Bank\Query;
 
-use Bank\Query\Clause\Column;
-use Bank\Query\Clause\From;
-use Bank\Query\Clause\Group;
-use Bank\Query\Clause\Order;
-use Bank\Query\Clause\Where;
+use Bank\Query\Predicate\Column;
+use Bank\Query\Predicate\From;
+use Bank\Query\Predicate\Group;
+use Bank\Query\Predicate\Order;
+use Bank\Query\Predicate\Where;
 
 /**
  * Class Select

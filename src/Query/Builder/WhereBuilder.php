@@ -2,7 +2,7 @@
 
 namespace Bank\Query\Builder;
 
-use Bank\Query\Clause\Where;
+use Bank\Query\Predicate\Where;
 
 /**
  * Class WhereBuilder

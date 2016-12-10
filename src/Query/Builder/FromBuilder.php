@@ -2,7 +2,7 @@
 
 namespace Bank\Query\Builder;
 
-use Bank\Query\Clause\From;
+use Bank\Query\Predicate\From;
 
 /**
  * Class FromBuilder
@@ -26,11 +26,11 @@ trait FromBuilder
 
         list($alias, $tableName) = $this->divideFirstParam($table);
 
-        $fromClause = $this->quote($tableName, '`');
+        $fromPredicate = $this->quote($tableName, '`');
         if ($alias) {
-            $fromClause = $this->quote($tableName, '`') . " AS " . $this->quote($alias, '`');
+            $fromPredicate = $this->quote($tableName, '`') . " AS " . $this->quote($alias, '`');
         }
 
-        return $fromClause;
+        return $fromPredicate;
     }
 }

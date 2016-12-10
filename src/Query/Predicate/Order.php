@@ -1,10 +1,10 @@
 <?php
 
-namespace Bank\Query\Clause;
+namespace Bank\Query\Predicate;
 
 /**
  * Class Order
- * @package Bank\Query\Clause
+ * @package Bank\Query\Predicate
  */
 class Order
 {
