@@ -1,6 +1,7 @@
 <?php
 
 use Bank\Adapter;
+use Bank\DataAccess\Repo;
 
 /**
  * Class Query
@@ -13,14 +14,14 @@ abstract class Query extends PHPUnit_Framework_TestCase
     protected $adapter;
 
     /**
-     * @var \Bank\RepoInterface
+     * @var Bank\DataAccess\RepoInterface
      */
     protected $repo;
 
     protected function setUp()
     {
         $this->adapter = new Adapter('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');
-        $this->repo = new \Bank\Repo($this->adapter);
+        $this->repo = new Repo($this->adapter);
     }
 
     const FROM_TEST_QUERY = "SELECT * FROM `users`";

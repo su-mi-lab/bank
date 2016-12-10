@@ -1,7 +1,8 @@
 <?php
 
-namespace Bank;
+namespace Bank\DataAccess;
 
+use Bank\AdapterInterface;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
 use Bank\Query\Select;
