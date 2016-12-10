@@ -26,9 +26,9 @@ trait FromBuilder
 
         list($alias, $tableName) = $this->divideFirstParam($table);
 
-        $fromClause = "`{$tableName}`";
+        $fromClause = $this->quote($tableName, '`');
         if ($alias) {
-            $fromClause = "`" . $tableName . "` AS `" . $alias . "`";
+            $fromClause = $this->quote($tableName, '`') . " AS " . $this->quote($alias, '`');
         }
 
         return $fromClause;

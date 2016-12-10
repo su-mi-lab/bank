@@ -99,9 +99,10 @@ abstract class QueryBuilder implements QueryBuilderInterface
      * @param string $string
      * @return string
      */
-    protected function quote(string $string):string
+    protected function quote(string $string, string $bracket = "'"):string
     {
-        return $this->connection->quote($string);
+        $string = trim($this->connection->quote($string), "'");
+        return $bracket . $string . $bracket;
     }
 
     /**

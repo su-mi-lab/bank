@@ -28,7 +28,11 @@ trait OrderBuilder
             return "";
         }
 
-        return implode(',', $order);
+        $query = array_map(function ($row) {
+            return $this->quote($row, "");
+        }, $order);
+
+        return implode(',', $query);
     }
 
 }
