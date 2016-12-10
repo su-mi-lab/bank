@@ -29,6 +29,16 @@ class Repo implements RepoInterface
      */
     public function find(Select $query): array
     {
+        $connection = $this->adapter->getConnection();
+        $builder = $this->adapter->getQueryBuilder();
+
+        $statement = $connection->query($builder->buildSelectQuery($query));
+
+        foreach ($statement as $row) {
+            return $row;
+        }
+
+        return [];
     }
 
     /**
@@ -37,6 +47,21 @@ class Repo implements RepoInterface
      */
     public function findAll(Select $query): array
     {
+        $connection = $this->adapter->getConnection();
+        $builder = $this->adapter->getQueryBuilder();
+
+        $statement = $connection->query($builder->buildSelectQuery($query));
+
+        if (!$statement) {
+            return [];
+        }
+
+        $list = [];
+        foreach ($statement as $row) {
+            $list[] = $row;
+        }
+
+        return $list;
     }
 
     /**

@@ -15,6 +15,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
+        $this->repo->find($select);
+        $this->repo->findAll($select);
     }
 
     function testColumnQuery()
@@ -26,6 +28,9 @@ class SelectBuilderTest extends Query
             static::COLUMN_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
     }
 
     function testAliasQuery()
@@ -40,6 +45,9 @@ class SelectBuilderTest extends Query
             static::ALIAS_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
     }
 
     function testWhereQuery()
@@ -61,6 +69,9 @@ class SelectBuilderTest extends Query
             static::WHERE_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
     }
 
     function testNestWhereQuery()
@@ -79,6 +90,9 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
+        $this->repo->find($select);
+        $this->repo->findAll($select);
+
         $select = new Select("users");
         $select->where
             ->nest
@@ -93,6 +107,9 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
+        $this->repo->find($select);
+        $this->repo->findAll($select);
+
     }
 
     function testGroupQuery()
@@ -105,6 +122,9 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
+        $this->repo->find($select);
+        $this->repo->findAll($select);
+
         $select = new Select(['u' => "users"]);
         $select->groupBy(['u.id', 'u.name']);
 
@@ -112,6 +132,9 @@ class SelectBuilderTest extends Query
             static::WHERE_GROUP_QUERY2,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
     }
 
     function testOrderQuery()
@@ -123,6 +146,9 @@ class SelectBuilderTest extends Query
             static::WHERE_ORDER_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
     }
 
     function testExpressionQuery()
@@ -135,5 +161,8 @@ class SelectBuilderTest extends Query
             static::WHERE_EXPRESSION_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
     }
 }
