@@ -86,7 +86,7 @@ class Select
     }
 
     /**
-     * @param $group
+     * @param $order
      * @return Select
      */
     public function orderBy($order): Select

@@ -1,34 +1,23 @@
 <?php
 
-use Bank\Adapter;
 use Bank\Query\Select;
 
-class Test extends PHPUnit_Framework_TestCase
+require_once 'Query.php';
+
+class SelectBuilderTest extends Query
 {
-    /**
-     * @var Bank\Adapter
-     */
-    protected $adapter;
 
-    protected function setUp()
-    {
-        $this->adapter = new Adapter('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');
-    }
-
-    const FROM_TEST_QUERY = "SELECT * FROM `users`";
-
-    function testFrom()
+    function testFromQuery()
     {
         $select = new Select("users");
         $this->assertEquals(
             static::FROM_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
+
     }
 
-    const COLUMN_TEST_QUERY = "SELECT `id`,`name` FROM `users`";
-
-    function testColumn()
+    function testColumnQuery()
     {
         $select = new Select("users");
         $select->cols(['id', 'name']);
@@ -39,9 +28,7 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const ALIAS_TEST_QUERY = "SELECT `u`.`id` AS `users_id` FROM `users` AS `u` WHERE u.id = '1'";
-
-    function testAlias()
+    function testAliasQuery()
     {
         $select = new Select(["u" => "users"]);
         $select
@@ -55,9 +42,7 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const WHERE_TEST_QUERY = "SELECT * FROM `users` WHERE id = '1' AND id != '1' AND id > '1' AND id >= '1' AND id < '1' AND id <= '1' AND id IS NULL AND id LIKE '1%' AND id NOT LIKE '1%' AND id IN ('1' , '2' , '3' , '4')";
-
-    function testWhere()
+    function testWhereQuery()
     {
         $select = new Select("users");
         $select->where
@@ -78,10 +63,7 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const WHERE_NEST_QUERY1 = "SELECT * FROM `users` WHERE id != '1' AND (id = '1' OR id IS NULL)";
-    const WHERE_NEST_QUERY2 = "SELECT * FROM `users` WHERE (id = '1' OR id IS NULL) AND id != '1'";
-
-    function testNestWhere()
+    function testNestWhereQuery()
     {
         $select = new Select("users");
         $select->where
@@ -113,10 +95,7 @@ class Test extends PHPUnit_Framework_TestCase
 
     }
 
-    const WHERE_GROUP_QUERY = "SELECT * FROM `users` GROUP BY 'id'";
-    const WHERE_GROUP_QUERY2 = "SELECT * FROM `users` AS `u` GROUP BY 'u.id','u.name'";
-
-    function testGroup()
+    function testGroupQuery()
     {
         $select = new Select("users");
         $select->groupBy('id');
@@ -135,9 +114,7 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const WHERE_ORDER_QUERY = "SELECT * FROM `users` AS `u` ORDER BY u.id desc,u.name asc";
-
-    function testOrder()
+    function testOrderQuery()
     {
         $select = new Select(["u" => "users"]);
         $select->orderBy(['u.id desc', 'u.name asc']);
@@ -148,9 +125,7 @@ class Test extends PHPUnit_Framework_TestCase
         );
     }
 
-    const WHERE_EXPRESSION_QUERY = "SELECT COUNT(*) AS `count` FROM `users`";
-
-    function testExpression()
+    function testExpressionQuery()
     {
         $select = new Select('users');
 

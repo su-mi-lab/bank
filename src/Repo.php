@@ -13,49 +13,61 @@ use Bank\Query\Update;
  */
 class Repo implements RepoInterface
 {
+    /**
+     * @var AdapterInterface
+     */
+    private $adapter;
+
+    public function __construct(AdapterInterface $adapter)
+    {
+        $this->adapter = $adapter;
+    }
 
     /**
-     * @param AdapterInterface $adapter
      * @param Select $query
      * @return array
      */
-    public static function find(AdapterInterface $adapter, Select $query): array
+    public function find(Select $query): array
     {
     }
 
     /**
-     * @param AdapterInterface $adapter
      * @param Select $query
      * @return array
      */
-    public static function findAll(AdapterInterface $adapter, Select $query): array
+    public function findAll(Select $query): array
     {
     }
 
     /**
-     * @param AdapterInterface $adapter
      * @param Insert $query
      * @return int
      */
-    public static function insert(AdapterInterface $adapter, Insert $query): int
+    public function insert(Insert $query): int
     {
     }
 
     /**
-     * @param AdapterInterface $adapter
      * @param Update $query
      * @return int
      */
-    public static function update(AdapterInterface $adapter, Update $query): int
+    public function update(Update $query): int
     {
     }
 
     /**
-     * @param AdapterInterface $adapter
      * @param Delete $query
      * @return int
      */
-    public static function delete(AdapterInterface $adapter, Delete $query): int
+    public function delete(Delete $query): int
     {
+    }
+
+    /**
+     * @return AdapterInterface
+     */
+    public function getAdapter(): AdapterInterface
+    {
+        return $this->adapter;
     }
 }
