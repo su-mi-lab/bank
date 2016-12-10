@@ -42,21 +42,23 @@ class Select
 
     /**
      * Select constructor.
+     * @param $table
      */
-    function __construct()
+    function __construct($table)
     {
         $this->where = new Where;
         $this->from = new From;
         $this->column = new Column;
         $this->group = new Group;
         $this->order = new Order;
+        $this->from($table);
     }
 
     /**
      * @param $table
      * @return Select
      */
-    public function from($table): Select
+    private function from($table): Select
     {
         $this->from->table($table);
         return $this;
