@@ -71,6 +71,9 @@ class Repo implements RepoInterface
      */
     public function insert(Insert $query): int
     {
+        $connection = $this->adapter->getConnection();
+        $builder = $this->adapter->getQueryBuilder();
+        return $connection->exec($builder->buildInsertQuery($query));
     }
 
     /**
@@ -79,6 +82,9 @@ class Repo implements RepoInterface
      */
     public function update(Update $query): int
     {
+        $connection = $this->adapter->getConnection();
+        $builder = $this->adapter->getQueryBuilder();
+        return $connection->exec($builder->buildUpdateQuery($query));
     }
 
     /**
@@ -87,6 +93,9 @@ class Repo implements RepoInterface
      */
     public function delete(Delete $query): int
     {
+        $connection = $this->adapter->getConnection();
+        $builder = $this->adapter->getQueryBuilder();
+        return $connection->exec($builder->buildDeleteQuery($query));
     }
 
     /**
