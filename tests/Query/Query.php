@@ -29,8 +29,9 @@ abstract class Query extends PHPUnit_Framework_TestCase
     const WHERE_TEST_QUERY = "SELECT * FROM `users` WHERE id = '1' AND id != '1' AND id > '1' AND id >= '1' AND id < '1' AND id <= '1' AND id IS NULL AND id LIKE '1%' AND id NOT LIKE '1%' AND id IN ('1' , '2' , '3' , '4')";
     const WHERE_NEST_QUERY1 = "SELECT * FROM `users` WHERE id != '1' AND (id = '1' OR id IS NULL)";
     const WHERE_NEST_QUERY2 = "SELECT * FROM `users` WHERE (id = '1' OR id IS NULL) AND id != '1'";
-    const WHERE_GROUP_QUERY = "SELECT * FROM `users` GROUP BY 'id'";
-    const WHERE_GROUP_QUERY2 = "SELECT * FROM `users` AS `u` GROUP BY 'u.id','u.name'";
-    const WHERE_ORDER_QUERY = "SELECT * FROM `users` AS `u` ORDER BY u.id desc,u.name asc";
-    const WHERE_EXPRESSION_QUERY = "SELECT COUNT(*) AS `count` FROM `users`";
+    const GROUP_TEST_QUERY = "SELECT * FROM `users` GROUP BY 'id'";
+    const GROUP_TEST_QUERY2 = "SELECT * FROM `users` AS `u` GROUP BY 'u.id','u.name'";
+    const ORDER_TEST_QUERY = "SELECT * FROM `users` AS `u` ORDER BY u.id desc,u.name asc";
+    const EXPRESSION_TEST_QUERY = "SELECT COUNT(*) AS `count` FROM `users`";
+    const JOIN_TEST_QUERY = "SELECT `u`.`id`,`u2`.`name` FROM `users` AS `u` INNER JOIN `users` AS `u2` ON u.id = u2.id LEFT JOIN `users` AS `u3` ON u.id = u3.id RIGHT JOIN `users` AS `u4` ON u.id = u4.id WHERE u.id = '1' GROUP BY 'u.id' ORDER BY u.id desc";
 }

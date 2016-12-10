@@ -5,6 +5,7 @@ namespace Bank\Query;
 use Bank\Query\Predicate\Column;
 use Bank\Query\Predicate\From;
 use Bank\Query\Predicate\Group;
+use Bank\Query\Predicate\Join;
 use Bank\Query\Predicate\Order;
 use Bank\Query\Predicate\Where;
 
@@ -40,6 +41,11 @@ class Select
      */
     public $order;
 
+    /***
+     * @var Join
+     */
+    public $join;
+
     /**
      * Select constructor.
      * @param $table
@@ -51,6 +57,7 @@ class Select
         $this->column = new Column;
         $this->group = new Group;
         $this->order = new Order;
+        $this->join = new Join;
         $this->from($table);
     }
 
@@ -94,4 +101,39 @@ class Select
         $this->order->addOrder($order);
         return $this;
     }
+
+    /**
+     * @param $table
+     * @param $conditions
+     * @return Select
+     */
+    public function innerJoin($table, $conditions): Select
+    {
+        $this->join->addJoin($table, $conditions, Join::INNER_JOIN);
+        return $this;
+    }
+
+    /**
+     * @param $table
+     * @param $conditions
+     * @return Select
+     */
+    public function leftJoin($table, $conditions): Select
+    {
+        $this->join->addJoin($table, $conditions, Join::LEFT_JOIN);
+        return $this;
+    }
+
+    /**
+     * @param $table
+     * @param $conditions
+     * @return Select
+     */
+    public function rightJoin($table, $conditions): Select
+    {
+        $this->join->addJoin($table, $conditions, Join::RIGHT_JOIN);
+        return $this;
+    }
+
+
 }

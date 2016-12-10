@@ -118,7 +118,7 @@ class SelectBuilderTest extends Query
         $select->groupBy('id');
 
         $this->assertEquals(
-            static::WHERE_GROUP_QUERY,
+            static::GROUP_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
@@ -129,7 +129,7 @@ class SelectBuilderTest extends Query
         $select->groupBy(['u.id', 'u.name']);
 
         $this->assertEquals(
-            static::WHERE_GROUP_QUERY2,
+            static::GROUP_TEST_QUERY2,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
@@ -143,7 +143,7 @@ class SelectBuilderTest extends Query
         $select->orderBy(['u.id desc', 'u.name asc']);
 
         $this->assertEquals(
-            static::WHERE_ORDER_QUERY,
+            static::ORDER_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
@@ -154,15 +154,38 @@ class SelectBuilderTest extends Query
     function testExpressionQuery()
     {
         $select = new Select('users');
-
         $select->cols(['count' => new \Bank\Query\Predicate\Expression('COUNT(*)')]);
 
         $this->assertEquals(
-            static::WHERE_EXPRESSION_QUERY,
+            static::EXPRESSION_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
         $this->repo->find($select);
         $this->repo->findAll($select);
+    }
+
+    function testJoin()
+    {
+        $select = new Select(['u' => 'users']);
+        $select
+            ->cols(['id'], 'u')
+            ->cols(['name'], 'u2')
+            ->innerJoin(['u2' => 'users'], 'u.id = u2.id')
+            ->leftJoin(['u3' => 'users'], 'u.id = u3.id')
+            ->rightJoin(['u4' => 'users'], 'u.id = u4.id')
+            ->groupBy(['u.id'])
+            ->orderBy(['u.id desc'])
+            ->where
+            ->equalTo("u.id", 1);
+
+        $this->assertEquals(
+            static::JOIN_TEST_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
+
     }
 }

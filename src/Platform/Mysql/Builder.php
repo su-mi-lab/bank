@@ -8,6 +8,7 @@ use Bank\Query\Predicate\Column;
 use Bank\Query\Predicate\Expression;
 use Bank\Query\Predicate\From;
 use Bank\Query\Predicate\Group;
+use Bank\Query\Predicate\Join;
 use Bank\Query\Predicate\Order;
 use Bank\Query\Predicate\Where;
 use Bank\Query\Delete;
@@ -56,6 +57,11 @@ class Builder implements QueryBuilderInterface
         if ($from = $this->buildFrom($query->from)) {
             $sql .= " " . self::FROM_CLAUSE . " " . $from;
         }
+
+        if ($join = $this->buildJoin($query->join)) {
+            $sql .= $join;
+        }
+
         if ($where = $this->buildWhere($query->where)) {
             $sql .= " " . self::WHERE_CLAUSE . " " . $where;
         }
@@ -149,15 +155,24 @@ class Builder implements QueryBuilderInterface
     protected function buildFrom(From $from): string
     {
         $table = $from->getTable();
+        return $this->castTablePredicate($table);
+    }
 
+    /**
+     * @param $table
+     * @return string
+     */
+    protected function castTablePredicate($table): string
+    {
         list($alias, $tableName) = $this->divideFirstParam($table);
 
-        $fromPredicate = $this->quote($tableName, '`');
+        $tablePredicate = $this->quote($tableName, '`');
         if ($alias) {
-            $fromPredicate = $this->quote($tableName, '`') . " AS " . $this->quote($alias, '`');
+            $tablePredicate = $this->quote($tableName, '`') . " AS " . $this->quote($alias, '`');
         }
 
-        return $fromPredicate;
+        return $tablePredicate;
+
     }
 
     /**
@@ -355,5 +370,30 @@ class Builder implements QueryBuilderInterface
         }
 
         return $value;
+    }
+
+    /**
+     * @param Join $join
+     * @return string
+     */
+    protected function buildJoin(Join $join): string
+    {
+        $joins = $join->getJoins();
+
+        if (!$joins) {
+            return '';
+        }
+
+        $query = array_map(function ($row) {
+            $table = $row['table'] ?? null;
+            $conditions = $row['conditions'] ?? null;
+            $join = $row['join'] ?? null;
+
+            return ' ' . $join . ' ' . $this->castTablePredicate($table) . ' ON ' . $this->quote($conditions, '');
+        }, $joins);
+
+
+        return implode('', $query);
+
     }
 }
