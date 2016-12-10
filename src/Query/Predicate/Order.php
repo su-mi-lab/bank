@@ -11,18 +11,18 @@ class Order
     /**
      * @var array
      */
-    private $order = [];
+    private $orderBy = [];
 
     /**
-     * @param $order
+     * @param $orderBy
      * @return Order
      */
-    public function addOrder($order): Order
+    public function addOrder($orderBy): Order
     {
-        if (is_string($order)) {
-            $this->order[] = $order;
-        } else if (is_array($order)) {
-            $this->order = array_merge($order, $this->order);
+        if (is_string($orderBy)) {
+            $this->orderBy[] = $orderBy;
+        } else if (is_array($orderBy)) {
+            $this->orderBy = array_merge($orderBy, $this->orderBy);
         }
 
         return $this;
@@ -33,7 +33,7 @@ class Order
      */
     public function getOrder(): array
     {
-        return $this->order;
+        return $this->orderBy;
     }
 
 }

@@ -11,18 +11,18 @@ class Group
     /**
      * @var array
      */
-    private $group = [];
+    private $groupBy = [];
 
     /**
-     * @param $group
+     * @param $groupBy
      * @return Group
      */
-    public function addGroup($group): Group
+    public function addGroup($groupBy): Group
     {
-        if (is_string($group)) {
-            $this->group[] = $group;
-        } else if (is_array($group)) {
-            $this->group = array_merge($group, $this->group);
+        if (is_string($groupBy)) {
+            $this->groupBy[] = $groupBy;
+        } else if (is_array($groupBy)) {
+            $this->groupBy = array_merge($groupBy, $this->groupBy);
         }
 
         return $this;
@@ -33,7 +33,7 @@ class Group
      */
     public function getGroup(): array
     {
-        return $this->group;
+        return $this->groupBy;
     }
 
 }
