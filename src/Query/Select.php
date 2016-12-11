@@ -135,5 +135,34 @@ class Select
         return $this;
     }
 
+    /**
+     * @param $predicate
+     * @return Select
+     */
+    public function reset($predicate): Select
+    {
+        switch ($predicate) {
+            case "where":
+                $this->where = new Where;
+                break;
+            case "column":
+                $this->column = new Column;
+                break;
+            case "group":
+                $this->group = new Group;
+                break;
+            case "order":
+                $this->order = new Order;
+                break;
+            case "join":
+                $this->join = new Join;
+                break;
+            default:
+                break;
+        }
+
+        return $this;
+    }
+
 
 }

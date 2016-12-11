@@ -186,6 +186,34 @@ class SelectBuilderTest extends Query
 
         $this->repo->find($select);
         $this->repo->findAll($select);
+    }
+
+    function testReset()
+    {
+        $select = new Select('users');
+        $select
+            ->cols(['id'], 'u')
+            ->innerJoin(['u2' => 'users'], 'u.id = u2.id')
+            ->groupBy(['u.id'])
+            ->orderBy(['u.id desc'])
+            ->where
+            ->equalTo("u.id", 1);
+
+
+        $select
+            ->reset('where')
+            ->reset('column')
+            ->reset('group')
+            ->reset('order')
+            ->reset('join');
+
+        $this->assertEquals(
+            static::FROM_TEST_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
 
     }
 }
