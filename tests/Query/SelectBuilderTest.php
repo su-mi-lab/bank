@@ -199,7 +199,6 @@ class SelectBuilderTest extends Query
             ->where
             ->equalTo("u.id", 1);
 
-
         $select
             ->reset('where')
             ->reset('column')

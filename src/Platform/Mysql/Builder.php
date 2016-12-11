@@ -50,26 +50,26 @@ class Builder implements QueryBuilderInterface
     {
         $sql = self::SELECT_CLAUSE;
 
-        if ($column = $this->buildSelect($query->column)) {
+        if ($column = $this->buildSelect($query->getColumn())) {
             $sql .= $column;
         }
 
-        if ($from = $this->buildFrom($query->from)) {
+        if ($from = $this->buildFrom($query->getFrom())) {
             $sql .= " " . self::FROM_CLAUSE . " " . $from;
         }
 
-        if ($join = $this->buildJoin($query->join)) {
+        if ($join = $this->buildJoin($query->getJoin())) {
             $sql .= $join;
         }
 
         if ($where = $this->buildWhere($query->where)) {
             $sql .= " " . self::WHERE_CLAUSE . " " . $where;
         }
-        if ($group = $this->buildGroup($query->group)) {
+        if ($group = $this->buildGroup($query->getGroup())) {
             $sql .= " " . self::GROUP_CLAUSE . " " . $group;
         }
 
-        if ($order = $this->buildOrder($query->order)) {
+        if ($order = $this->buildOrder($query->getOrder())) {
             $sql .= " " . self::ORDER_CLAUSE . " " . $order;
         }
 

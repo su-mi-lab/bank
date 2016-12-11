@@ -19,32 +19,32 @@ class Select
     /**
      * @var From
      */
-    public $from;
+    private $from;
 
     /**
      * @var Column
      */
-    public $column;
+    private $column;
+
+    /**
+     * @var Group
+     */
+    private $group;
+
+    /**
+     * @var Order
+     */
+    private $order;
+
+    /***
+     * @var Join
+     */
+    private $join;
 
     /**
      * @var Where
      */
     public $where;
-
-    /**
-     * @var Group
-     */
-    public $group;
-
-    /**
-     * @var Order
-     */
-    public $order;
-
-    /***
-     * @var Join
-     */
-    public $join;
 
     /**
      * Select constructor.
@@ -164,5 +164,44 @@ class Select
         return $this;
     }
 
+    /**
+     * @return From
+     */
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
+    /**
+     * @return Column
+     */
+    public function getColumn()
+    {
+        return $this->column;
+    }
+
+    /**
+     * @return Group
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @return Order
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @return Join
+     */
+    public function getJoin()
+    {
+        return $this->join;
+    }
 
 }
