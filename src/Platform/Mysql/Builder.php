@@ -9,6 +9,7 @@ use Bank\Query\Predicate\Expression;
 use Bank\Query\Predicate\From;
 use Bank\Query\Predicate\Group;
 use Bank\Query\Predicate\Join;
+use Bank\Query\Predicate\Limit;
 use Bank\Query\Predicate\Order;
 use Bank\Query\Predicate\Where;
 use Bank\Query\Delete;
@@ -27,6 +28,8 @@ class Builder implements QueryBuilderInterface
     const WHERE_CLAUSE = "WHERE";
     const GROUP_CLAUSE = "GROUP BY";
     const ORDER_CLAUSE = "ORDER BY";
+    const LIMIT_CLAUSE = "LIMIT";
+    const OFFSET_CLAUSE = "OFFSET";
 
     /**
      * @var ConnectionInterface
@@ -71,6 +74,10 @@ class Builder implements QueryBuilderInterface
 
         if ($order = $this->buildOrder($query->getOrder())) {
             $sql .= " " . self::ORDER_CLAUSE . " " . $order;
+        }
+
+        if ($limit = $this->buildLimit($query->getLimit())) {
+            $sql .= $limit;
         }
 
         return $sql;
@@ -394,6 +401,31 @@ class Builder implements QueryBuilderInterface
 
 
         return implode('', $query);
+    }
 
+    /**
+     * @param Limit $obj
+     * @return string
+     */
+    protected function buildLimit(Limit $obj): string
+    {
+        $limit = $obj->getLimit();
+        $offset = $obj->getOffset();
+
+        $query = '';
+
+        if ($limit === null && $offset === null) {
+            return $query;
+        }
+
+        if ($limit !== null) {
+            $query .= ' ' . self::LIMIT_CLAUSE . ' ' . $limit;
+        }
+
+        if ($offset !== null) {
+            $query .= ' ' . self::OFFSET_CLAUSE . ' ' . $offset;
+        }
+
+        return $query;
     }
 }

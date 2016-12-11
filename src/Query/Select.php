@@ -6,6 +6,7 @@ use Bank\Query\Predicate\Column;
 use Bank\Query\Predicate\From;
 use Bank\Query\Predicate\Group;
 use Bank\Query\Predicate\Join;
+use Bank\Query\Predicate\Limit;
 use Bank\Query\Predicate\Order;
 use Bank\Query\Predicate\Where;
 
@@ -42,6 +43,11 @@ class Select
     private $join;
 
     /**
+     * @var Limit
+     */
+    private $limit;
+
+    /**
      * @var Where
      */
     public $where;
@@ -58,6 +64,7 @@ class Select
         $this->group = new Group;
         $this->order = new Order;
         $this->join = new Join;
+        $this->limit = new Limit;
         $this->from($table);
     }
 
@@ -79,6 +86,26 @@ class Select
     public function cols(array $column, string $table = null): Select
     {
         $this->column->addColumn($column, $table);
+        return $this;
+    }
+
+    /**
+     * @param int $limit
+     * @return Select
+     */
+    public function limit(int $limit): Select
+    {
+        $this->limit->setLimit($limit);
+        return $this;
+    }
+
+    /**
+     * @param int $offset
+     * @return Select
+     */
+    public function offset(int $offset): Select
+    {
+        $this->limit->setOffset($offset);
         return $this;
     }
 
@@ -167,7 +194,7 @@ class Select
     /**
      * @return From
      */
-    public function getFrom()
+    public function getFrom(): From
     {
         return $this->from;
     }
@@ -175,7 +202,7 @@ class Select
     /**
      * @return Column
      */
-    public function getColumn()
+    public function getColumn(): Column
     {
         return $this->column;
     }
@@ -183,7 +210,7 @@ class Select
     /**
      * @return Group
      */
-    public function getGroup()
+    public function getGroup(): Group
     {
         return $this->group;
     }
@@ -191,7 +218,7 @@ class Select
     /**
      * @return Order
      */
-    public function getOrder()
+    public function getOrder(): Order
     {
         return $this->order;
     }
@@ -199,9 +226,17 @@ class Select
     /**
      * @return Join
      */
-    public function getJoin()
+    public function getJoin(): Join
     {
         return $this->join;
+    }
+
+    /**
+     * @return Limit
+     */
+    public function getLimit(): Limit
+    {
+        return $this->limit;
     }
 
 }

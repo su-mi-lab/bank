@@ -215,4 +215,20 @@ class SelectBuilderTest extends Query
         $this->repo->findAll($select);
 
     }
+
+    function testLimit()
+    {
+        $select = new Select('users');
+        $select
+            ->limit(10)
+            ->offset(0);
+
+        $this->assertEquals(
+            static::LIMIT_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
+    }
 }
