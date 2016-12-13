@@ -63,7 +63,7 @@ class SelectBuilderTest extends Query
             ->isNull("id")
             ->like("id", "1%")
             ->notLike("id", "1%")
-            ->include("id", [1, 2, 3, 4]);
+            ->equalIn("id", [1, 2, 3, 4]);
 
         $this->assertEquals(
             static::WHERE_TEST_QUERY,

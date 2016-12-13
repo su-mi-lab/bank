@@ -116,7 +116,7 @@ class Where
      * @param $items
      * @return Where
      */
-    public function include ($col, $items): Where
+    public function equalIn($col, $items): Where
     {
         $this->addConditions($col, self::OPERATOR_INCLUDE, $items);
         return $this;
