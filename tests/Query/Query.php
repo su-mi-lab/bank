@@ -36,4 +36,6 @@ abstract class Query extends PHPUnit_Framework_TestCase
     const EXPRESSION_TEST_QUERY = "SELECT COUNT(*) AS `count` FROM `users`";
     const JOIN_TEST_QUERY = "SELECT `u`.`id`,`u2`.`name` FROM `users` AS `u` INNER JOIN `users` AS `u2` ON u.id = u2.id LEFT JOIN `users` AS `u3` ON u.id = u3.id RIGHT JOIN `users` AS `u4` ON u.id = u4.id WHERE u.id = '1' GROUP BY 'u.id' ORDER BY u.id desc";
     const LIMIT_QUERY = "SELECT * FROM `users` LIMIT 10 OFFSET 0";
+
+    const UPDATE_SIMPLE_QUERY = "UPDATE `users` SET name = 'test' WHERE id = '1'";
 }

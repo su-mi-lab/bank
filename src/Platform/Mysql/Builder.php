@@ -11,6 +11,7 @@ use Bank\Query\Predicate\Group;
 use Bank\Query\Predicate\Join;
 use Bank\Query\Predicate\Limit;
 use Bank\Query\Predicate\Order;
+use Bank\Query\Predicate\Set;
 use Bank\Query\Predicate\Where;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
@@ -24,7 +25,9 @@ use Bank\Query\Update;
 class Builder implements QueryBuilderInterface
 {
     const SELECT_CLAUSE = "SELECT";
+    const UPDATE_CLAUSE = "UPDATE";
     const FROM_CLAUSE = "FROM";
+    const SET_CLAUSE = "SET";
     const WHERE_CLAUSE = "WHERE";
     const GROUP_CLAUSE = "GROUP BY";
     const ORDER_CLAUSE = "ORDER BY";
@@ -89,6 +92,7 @@ class Builder implements QueryBuilderInterface
      */
     public function buildInsertQuery(Insert $query): string
     {
+
     }
 
     /**
@@ -97,7 +101,26 @@ class Builder implements QueryBuilderInterface
      */
     public function buildUpdateQuery(Update $query): string
     {
+        $sql = self::UPDATE_CLAUSE;
 
+
+        if ($from = $this->buildFrom($query->getFrom())) {
+            $sql .= " " . $from;
+        }
+
+        if ($join = $this->buildJoin($query->getJoin())) {
+            $sql .= $join;
+        }
+
+        if ($set = $this->buildSet($query->getSet())) {
+            $sql .= " " . self::SET_CLAUSE . " " . $set;
+        }
+
+        if ($where = $this->buildWhere($query->where)) {
+            $sql .= " " . self::WHERE_CLAUSE . " " . $where;
+        }
+
+        return $sql;
     }
 
     /**
@@ -216,6 +239,25 @@ class Builder implements QueryBuilderInterface
         $query = array_map(function ($row) {
             return $this->quote($row, "");
         }, $order);
+
+        return implode(',', $query);
+    }
+
+    /**
+     * @param Set $set
+     * @return string
+     */
+    protected function buildSet(Set $set): string
+    {
+        $sets = $set->getSets();
+
+        if (!$sets) {
+            return '';
+        }
+
+        $query = array_map(function ($key) use ($sets) {
+            return $this->quote($key, "") . ' = ' . $this->quote($sets[$key], "'");
+        }, array_keys($sets));
 
         return implode(',', $query);
     }
