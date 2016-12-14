@@ -38,4 +38,5 @@ abstract class Query extends PHPUnit_Framework_TestCase
     const LIMIT_QUERY = "SELECT * FROM `users` LIMIT 10 OFFSET 0";
 
     const UPDATE_SIMPLE_QUERY = "UPDATE `users` SET name = 'test' WHERE id = '1'";
+    const INSERT_SIMPLE_QUERY = "INSERT INTO `users` (name) VALUES ('name1'),('name2');";
 }

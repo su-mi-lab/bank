@@ -12,6 +12,7 @@ use Bank\Query\Predicate\Join;
 use Bank\Query\Predicate\Limit;
 use Bank\Query\Predicate\Order;
 use Bank\Query\Predicate\Set;
+use Bank\Query\Predicate\Values;
 use Bank\Query\Predicate\Where;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
@@ -26,6 +27,7 @@ class Builder implements QueryBuilderInterface
 {
     const SELECT_CLAUSE = "SELECT";
     const UPDATE_CLAUSE = "UPDATE";
+    const INSERT_CLAUSE = "INSERT INTO";
     const FROM_CLAUSE = "FROM";
     const SET_CLAUSE = "SET";
     const WHERE_CLAUSE = "WHERE";
@@ -33,6 +35,7 @@ class Builder implements QueryBuilderInterface
     const ORDER_CLAUSE = "ORDER BY";
     const LIMIT_CLAUSE = "LIMIT";
     const OFFSET_CLAUSE = "OFFSET";
+    const VALUES_CLAUSE = "VALUES";
 
     /**
      * @var ConnectionInterface
@@ -93,6 +96,17 @@ class Builder implements QueryBuilderInterface
     public function buildInsertQuery(Insert $query): string
     {
 
+        $sql = self::INSERT_CLAUSE;
+
+        if ($from = $this->buildFrom($query->getFrom())) {
+            $sql .= " " . $from;
+        }
+
+        if ($values = $this->buildValues($query->getValues())) {
+            $sql .= " " . $values;
+        }
+
+        return $sql;
     }
 
     /**
@@ -102,7 +116,6 @@ class Builder implements QueryBuilderInterface
     public function buildUpdateQuery(Update $query): string
     {
         $sql = self::UPDATE_CLAUSE;
-
 
         if ($from = $this->buildFrom($query->getFrom())) {
             $sql .= " " . $from;
@@ -241,6 +254,42 @@ class Builder implements QueryBuilderInterface
         }, $order);
 
         return implode(',', $query);
+    }
+
+    /**
+     * @param Values $values
+     * @return string
+     */
+    protected function buildValues(Values $values): string
+    {
+        $val = $values->getValues();
+
+        if (!$val) {
+            return "";
+        }
+
+        $cols = array_map(function ($col) {
+            return $this->quote($col, "");
+        }, array_keys(reset($val)));
+
+        $items = $this->buildValuesItem($val);
+
+        return $this->enclosedInBracket(implode(',', $cols)) . ' ' . self::VALUES_CLAUSE . ' ' . implode(',', $items) . ';';
+    }
+
+    /**
+     * @param $values
+     * @return array
+     */
+    protected function buildValuesItem($values): array
+    {
+        return array_map(function ($items) {
+            $items = array_map(function ($col) {
+                return $this->quote($col, "'");
+            }, array_values($items));
+
+            return $this->enclosedInBracket(implode(',', $items));
+        }, $values);
     }
 
     /**
