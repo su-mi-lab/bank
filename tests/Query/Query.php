@@ -39,4 +39,5 @@ abstract class Query extends PHPUnit_Framework_TestCase
 
     const UPDATE_SIMPLE_QUERY = "UPDATE `users` SET name = 'test' WHERE id = '1'";
     const INSERT_SIMPLE_QUERY = "INSERT INTO `users` (name) VALUES ('name1'),('name2');";
+    const DELETE_SIMPLE_QUERY = "DELETE FROM `users` WHERE name LIKE 'name%'";
 }

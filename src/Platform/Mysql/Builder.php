@@ -27,6 +27,7 @@ class Builder implements QueryBuilderInterface
 {
     const SELECT_CLAUSE = "SELECT";
     const UPDATE_CLAUSE = "UPDATE";
+    const DELETE_CLAUSE = "DELETE FROM";
     const INSERT_CLAUSE = "INSERT INTO";
     const FROM_CLAUSE = "FROM";
     const SET_CLAUSE = "SET";
@@ -142,7 +143,17 @@ class Builder implements QueryBuilderInterface
      */
     public function buildDeleteQuery(Delete $query): string
     {
+        $sql = self::DELETE_CLAUSE;
 
+        if ($from = $this->buildFrom($query->getFrom())) {
+            $sql .= " " . $from;
+        }
+
+        if ($where = $this->buildWhere($query->where)) {
+            $sql .= " " . self::WHERE_CLAUSE . " " . $where;
+        }
+
+        return $sql;
     }
 
     /**
