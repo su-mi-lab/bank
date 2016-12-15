@@ -1,6 +1,6 @@
 <?php
 
-namespace Bank\Platform;
+namespace Bank\Builder;
 
 use Bank\Query\Delete;
 use Bank\Query\Insert;
@@ -9,7 +9,7 @@ use Bank\Query\Update;
 
 /**
  * Interface QueryBuilderInterface
- * @package Bank\Platform
+ * @package Bank\Builder
  */
 interface QueryBuilderInterface
 {
@@ -36,5 +36,10 @@ interface QueryBuilderInterface
      * @return string
      */
     public function buildDeleteQuery(Delete $query): string;
+
+    /**
+     * @return array
+     */
+    public function getBindValue(): array;
 
 }

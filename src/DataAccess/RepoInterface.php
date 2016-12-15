@@ -45,9 +45,5 @@ interface RepoInterface
      */
     public function delete(Delete $query): int;
 
-    /**
-     * @return AdapterInterface
-     */
-    public function getAdapter(): AdapterInterface;
 
 }

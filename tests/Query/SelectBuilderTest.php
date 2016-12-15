@@ -63,7 +63,7 @@ class SelectBuilderTest extends Query
             ->isNull("id")
             ->like("id", "1%")
             ->notLike("id", "1%")
-            ->include("id", [1, 2, 3, 4]);
+            ->equalIn("id", [1, 2, 3, 4]);
 
         $this->assertEquals(
             static::WHERE_TEST_QUERY,
@@ -179,6 +179,7 @@ class SelectBuilderTest extends Query
             ->where
             ->equalTo("u.id", 1);
 
+
         $this->assertEquals(
             static::JOIN_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
@@ -186,6 +187,49 @@ class SelectBuilderTest extends Query
 
         $this->repo->find($select);
         $this->repo->findAll($select);
+    }
 
+    function testReset()
+    {
+        $select = new Select('users');
+        $select
+            ->cols(['id'], 'u')
+            ->innerJoin(['u2' => 'users'], 'u.id = u2.id')
+            ->groupBy(['u.id'])
+            ->orderBy(['u.id desc'])
+            ->where
+            ->equalTo("u.id", 1);
+
+        $select
+            ->reset('where')
+            ->reset('column')
+            ->reset('group')
+            ->reset('order')
+            ->reset('join');
+
+        $this->assertEquals(
+            static::FROM_TEST_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
+
+    }
+
+    function testLimit()
+    {
+        $select = new Select('users');
+        $select
+            ->limit(10)
+            ->offset(0);
+
+        $this->assertEquals(
+            static::LIMIT_QUERY,
+            $this->adapter->getQueryBuilder()->buildSelectQuery($select)
+        );
+
+        $this->repo->find($select);
+        $this->repo->findAll($select);
     }
 }

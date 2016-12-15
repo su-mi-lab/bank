@@ -1,8 +1,6 @@
 <?php
 
-namespace Bank\Platform\Mysql;
-
-use Bank\Platform\ConnectionInterface;
+namespace Bank\DataAccess;
 
 /**
  * Class Connection
@@ -85,5 +83,23 @@ class Connection implements ConnectionInterface
     public function quote($string): string
     {
         return $this->pdo->quote($string);
+    }
+
+
+    /**
+     * @param string $sql
+     * @param array $bindValue
+     * @return \PDOStatement
+     */
+    public function prepare(string $sql, array $bindValue): \PDOStatement
+    {
+        /** @var \PDOStatement $statement */
+        $statement = $this->pdo->prepare($sql);
+
+        foreach ($bindValue as $key => &$item) {
+            $statement->bindParam($key, $item);
+        }
+
+        return $statement;
     }
 }
