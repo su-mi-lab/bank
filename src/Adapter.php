@@ -38,7 +38,12 @@ class Adapter implements AdapterInterface
      */
     function __construct(string $dns, string $user, string $password)
     {
-        $platform = "Mysql";
+        switch ($dns) {
+            default:
+                $platform = "Mysql";
+                break;
+        }
+
         $queryBuilder = "\\Bank\\Builder\\Platform\\" . $platform . "\\Builder";
 
         $this->conn = new Connection($dns, $user, $password);
