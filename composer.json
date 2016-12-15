@@ -1,7 +1,7 @@
 {
     "name": "bank-lab/bank",
-    "description": "Data mapper",
-    "keywords": ["Data mapper"],
+    "description": "PDO Wrapper",
+    "keywords": ["PDO Wrapper"],
     "license": "MIT",
     "support": {
         "issues": "https://github.com/bank-lab/bank/issues",
