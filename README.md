@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/bank-lab/bank/badges/gpa.svg)](https://codeclimate.com/github/bank-lab/bank)
 [![Issue Count](https://codeclimate.com/github/bank-lab/bank/badges/issue_count.svg)](https://codeclimate.com/github/bank-lab/bank)
 
-Data mapper
+PDO Wrapper
 
 ## Install Bank
 
@@ -22,3 +22,6 @@ Alternately, clone the repository and manually invoke `composer` using the shipp
 php composer.phar self-update
 php composer.phar install
 ```
+
+## Support　DB
+・Mysql
