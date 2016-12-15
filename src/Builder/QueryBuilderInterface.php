@@ -37,4 +37,9 @@ interface QueryBuilderInterface
      */
     public function buildDeleteQuery(Delete $query): string;
 
+    /**
+     * @return array
+     */
+    public function getBindValue(): array;
+
 }

@@ -179,6 +179,7 @@ class SelectBuilderTest extends Query
             ->where
             ->equalTo("u.id", 1);
 
+
         $this->assertEquals(
             static::JOIN_TEST_QUERY,
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)

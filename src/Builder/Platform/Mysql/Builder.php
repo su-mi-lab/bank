@@ -29,6 +29,9 @@ class Builder implements QueryBuilderInterface
      */
     protected $connection;
 
+    /** @var array */
+    private $bindValue = [];
+
     /**
      * QueryBuilder constructor.
      * @param ConnectionInterface $connection
@@ -37,6 +40,14 @@ class Builder implements QueryBuilderInterface
     {
 
         $this->connection = $connection;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBindValue(): array
+    {
+        return $this->bindValue;
     }
 
     /**
@@ -70,6 +81,7 @@ class Builder implements QueryBuilderInterface
         if ($queryString = $where->build($query->where)) {
             $sql .= " " . $where::WHERE_CLAUSE . " " . $queryString;
         }
+        
         if ($queryString = $group->build($query->getGroup())) {
             $sql .= " " . $group::GROUP_CLAUSE . " " . $queryString;
         }
@@ -81,6 +93,8 @@ class Builder implements QueryBuilderInterface
         if ($queryString = $limit->build($query->getLimit())) {
             $sql .= $queryString;
         }
+
+        $this->bindValue = $where->getBindValue();
 
         return $sql;
     }
@@ -137,6 +151,8 @@ class Builder implements QueryBuilderInterface
             $sql .= " " . $where::WHERE_CLAUSE . " " . $queryString;
         }
 
+        $this->bindValue = $where->getBindValue();
+
         return $sql;
     }
 
@@ -157,6 +173,8 @@ class Builder implements QueryBuilderInterface
         if ($queryString = $where->build($query->where)) {
             $sql .= " " . $where::WHERE_CLAUSE . " " . $queryString;
         }
+
+        $this->bindValue = $where->getBindValue();
 
         return $sql;
     }

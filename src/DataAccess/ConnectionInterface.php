@@ -51,4 +51,12 @@ interface ConnectionInterface
      * @return string
      */
     public function quote($string): string;
+
+
+    /**
+     * @param string $sql
+     * @param array $bindValue
+     * @return \PDOStatement
+     */
+    public function prepare(string $sql, array $bindValue): \PDOStatement;
 }

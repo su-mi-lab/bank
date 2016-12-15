@@ -14,6 +14,12 @@ class Where extends PredicateBuilder
 
     const WHERE_CLAUSE = "WHERE";
 
+    /** @var array */
+    private $bindValue = [];
+
+    /** @var int */
+    private $bindCount = 0;
+
     /**
      * @param WhereQuery $where
      * @return string
@@ -41,6 +47,14 @@ class Where extends PredicateBuilder
         $where = implode("", $query);
 
         return $where;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBindValue()
+    {
+        return $this->bindValue;
     }
 
     /**
@@ -74,7 +88,7 @@ class Where extends PredicateBuilder
 
     /**
      * @param array $query
-     * @param Where $where
+     * @param WhereQuery $where
      * @param string $join
      * @return array
      */
@@ -94,17 +108,32 @@ class Where extends PredicateBuilder
      */
     protected function castWhereValue($conditionVal): string
     {
-        $value = "";
+
+        $name = '';
         if (is_array($conditionVal)) {
             $value = array_map(function ($item) {
-                return $this->quote($item);
+                $name = $this->getBindName();
+                $this->bindValue[$name] = $item;
+                return $name;
             }, $conditionVal);
 
-            $value = $this->enclosedInBracket(implode(" , ", $value));
+            $name = $this->enclosedInBracket(implode(" , ", $value));
         } else if (!empty($conditionVal)) {
-            $value = $this->quote($conditionVal);
+            $name = $this->getBindName();
+            $this->bindValue[$name] = $conditionVal;
         }
 
-        return $value;
+        return $name;
+    }
+
+    /**
+     * @return string
+     */
+    private function getBindName()
+    {
+        $name = ':b' . $this->bindCount;
+        $this->bindCount++;
+
+        return $name;
     }
 }

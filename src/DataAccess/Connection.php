@@ -84,4 +84,22 @@ class Connection implements ConnectionInterface
     {
         return $this->pdo->quote($string);
     }
+
+
+    /**
+     * @param string $sql
+     * @param array $bindValue
+     * @return \PDOStatement
+     */
+    public function prepare(string $sql, array $bindValue): \PDOStatement
+    {
+        /** @var \PDOStatement $statement */
+        $statement = $this->pdo->prepare($sql);
+
+        foreach ($bindValue as $key => &$item) {
+            $statement->bindParam($key, $item);
+        }
+
+        return $statement;
+    }
 }

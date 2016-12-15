@@ -33,8 +33,9 @@ class Repo implements RepoInterface
         $connection = $this->adapter->getConnection();
         $builder = $this->adapter->getQueryBuilder();
 
-        /** @var \PDOStatement $statement */
-        $statement = $connection->query($builder->buildSelectQuery($query));
+        $statement = $connection->prepare($builder->buildSelectQuery($query), $builder->getBindValue());
+        $statement->execute();
+
         $result = $statement->fetch();
 
         return ($result) ? $result : [];
@@ -49,14 +50,12 @@ class Repo implements RepoInterface
         $connection = $this->adapter->getConnection();
         $builder = $this->adapter->getQueryBuilder();
 
-        /** @var \PDOStatement $statement */
-        $statement = $connection->query($builder->buildSelectQuery($query));
+        $statement = $connection->prepare($builder->buildSelectQuery($query), $builder->getBindValue());
+        $statement->execute();
 
-        if (!$statement) {
-            return [];
-        }
+        $result = $statement->fetchAll();
 
-        return $statement->fetchAll();
+        return ($result) ? $result : [];
     }
 
     /**
@@ -78,7 +77,10 @@ class Repo implements RepoInterface
     {
         $connection = $this->adapter->getConnection();
         $builder = $this->adapter->getQueryBuilder();
-        return $connection->exec($builder->buildUpdateQuery($query));
+        $statement = $connection->prepare($builder->buildUpdateQuery($query), $builder->getBindValue());
+        $statement->execute();
+
+        return $statement->rowCount();
     }
 
     /**
@@ -89,7 +91,10 @@ class Repo implements RepoInterface
     {
         $connection = $this->adapter->getConnection();
         $builder = $this->adapter->getQueryBuilder();
-        return $connection->exec($builder->buildDeleteQuery($query));
+        $statement = $connection->prepare($builder->buildDeleteQuery($query), $builder->getBindValue());
+        $statement->execute();
+
+        return $statement->rowCount();
     }
 
     /**
