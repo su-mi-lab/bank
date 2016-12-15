@@ -33,13 +33,11 @@ class Repo implements RepoInterface
         $connection = $this->adapter->getConnection();
         $builder = $this->adapter->getQueryBuilder();
 
+        /** @var \PDOStatement $statement */
         $statement = $connection->query($builder->buildSelectQuery($query));
+        $result = $statement->fetch();
 
-        foreach ($statement as $row) {
-            return $row;
-        }
-
-        return [];
+        return ($result) ? $result : [];
     }
 
     /**
@@ -51,18 +49,14 @@ class Repo implements RepoInterface
         $connection = $this->adapter->getConnection();
         $builder = $this->adapter->getQueryBuilder();
 
+        /** @var \PDOStatement $statement */
         $statement = $connection->query($builder->buildSelectQuery($query));
 
         if (!$statement) {
             return [];
         }
 
-        $list = [];
-        foreach ($statement as $row) {
-            $list[] = $row;
-        }
-
-        return $list;
+        return $statement->fetchAll();
     }
 
     /**
