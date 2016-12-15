@@ -1,8 +1,6 @@
 <?php
 
-namespace Bank\Platform\Mysql;
-
-use Bank\Platform\ConnectionInterface;
+namespace Bank\DataAccess;
 
 /**
  * Class Connection

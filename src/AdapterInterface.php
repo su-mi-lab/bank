@@ -2,8 +2,8 @@
 
 namespace Bank;
 
-use Bank\Platform\QueryBuilderInterface;
-use Bank\Platform\ConnectionInterface;
+use Bank\Builder\QueryBuilderInterface;
+use Bank\DataAccess\ConnectionInterface;
 
 /**
  * Interface AdapterInterface

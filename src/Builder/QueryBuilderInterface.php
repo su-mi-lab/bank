@@ -1,6 +1,6 @@
 <?php
 
-namespace Bank\Platform;
+namespace Bank\Builder;
 
 use Bank\Query\Delete;
 use Bank\Query\Insert;
@@ -9,7 +9,7 @@ use Bank\Query\Update;
 
 /**
  * Interface QueryBuilderInterface
- * @package Bank\Platform
+ * @package Bank\Builder
  */
 interface QueryBuilderInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bank\Platform;
+namespace Bank\DataAccess;
 
 /**
  * Interface ConnectionInterface

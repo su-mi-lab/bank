@@ -2,8 +2,9 @@
 
 namespace Bank;
 
-use Bank\Platform\QueryBuilderInterface;
-use Bank\Platform\ConnectionInterface;
+use Bank\Builder\QueryBuilderInterface;
+use Bank\DataAccess\Connection;
+use Bank\DataAccess\ConnectionInterface;
 
 /**
  * Class Adapter
@@ -31,10 +32,9 @@ class Adapter implements AdapterInterface
     function __construct(string $dns, string $user, string $password)
     {
         $platform = "Mysql";
-        $conn = "\\Bank\\Platform\\" . $platform . "\\Connection";
-        $queryBuilder = "\\Bank\\Platform\\" . $platform . "\\Builder";
+        $queryBuilder = "\\Bank\\Builder\\Platform\\" . $platform . "\\Builder";
 
-        $this->conn = new $conn($dns, $user, $password);
+        $this->conn = new Connection($dns, $user, $password);
         $this->queryBuilder = new $queryBuilder($this->conn);
     }
 
