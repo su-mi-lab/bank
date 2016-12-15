@@ -21,7 +21,7 @@ abstract class Query extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->adapter = new Adapter('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');
-        $this->repo = new Repo($this->adapter);
+        $this->repo = $this->adapter->getRepo();
     }
 
     const FROM_TEST_QUERY = "SELECT * FROM `users`";

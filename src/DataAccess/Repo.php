@@ -3,6 +3,7 @@
 namespace Bank\DataAccess;
 
 use Bank\AdapterInterface;
+use Bank\Builder\QueryBuilderInterface;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
 use Bank\Query\Select;
@@ -14,14 +15,21 @@ use Bank\Query\Update;
  */
 class Repo implements RepoInterface
 {
-    /**
-     * @var AdapterInterface
-     */
-    private $adapter;
 
-    public function __construct(AdapterInterface $adapter)
+    /**
+     * @var ConnectionInterface
+     */
+    private $conn;
+
+    /**
+     * @var QueryBuilderInterface
+     */
+    private $builder;
+
+    public function __construct(ConnectionInterface $conn, QueryBuilderInterface $builder)
     {
-        $this->adapter = $adapter;
+        $this->conn = $conn;
+        $this->builder = $builder;
     }
 
     /**
@@ -30,10 +38,8 @@ class Repo implements RepoInterface
      */
     public function find(Select $query): array
     {
-        $connection = $this->adapter->getConnection();
-        $builder = $this->adapter->getQueryBuilder();
 
-        $statement = $connection->prepare($builder->buildSelectQuery($query), $builder->getBindValue());
+        $statement = $this->conn->prepare($this->builder->buildSelectQuery($query), $this->builder->getBindValue());
         $statement->execute();
 
         $result = $statement->fetch();
@@ -47,10 +53,7 @@ class Repo implements RepoInterface
      */
     public function findAll(Select $query): array
     {
-        $connection = $this->adapter->getConnection();
-        $builder = $this->adapter->getQueryBuilder();
-
-        $statement = $connection->prepare($builder->buildSelectQuery($query), $builder->getBindValue());
+        $statement = $this->conn->prepare($this->builder->buildSelectQuery($query), $this->builder->getBindValue());
         $statement->execute();
 
         $result = $statement->fetchAll();
@@ -64,9 +67,7 @@ class Repo implements RepoInterface
      */
     public function insert(Insert $query): int
     {
-        $connection = $this->adapter->getConnection();
-        $builder = $this->adapter->getQueryBuilder();
-        return $connection->exec($builder->buildInsertQuery($query));
+        return $this->conn->exec($this->builder->buildInsertQuery($query));
     }
 
     /**
@@ -75,9 +76,7 @@ class Repo implements RepoInterface
      */
     public function update(Update $query): int
     {
-        $connection = $this->adapter->getConnection();
-        $builder = $this->adapter->getQueryBuilder();
-        $statement = $connection->prepare($builder->buildUpdateQuery($query), $builder->getBindValue());
+        $statement = $this->conn->prepare($this->builder->buildUpdateQuery($query), $this->builder->getBindValue());
         $statement->execute();
 
         return $statement->rowCount();
@@ -89,19 +88,9 @@ class Repo implements RepoInterface
      */
     public function delete(Delete $query): int
     {
-        $connection = $this->adapter->getConnection();
-        $builder = $this->adapter->getQueryBuilder();
-        $statement = $connection->prepare($builder->buildDeleteQuery($query), $builder->getBindValue());
+        $statement = $this->conn->prepare($this->builder->buildDeleteQuery($query), $this->builder->getBindValue());
         $statement->execute();
 
         return $statement->rowCount();
-    }
-
-    /**
-     * @return AdapterInterface
-     */
-    public function getAdapter(): AdapterInterface
-    {
-        return $this->adapter;
     }
 }
