@@ -16,13 +16,14 @@ class Set extends PredicateBuilder
     /**
      * @param SetQuery $set
      * @return string
+     * @throws \Exception
      */
     public function build($set): string
     {
         $sets = $set->getSets();
 
         if (!$sets) {
-            return '';
+            throw new \Exception("Parameter is invalid");
         }
 
         $query = array_map(function ($key) use ($sets) {

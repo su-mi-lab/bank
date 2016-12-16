@@ -17,13 +17,14 @@ class Values extends PredicateBuilder
     /**
      * @param ValuesQuery $values
      * @return string
+     * @throws \Exception
      */
     public function build($values): string
     {
         $val = $values->getValues();
 
         if (!$val) {
-            return "";
+            throw new \Exception("Parameter is invalid");
         }
 
         $cols = array_map(function ($col) {
