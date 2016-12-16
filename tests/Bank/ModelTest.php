@@ -26,11 +26,6 @@ class ModelTest extends Query
             $mapper->save($user),
             1
         );
-
-        $this->assertEquals(
-            $mapper->delete($user),
-            1
-        );
     }
 
 }
