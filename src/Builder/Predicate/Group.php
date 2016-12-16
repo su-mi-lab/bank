@@ -7,7 +7,7 @@ use Bank\Query\Predicate\Group as GroupQuery;
 
 /**
  * Class Group
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class Group extends PredicateBuilder
 {

@@ -74,6 +74,4 @@ class Adapter implements AdapterInterface
     {
         return $this->repo;
     }
-
-
 }

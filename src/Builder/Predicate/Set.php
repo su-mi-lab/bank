@@ -7,7 +7,7 @@ use Bank\Query\Predicate\Set as SetQuery;
 
 /**
  * Class Set
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class Set extends PredicateBuilder
 {

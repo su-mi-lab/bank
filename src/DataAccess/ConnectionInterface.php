@@ -4,7 +4,7 @@ namespace Bank\DataAccess;
 
 /**
  * Interface ConnectionInterface
- * @package Bank\Platform
+ * @package Bank\DataAccess
  */
 interface ConnectionInterface
 {

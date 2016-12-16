@@ -23,5 +23,5 @@ php composer.phar self-update
 php composer.phar install
 ```
 
-## Support　DB
+## Support DB
 ・Mysql

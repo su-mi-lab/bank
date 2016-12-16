@@ -2,7 +2,6 @@
 
 namespace Bank\DataAccess;
 
-use Bank\AdapterInterface;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
 use Bank\Query\Select;
@@ -10,7 +9,7 @@ use Bank\Query\Update;
 
 /**
  * Interface RepoInterface
- * @package Bank
+ * @package Bank\DataAccess
  */
 interface RepoInterface
 {

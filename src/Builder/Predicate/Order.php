@@ -7,7 +7,7 @@ use Bank\Query\Predicate\Order as OrderQuery;
 
 /**
  * Class Order
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class Order extends PredicateBuilder
 {

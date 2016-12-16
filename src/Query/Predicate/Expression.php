@@ -13,6 +13,10 @@ class Expression
      */
     private $expression = [];
 
+    /**
+     * Expression constructor.
+     * @param string $expression
+     */
     function __construct(string $expression)
     {
         $this->expression = $expression;

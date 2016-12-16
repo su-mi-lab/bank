@@ -2,7 +2,6 @@
 
 namespace Bank;
 
-
 /**
  * Class Bank
  * @package Bank
@@ -55,7 +54,6 @@ class Bank
         }
 
         self::$adapter[$adapterNamespace] = new Adapter($dns, $user, $password);
-
 
         return self::$adapter[$adapterNamespace];
     }

@@ -11,7 +11,7 @@ use Bank\Query\Update;
 
 /**
  * Class Repo
- * @package Bank
+ * @package Bank\DataAccess
  */
 class Repo implements RepoInterface
 {
@@ -26,6 +26,11 @@ class Repo implements RepoInterface
      */
     private $builder;
 
+    /**
+     * Repo constructor.
+     * @param ConnectionInterface $conn
+     * @param QueryBuilderInterface $builder
+     */
     public function __construct(ConnectionInterface $conn, QueryBuilderInterface $builder)
     {
         $this->conn = $conn;

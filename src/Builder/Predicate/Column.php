@@ -7,7 +7,7 @@ use Bank\Query\Predicate\Column as SelectQuery;
 
 /**
  * Class Column
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class Column extends PredicateBuilder
 {

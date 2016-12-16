@@ -27,5 +27,4 @@ interface AdapterInterface
      * @return RepoInterface
      */
     public function getRepo(): RepoInterface;
-
 }

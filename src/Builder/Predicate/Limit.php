@@ -7,7 +7,7 @@ use Bank\Query\Predicate\Limit as LimitQuery;
 
 /**
  * Class Limit
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class Limit extends PredicateBuilder
 {

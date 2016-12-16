@@ -7,7 +7,7 @@ use Bank\Query\Predicate\From as FromQuery;
 
 /**
  * Class From
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class From extends PredicateBuilder
 {
