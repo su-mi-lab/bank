@@ -1,7 +1,5 @@
 <?php
 
-use Bank\Adapter;
-
 /**
  * Class Query
  */
@@ -19,7 +17,8 @@ abstract class Query extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->adapter = new Adapter('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');
+        \Bank\Bank::setConfig(include __DIR__ . '/config/bank.php');
+        $this->adapter = \Bank\Bank::adapter();
         $this->repo = $this->adapter->getRepo();
     }
 
