@@ -9,8 +9,6 @@ class UpdateBuilderTest extends Query
 
     function testFromQuery()
     {
-        $this->adapter->getConnection()->beginTransaction();
-
         $update = new Update("users");
 
         $update
@@ -24,8 +22,6 @@ class UpdateBuilderTest extends Query
         );
 
         $this->repo->update($update);
-
-        $this->adapter->getConnection()->rollback();
     }
 
 }

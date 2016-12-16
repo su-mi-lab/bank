@@ -8,8 +8,6 @@ class ModelTest extends Query
 {
     function testInsertAndUpdateAndDelete()
     {
-        $this->adapter->getConnection()->beginTransaction();
-
         $user = new User();
         $mapper = new UserMapper();
 
@@ -33,8 +31,6 @@ class ModelTest extends Query
             $mapper->delete($user),
             1
         );
-
-        $this->adapter->getConnection()->rollback();
     }
 
 }

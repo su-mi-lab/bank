@@ -18,8 +18,6 @@ class SimpleQueryTest extends Query
 
     function testQuery()
     {
-        $this->adapter->getConnection()->beginTransaction();
-
         $this->assertEquals(
             $this->insertUser(),
             1
@@ -55,8 +53,6 @@ class SimpleQueryTest extends Query
             [],
             $this->getUser($id)
         );
-
-        $this->adapter->getConnection()->rollback();
     }
 
     /**

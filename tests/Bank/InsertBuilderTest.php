@@ -9,8 +9,6 @@ class InsertBuilderTest extends Query
 
     function testFromQuery()
     {
-        $this->adapter->getConnection()->beginTransaction();
-
         $insert = new Insert("users");
 
         $insert
@@ -23,8 +21,6 @@ class InsertBuilderTest extends Query
         );
 
         $this->repo->insert($insert);
-
-        $this->adapter->getConnection()->rollback();
     }
 
 }
