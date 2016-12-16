@@ -32,5 +32,4 @@ class ModelTest extends Query
 //            1
 //        );
     }
-
 }

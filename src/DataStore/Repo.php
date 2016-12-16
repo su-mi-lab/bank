@@ -38,14 +38,13 @@ class Repo implements RepoInterface
 
     /**
      * @param Select $query
-     * @return array
+     * @param string $fetchClass
+     * @return array|ModelInterface
      */
-    public function find(Select $query): array
+    public function find(Select $query, $fetchClass = null)
     {
-
-        $statement = $this->conn->prepare($this->builder->buildSelectQuery($query), $this->builder->getBindValue());
+        $statement = $this->findStatement($query, $fetchClass);
         $statement->execute();
-
         $result = $statement->fetch();
 
         return ($result) ? $result : [];
@@ -53,13 +52,13 @@ class Repo implements RepoInterface
 
     /**
      * @param Select $query
+     * @param string $fetchClass
      * @return array
      */
-    public function findAll(Select $query): array
+    public function findAll(Select $query, $fetchClass = null): array
     {
-        $statement = $this->conn->prepare($this->builder->buildSelectQuery($query), $this->builder->getBindValue());
+        $statement = $this->findStatement($query, $fetchClass);
         $statement->execute();
-
         $result = $statement->fetchAll();
 
         return ($result) ? $result : [];
@@ -96,5 +95,19 @@ class Repo implements RepoInterface
         $statement->execute();
 
         return $statement->rowCount();
+    }
+
+    /**
+     * @param Select $query
+     * @@param string $fetchClass
+     * @return \PDOStatement
+     */
+    private function findStatement(Select $query, $fetchClass = null): \PDOStatement
+    {
+        $statement = $this->conn->prepare($this->builder->buildSelectQuery($query), $this->builder->getBindValue());
+        if ($fetchClass) {
+            $statement->setFetchMode(\PDO::FETCH_CLASS, $fetchClass);
+        }
+        return $statement;
     }
 }

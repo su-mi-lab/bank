@@ -16,15 +16,17 @@ interface RepoInterface
 
     /**
      * @param Select $query
-     * @return array
+     * @param string $fetchClass
+     * @return array|ModelInterface
      */
-    public function find(Select $query): array;
+    public function find(Select $query, $fetchClass = null);
 
     /**
      * @param Select $query
+     * @param string $fetchClass
      * @return array
      */
-    public function findAll(Select $query): array;
+    public function findAll(Select $query, $fetchClass = null): array;
 
     /**
      * @param Insert $query
