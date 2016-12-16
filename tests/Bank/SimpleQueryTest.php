@@ -24,10 +24,6 @@ class SimpleQueryTest extends Query
         );
 
         $id = $this->lastInsertId();
-        $this->assertEquals(
-            ($id > 0),
-            true
-        );
 
         $this->assertEquals(
             ['id' => $id, 'name' => self::USER_NAME],
