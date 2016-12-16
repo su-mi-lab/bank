@@ -1,7 +1,6 @@
 <?php
 
 use Bank\Adapter;
-use Bank\DataAccess\Repo;
 
 /**
  * Class Query
