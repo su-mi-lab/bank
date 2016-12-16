@@ -1,6 +1,6 @@
 <?php
 
-namespace Bank\DataAccess;
+namespace Bank\DataStore;
 
 use Bank\Query\Delete;
 use Bank\Query\Insert;
@@ -9,7 +9,7 @@ use Bank\Query\Update;
 
 /**
  * Interface RepoInterface
- * @package Bank\DataAccess
+ * @package Bank\DataStore
  */
 interface RepoInterface
 {

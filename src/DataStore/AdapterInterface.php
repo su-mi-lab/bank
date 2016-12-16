@@ -1,14 +1,12 @@
 <?php
 
-namespace Bank;
+namespace Bank\DataStore;
 
 use Bank\Builder\QueryBuilderInterface;
-use Bank\DataAccess\ConnectionInterface;
-use Bank\DataAccess\RepoInterface;
 
 /**
  * Interface AdapterInterface
- * @package Bank
+ * @package Bank\DataStore
  */
 interface AdapterInterface
 {

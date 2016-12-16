@@ -2,7 +2,7 @@
 
 namespace Bank\Builder;
 
-use Bank\DataAccess\ConnectionInterface;
+use Bank\DataStore\ConnectionInterface;
 use Bank\Query\Predicate\Expression;
 
 /**

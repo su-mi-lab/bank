@@ -12,7 +12,7 @@ use Bank\Builder\Predicate\Limit;
 use Bank\Builder\Predicate\Order;
 use Bank\Builder\Predicate\Set;
 use Bank\Builder\Predicate\Where;
-use Bank\DataAccess\ConnectionInterface;
+use Bank\DataStore\ConnectionInterface;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
 use Bank\Query\Select;

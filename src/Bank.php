@@ -2,6 +2,9 @@
 
 namespace Bank;
 
+use Bank\DataStore\Adapter;
+use Bank\DataStore\AdapterInterface;
+
 /**
  * Class Bank
  * @package Bank
@@ -36,7 +39,7 @@ class Bank
     public static function adapter($adapterNamespace = self::ADAPTER_DEFAULT_NAMESPACE): AdapterInterface
     {
         if (!isset(self::$config[$adapterNamespace])) {
-            throw new \Exception('not found adapter config');
+            throw new \Exception('not found adapter Query.config');
         }
 
         if (isset(self::$adapter[$adapterNamespace])) {

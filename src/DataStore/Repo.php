@@ -1,8 +1,7 @@
 <?php
 
-namespace Bank\DataAccess;
+namespace Bank\DataStore;
 
-use Bank\AdapterInterface;
 use Bank\Builder\QueryBuilderInterface;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
@@ -11,7 +10,7 @@ use Bank\Query\Update;
 
 /**
  * Class Repo
- * @package Bank\DataAccess
+ * @package Bank\DataStore
  */
 class Repo implements RepoInterface
 {

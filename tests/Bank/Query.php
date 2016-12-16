@@ -1,17 +1,19 @@
 <?php
 
+use Bank\DataStore\Adapter;
+
 /**
  * Class Query
  */
 abstract class Query extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var Bank\Adapter
+     * @var Adapter
      */
     protected $adapter;
 
     /**
-     * @var Bank\DataAccess\RepoInterface
+     * @var Bank\DataStore\RepoInterface
      */
     protected $repo;
 
