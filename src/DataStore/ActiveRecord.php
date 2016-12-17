@@ -16,15 +16,14 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
     use MapperTrait, ModelTrait;
 
     /**
-     * @var AdapterInterface
-     */
-    private $adapter;
-
-    /**
      * ActiveRecord constructor.
+     * @param AdapterInterface|null $adapter
      */
-    public function __construct()
+    public function __construct(AdapterInterface $adapter = null)
     {
+        if ($adapter) {
+            $this->injectionAdapter($adapter);
+        }
         self::injectionSchema();
     }
 
@@ -35,6 +34,8 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
     {
         $this->adapter = $adapter;
         $this->repo = $this->adapter->getRepo();
+
+        return $this;
     }
 
     /**
@@ -47,7 +48,7 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
         }
 
         $res = $this->insert($this);
-        $id = $this->adapter->getConnection()->lastInsertId();
+        $id = $this->getConnection()->lastInsertId();
         $this->{$this->getPrimaryCol()} = $id;
 
         return $res;
@@ -82,7 +83,14 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
      */
     public function load(Select $query)
     {
-        return $this->repo()->find($query, static::class);
+        /** @var ActiveRecordInterface $result */
+        $result = $this->repo()->find($query, static::class);
+
+        if ($result) {
+            $result->injectionAdapter($this->adapter);
+        }
+
+        return $result;
     }
 
     /**
@@ -91,7 +99,15 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
      */
     public function loadAll(Select $query): array
     {
-        return $this->repo()->findAll($query, static::class);
-    }
+        $result = $this->repo()->findAll($query, static::class);
 
+        if ($result) {
+            $result = array_map(function ($model) {
+                /** @var ActiveRecordInterface $model */
+                return $model->injectionAdapter($this->adapter);
+            }, $result);
+        }
+
+        return $result;
+    }
 }

@@ -17,12 +17,18 @@ abstract class Mapper implements MapperInterface
     use MapperTrait;
 
     /**
+     * @var ModelInterface
+     */
+    protected $model;
+
+    /**
      * Mapper constructor.
      * @param AdapterInterface $adapter
      */
     public function __construct(AdapterInterface $adapter)
     {
-        $this->repo = $adapter->getRepo();
+        $this->adapter = $adapter;
+        $this->repo = $this->adapter->getRepo();
     }
 
     /**

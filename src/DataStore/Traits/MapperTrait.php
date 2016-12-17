@@ -2,6 +2,8 @@
 
 namespace Bank\DataStore\Traits;
 
+use Bank\DataStore\AdapterInterface;
+use Bank\DataStore\ConnectionInterface;
 use Bank\DataStore\ModelInterface;
 use Bank\DataStore\RepoInterface;
 use Bank\Query\Insert;
@@ -19,9 +21,17 @@ trait MapperTrait
     private $repo;
 
     /**
-     * @var ModelInterface
+     * @var AdapterInterface
      */
-    protected $model;
+    protected $adapter;
+
+    /**
+     * @return ConnectionInterface
+     */
+    public function getConnection(): ConnectionInterface
+    {
+        return $this->adapter->getConnection();
+    }
 
     /**
      * @param ModelInterface $model

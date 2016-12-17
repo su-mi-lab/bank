@@ -9,15 +9,12 @@ class ModelTest extends Query
 {
     function testInsertAndUpdateAndDelete()
     {
-        \Bank\Bank::setConfig(include __DIR__ . '/config/bank.php');
-        $adapter = \Bank\Bank::adapter();
-
         $user = new User();
-        $mapper = new UserMapper($adapter);
+        $mapper = new UserMapper($this->adapter);
         $user->name = 'model';
         $result_save = $mapper->save($user);
 
-        $id = $adapter->getConnection()->lastInsertId();
+        $id = $mapper->getConnection()->lastInsertId();
         $user->id = $id;
         $user->name = 'model update';
         $result_update = $mapper->save($user);
@@ -35,20 +32,15 @@ class ModelTest extends Query
 
     function testActiveRecord()
     {
-        \Bank\Bank::setConfig(include __DIR__ . '/config/bank.php');
-        $adapter = \Bank\Bank::adapter();
-
-        $user = new UserRecord();
-        $user->injectionAdapter($adapter);
+        $user = new UserRecord($this->adapter);
         $user->name = 'model';
         $result_save = $user->save();
 
         $user->name = 'model update';
         $result_update = $user->save();
         $id = $user->id;
-
         $result_load = $user->loadById($id);
-        $result_delete = $user->delete();
+        $result_delete = $result_load->delete();
         $result_delete_load = $user->loadById($id);
 
         $this->assertEquals($result_save, 1);
