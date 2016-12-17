@@ -13,7 +13,7 @@ return [
             'password' => '',
         ]
     ],
-    'schema' => __DIR__ . '/../schema/' # When using data mapper
+    'schema' => __DIR__ . '/../schema/' # When using DataMapper or ActiveRecord
 ];
 ```
 
