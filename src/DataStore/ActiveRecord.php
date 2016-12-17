@@ -2,7 +2,6 @@
 
 namespace Bank\DataStore;
 
-use Bank\Bank;
 use Bank\DataStore\Traits\MapperTrait;
 use Bank\DataStore\Traits\ModelTrait;
 use Bank\Query\Delete;
@@ -23,13 +22,19 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
 
     /**
      * ActiveRecord constructor.
-     * @param AdapterInterface $adapter
      */
-    public function __construct(AdapterInterface $adapter)
+    public function __construct()
+    {
+        self::injectionSchema();
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function injectionAdapter(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
         $this->repo = $this->adapter->getRepo();
-        self::injectionSchema();
     }
 
     /**

@@ -17,7 +17,7 @@ class ModelTest extends Query
         $user->name = 'model';
         $result_save = $mapper->save($user);
 
-        $id = $this->adapter->getConnection()->lastInsertId();
+        $id = $adapter->getConnection()->lastInsertId();
         $user->id = $id;
         $user->name = 'model update';
         $result_update = $mapper->save($user);
@@ -38,34 +38,23 @@ class ModelTest extends Query
         \Bank\Bank::setConfig(include __DIR__ . '/config/bank.php');
         $adapter = \Bank\Bank::adapter();
 
-        $user = new UserRecord($adapter);
+        $user = new UserRecord();
+        $user->injectionAdapter($adapter);
         $user->name = 'model';
-
-        $this->assertEquals(
-            $user->save(),
-            1
-        );
+        $result_save = $user->save();
 
         $user->name = 'model update';
+        $result_update = $user->save();
+        $id = $user->id;
 
-        $this->assertEquals(
-            $user->save(),
-            1
-        );
+        $result_load = $user->loadById($id);
+        $result_delete = $user->delete();
+        $result_delete_load = $user->loadById($id);
 
-//        $this->assertEquals(
-//            (bool)$user->loadById($user->id),
-//            true
-//        );
-
-//        $this->assertEquals(
-//            $user->delete(),
-//            1
-//        );
-//
-//        $this->assertEquals(
-//            (bool)$user->loadById($user->id),
-//            false
-//        );
+        $this->assertEquals($result_save, 1);
+        $this->assertEquals($result_update, 1);
+        $this->assertEquals((bool)$result_load, true);
+        $this->assertEquals($result_delete, 1);
+        $this->assertEquals((bool)$result_delete_load, false);
     }
 }

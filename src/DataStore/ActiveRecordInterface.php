@@ -36,4 +36,9 @@ interface ActiveRecordInterface
      * @return array
      */
     public function loadAll(Select $query): array;
+
+    /**
+     * @throws \Exception
+     */
+    public function injectionAdapter(AdapterInterface $adapter);
 }
