@@ -17,12 +17,18 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
     use MapperTrait, ModelTrait;
 
     /**
-     * ActiveRecord constructor.
+     * @var AdapterInterface
      */
-    public function __construct()
+    private $adapter;
+
+    /**
+     * ActiveRecord constructor.
+     * @param AdapterInterface $adapter
+     */
+    public function __construct(AdapterInterface $adapter)
     {
-        $adapter = Bank::adapter($this->adapterName);
-        $this->repo = $adapter->getRepo();
+        $this->adapter = $adapter;
+        $this->repo = $this->adapter->getRepo();
         self::injectionSchema();
     }
 
@@ -36,7 +42,7 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
         }
 
         $res = $this->insert($this);
-        $id = Bank::adapter($this->adapterName)->getConnection()->lastInsertId();
+        $id = $this->adapter->getConnection()->lastInsertId();
         $this->{$this->getPrimaryCol()} = $id;
 
         return $res;

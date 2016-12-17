@@ -2,11 +2,9 @@
 
 namespace Bank\DataStore\Traits;
 
-use Bank\Bank;
 use Bank\DataStore\ModelInterface;
 use Bank\DataStore\RepoInterface;
 use Bank\Query\Insert;
-use Bank\Query\Select;
 use Bank\Query\Update;
 
 /**
@@ -19,11 +17,6 @@ trait MapperTrait
      * @var RepoInterface
      */
     private $repo;
-
-    /**
-     * @var string
-     */
-    protected $adapterName = Bank::ADAPTER_DEFAULT_NAMESPACE;
 
     /**
      * @var ModelInterface

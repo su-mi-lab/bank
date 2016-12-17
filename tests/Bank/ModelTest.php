@@ -9,8 +9,11 @@ class ModelTest extends Query
 {
     function testInsertAndUpdateAndDelete()
     {
+        \Bank\Bank::setConfig(include __DIR__ . '/config/bank.php');
+        $adapter = \Bank\Bank::adapter();
+
         $user = new User();
-        $mapper = new UserMapper();
+        $mapper = new UserMapper($adapter);
         $user->name = 'model';
         $result_save = $mapper->save($user);
 
@@ -32,7 +35,10 @@ class ModelTest extends Query
 
     function testActiveRecord()
     {
-        $user = new UserRecord();
+        \Bank\Bank::setConfig(include __DIR__ . '/config/bank.php');
+        $adapter = \Bank\Bank::adapter();
+
+        $user = new UserRecord($adapter);
         $user->name = 'model';
 
         $this->assertEquals(
