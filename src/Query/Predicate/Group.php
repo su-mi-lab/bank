@@ -35,5 +35,4 @@ class Group
     {
         return $this->groupBy;
     }
-
 }

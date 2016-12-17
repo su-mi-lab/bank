@@ -7,7 +7,7 @@ use Bank\Query\Predicate\Set as SetQuery;
 
 /**
  * Class Set
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class Set extends PredicateBuilder
 {
@@ -16,13 +16,14 @@ class Set extends PredicateBuilder
     /**
      * @param SetQuery $set
      * @return string
+     * @throws \Exception
      */
     public function build($set): string
     {
         $sets = $set->getSets();
 
         if (!$sets) {
-            return '';
+            throw new \Exception("Parameter is invalid");
         }
 
         $query = array_map(function ($key) use ($sets) {
@@ -31,5 +32,4 @@ class Set extends PredicateBuilder
 
         return implode(',', $query);
     }
-
 }

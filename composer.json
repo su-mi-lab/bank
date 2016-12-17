@@ -1,7 +1,7 @@
 {
     "name": "bank-lab/bank",
-    "description": "PDO Wrapper",
-    "keywords": ["PDO Wrapper"],
+    "description": "PDO Wrapper (DataMapper and ActiveRecord) ",
+    "keywords": ["PDO Wrapper", "ActiveRecord", "DataMapper"],
     "license": "MIT",
     "support": {
         "issues": "https://github.com/bank-lab/bank/issues",

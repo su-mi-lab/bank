@@ -1,8 +1,7 @@
 <?php
 
-namespace Bank\DataAccess;
+namespace Bank\DataStore;
 
-use Bank\AdapterInterface;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
 use Bank\Query\Select;
@@ -10,22 +9,24 @@ use Bank\Query\Update;
 
 /**
  * Interface RepoInterface
- * @package Bank
+ * @package Bank\DataStore
  */
 interface RepoInterface
 {
 
     /**
      * @param Select $query
-     * @return array
+     * @param string $fetchClass
+     * @return array|ModelInterface
      */
-    public function find(Select $query): array;
+    public function find(Select $query, $fetchClass = null);
 
     /**
      * @param Select $query
+     * @param string $fetchClass
      * @return array
      */
-    public function findAll(Select $query): array;
+    public function findAll(Select $query, $fetchClass = null): array;
 
     /**
      * @param Insert $query
@@ -44,6 +45,4 @@ interface RepoInterface
      * @return int
      */
     public function delete(Delete $query): int;
-
-
 }

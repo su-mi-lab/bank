@@ -2,12 +2,12 @@
 
 namespace Bank\Builder;
 
-use Bank\DataAccess\ConnectionInterface;
+use Bank\DataStore\ConnectionInterface;
 use Bank\Query\Predicate\Expression;
 
 /**
- * Class AbstractBuilder
- * @package Builder
+ * Class PredicateBuilder
+ * @package Bank\Builder
  */
 abstract class PredicateBuilder implements PredicateBuilderInterface
 {
@@ -89,6 +89,5 @@ abstract class PredicateBuilder implements PredicateBuilderInterface
         }
 
         return $tablePredicate;
-
     }
 }

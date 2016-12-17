@@ -33,6 +33,4 @@ class Column
     {
         return $this->columns;
     }
-
-
 }

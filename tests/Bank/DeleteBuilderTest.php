@@ -9,8 +9,6 @@ class DeleteBuilderTest extends Query
 
     function testFromQuery()
     {
-        $this->adapter->getConnection()->beginTransaction();
-
         $delete = new Delete("users");
         $delete->where->like('name', "name%");
 
@@ -20,8 +18,6 @@ class DeleteBuilderTest extends Query
         );
 
         $this->repo->delete($delete);
-
-        $this->adapter->getConnection()->rollback();
     }
 
 }

@@ -7,7 +7,7 @@ use Bank\Query\Predicate\Limit as LimitQuery;
 
 /**
  * Class Limit
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class Limit extends PredicateBuilder
 {
@@ -30,14 +30,13 @@ class Limit extends PredicateBuilder
         }
 
         if ($limit !== null) {
-            $query .= ' ' . self::LIMIT_CLAUSE . ' ' . $limit;
+            $query .= ' ' . static::LIMIT_CLAUSE . ' ' . $limit;
         }
 
         if ($offset !== null) {
-            $query .= ' ' . self::OFFSET_CLAUSE . ' ' . $offset;
+            $query .= ' ' . static::OFFSET_CLAUSE . ' ' . $offset;
         }
 
         return $query;
     }
-
 }

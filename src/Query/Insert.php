@@ -1,6 +1,7 @@
 <?php
 
 namespace Bank\Query;
+
 use Bank\Query\Predicate\From;
 use Bank\Query\Predicate\Values;
 

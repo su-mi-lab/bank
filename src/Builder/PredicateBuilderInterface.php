@@ -13,5 +13,4 @@ interface PredicateBuilderInterface
      * @return string
      */
     public function build($query): string;
-
 }

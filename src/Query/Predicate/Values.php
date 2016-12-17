@@ -30,6 +30,4 @@ class Values
     {
         return $this->values;
     }
-
-
 }

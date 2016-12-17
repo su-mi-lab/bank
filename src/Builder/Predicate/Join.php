@@ -7,7 +7,7 @@ use Bank\Query\Predicate\Join as JoinQuery;
 
 /**
  * Class Join
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class Join extends PredicateBuilder
 {
@@ -34,5 +34,4 @@ class Join extends PredicateBuilder
 
         return implode('', $query);
     }
-
 }

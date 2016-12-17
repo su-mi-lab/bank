@@ -28,5 +28,4 @@ class From
     {
         return $this->table;
     }
-
 }

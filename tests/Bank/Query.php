@@ -1,7 +1,6 @@
 <?php
 
-use Bank\Adapter;
-use Bank\DataAccess\Repo;
+use Bank\DataStore\Adapter;
 
 /**
  * Class Query
@@ -9,18 +8,19 @@ use Bank\DataAccess\Repo;
 abstract class Query extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var Bank\Adapter
+     * @var Adapter
      */
     protected $adapter;
 
     /**
-     * @var Bank\DataAccess\RepoInterface
+     * @var Bank\DataStore\RepoInterface
      */
     protected $repo;
 
     protected function setUp()
     {
-        $this->adapter = new Adapter('mysql:host=localhost;dbname=bank;charset=utf8', 'root', '');
+        \Bank\Bank::setConfig(include __DIR__ . '/config/bank.php');
+        $this->adapter = \Bank\Bank::adapter();
         $this->repo = $this->adapter->getRepo();
     }
 

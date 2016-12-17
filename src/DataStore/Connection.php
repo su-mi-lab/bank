@@ -1,10 +1,10 @@
 <?php
 
-namespace Bank\DataAccess;
+namespace Bank\DataStore;
 
 /**
  * Class Connection
- * @package Bank\Platform\Mysql
+ * @package Bank\DataStore
  */
 class Connection implements ConnectionInterface
 {
@@ -13,6 +13,12 @@ class Connection implements ConnectionInterface
      */
     private $pdo;
 
+    /**
+     * Connection constructor.
+     * @param $dns
+     * @param $user
+     * @param $password
+     */
     function __construct($dns, $user, $password)
     {
         $this->pdo = new \PDO($dns, $user, $password);
@@ -84,7 +90,6 @@ class Connection implements ConnectionInterface
     {
         return $this->pdo->quote($string);
     }
-
 
     /**
      * @param string $sql

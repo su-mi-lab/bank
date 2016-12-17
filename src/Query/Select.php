@@ -238,5 +238,4 @@ class Select
     {
         return $this->limit;
     }
-
 }

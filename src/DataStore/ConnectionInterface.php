@@ -1,10 +1,10 @@
 <?php
 
-namespace Bank\DataAccess;
+namespace Bank\DataStore;
 
 /**
  * Interface ConnectionInterface
- * @package Bank\Platform
+ * @package Bank\DataStore
  */
 interface ConnectionInterface
 {

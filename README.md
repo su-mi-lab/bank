@@ -4,24 +4,13 @@
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![Total Downloads](https://poser.pugx.org/bank-lab/bank/downloads)](https://packagist.org/packages/bank-lab/bank)
 [![Code Climate](https://codeclimate.com/github/bank-lab/bank/badges/gpa.svg)](https://codeclimate.com/github/bank-lab/bank)
-[![Issue Count](https://codeclimate.com/github/bank-lab/bank/badges/issue_count.svg)](https://codeclimate.com/github/bank-lab/bank)
 
-PDO Wrapper
+PDO Wrapper (DataMapper and ActiveRecord)
 
-## Install Bank
+## Guides
 
-Add this to your composer.json file, in the require object:
+[Guides](https://github.com/bank-lab/bank/tree/1.0.0-beta.1/docs)
 
-```php
-"bank-lab/bank": "1.0.0-beta.0"
-```
 
-Alternately, clone the repository and manually invoke `composer` using the shipped
-
-```php
-php composer.phar self-update
-php composer.phar install
-```
-
-## Support　DB
+## Support DB
 ・Mysql

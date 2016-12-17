@@ -1,16 +1,12 @@
 <?php
 
-namespace Bank;
+namespace Bank\DataStore;
 
 use Bank\Builder\QueryBuilderInterface;
-use Bank\DataAccess\Connection;
-use Bank\DataAccess\ConnectionInterface;
-use Bank\DataAccess\Repo;
-use Bank\DataAccess\RepoInterface;
 
 /**
  * Class Adapter
- * @package Bank
+ * @package Bank\DataStore
  */
 class Adapter implements AdapterInterface
 {
@@ -74,6 +70,4 @@ class Adapter implements AdapterInterface
     {
         return $this->repo;
     }
-
-
 }

@@ -7,7 +7,7 @@ use Bank\Query\Predicate\From as FromQuery;
 
 /**
  * Class From
- * @package Bank\Query\Predicate
+ * @package Bank\Builder\Predicate
  */
 class From extends PredicateBuilder
 {
@@ -16,11 +16,16 @@ class From extends PredicateBuilder
     /**
      * @param FromQuery $from
      * @return string
+     * @throws \Exception
      */
     public function build($from): string
     {
         $table = $from->getTable();
+
+        if (!$table) {
+            throw new \Exception("Parameter is invalid");
+        }
+
         return $this->castTablePredicate($table);
     }
-
 }

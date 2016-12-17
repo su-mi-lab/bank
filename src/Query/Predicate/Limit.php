@@ -53,5 +53,4 @@ class Limit
         $this->offset = $offset;
         return $this;
     }
-
 }

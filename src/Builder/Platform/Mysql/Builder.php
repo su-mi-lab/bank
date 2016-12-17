@@ -12,7 +12,7 @@ use Bank\Builder\Predicate\Limit;
 use Bank\Builder\Predicate\Order;
 use Bank\Builder\Predicate\Set;
 use Bank\Builder\Predicate\Where;
-use Bank\DataAccess\ConnectionInterface;
+use Bank\DataStore\ConnectionInterface;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
 use Bank\Query\Select;
@@ -20,7 +20,7 @@ use Bank\Query\Update;
 
 /**
  * Class Builder
- * @package Bank\Platform\Mysql
+ * @package Bank\Builder\Platform\Mysql
  */
 class Builder implements QueryBuilderInterface
 {
@@ -29,7 +29,9 @@ class Builder implements QueryBuilderInterface
      */
     protected $connection;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private $bindValue = [];
 
     /**
@@ -38,7 +40,6 @@ class Builder implements QueryBuilderInterface
      */
     function __construct(ConnectionInterface $connection)
     {
-
         $this->connection = $connection;
     }
 
@@ -81,7 +82,7 @@ class Builder implements QueryBuilderInterface
         if ($queryString = $where->build($query->where)) {
             $sql .= " " . $where::WHERE_CLAUSE . " " . $queryString;
         }
-        
+
         if ($queryString = $group->build($query->getGroup())) {
             $sql .= " " . $group::GROUP_CLAUSE . " " . $queryString;
         }
@@ -105,7 +106,6 @@ class Builder implements QueryBuilderInterface
      */
     public function buildInsertQuery(Insert $query): string
     {
-
         $form = new From($this->connection);
         $values = new Values($this->connection);
 
@@ -178,6 +178,4 @@ class Builder implements QueryBuilderInterface
 
         return $sql;
     }
-
-
 }
