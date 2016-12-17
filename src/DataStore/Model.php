@@ -2,6 +2,8 @@
 
 namespace Bank\DataStore;
 
+use Bank\Bank;
+
 /**
  * Class Model
  * @package Bank\DataStore
@@ -27,6 +29,16 @@ abstract class Model implements ModelInterface
      * @var string
      */
     protected $primaryKey = null;
+
+    /**
+     * @var string
+     */
+    protected $schema = null;
+
+    public function __construct()
+    {
+        $this->injectionSchema();
+    }
 
     /**
      * @return string
@@ -83,5 +95,14 @@ abstract class Model implements ModelInterface
         }
 
         return null;
+    }
+
+    protected function injectionSchema()
+    {
+        $schema = Bank::schema($this->schema);
+
+        $this->tableName = $schema["table_name"] ?? null;
+        $this->primaryKey = $schema["primary_key"] ?? null;
+        $this->tableSchema = $schema["record"] ?? null;
     }
 }
