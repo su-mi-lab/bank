@@ -27,10 +27,10 @@ class ModelTest extends Query
             1
         );
 
-        $this->assertEquals(
-            (bool)$mapper->loadById($id),
-            true
-        );
+//        $this->assertEquals(
+//            (bool)$mapper->loadById($id),
+//            true
+//        );
 
 //        $this->assertEquals(
 //            $mapper->delete($user),
