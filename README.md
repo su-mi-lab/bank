@@ -9,7 +9,7 @@ PDO Wrapper (DataMapper and ActiveRecord)
 
 ## Guides
 
-[Guides](https://github.com/bank-lab/bank/tree/1.0.0-beta.1/docs)
+[Guides](https://github.com/bank-lab/bank/tree/master/docs)
 
 
 ## Support DB
