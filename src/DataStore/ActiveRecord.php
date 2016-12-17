@@ -36,7 +36,7 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
         }
 
         $res = $this->insert($this);
-        $id = $adapter = Bank::adapter($this->adapterName)->getConnection()->lastInsertId();
+        $id = Bank::adapter($this->adapterName)->getConnection()->lastInsertId();
         $this->{$this->getPrimaryCol()} = $id;
 
         return $res;

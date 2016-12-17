@@ -11,32 +11,23 @@ class ModelTest extends Query
     {
         $user = new User();
         $mapper = new UserMapper();
-
         $user->name = 'model';
-
-        $this->assertEquals(
-            $mapper->save($user),
-            1
-        );
+        $result_save = $mapper->save($user);
 
         $id = $this->adapter->getConnection()->lastInsertId();
         $user->id = $id;
         $user->name = 'model update';
+        $result_update = $mapper->save($user);
 
-        $this->assertEquals(
-            $mapper->save($user),
-            1
-        );
+        $result_load = $mapper->loadById($id);
+        $result_delete = $mapper->delete($user);
+        $result_delete_load = $mapper->loadById($id);
 
-//        $this->assertEquals(
-//            (bool)$mapper->loadById($id),
-//            true
-//        );
-
-//        $this->assertEquals(
-//            $mapper->delete($user),
-//            1
-//        );
+        $this->assertEquals($result_save, 1);
+        $this->assertEquals($result_update, 1);
+        $this->assertEquals((bool)$result_load, true);
+        $this->assertEquals($result_delete, 1);
+        $this->assertEquals((bool)$result_delete_load, false);
     }
 
     function testActiveRecord()
