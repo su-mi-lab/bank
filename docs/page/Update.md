@@ -4,8 +4,8 @@
 ### Execution
 
 ```
- $update = new Update("users");
- $update
+$update = new Update("users");
+$update
 ->set(['name' => 'test'])
 ->where
 ->equalTo('id', 1);
@@ -17,8 +17,8 @@ $repo->update($update);
 ### QueryBuilder
 
 ```
- $update = new Update("users");
- $update
+$update = new Update("users");
+$update
 ->set(['name' => 'test'])
 ->where
 ->equalTo('id', 1);
