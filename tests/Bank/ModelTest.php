@@ -10,65 +10,43 @@ class ModelTest extends Query
     function testInsertAndUpdateAndDelete()
     {
         $user = new User();
-        $mapper = new UserMapper();
-
+        $mapper = new UserMapper($this->adapter);
         $user->name = 'model';
+        $result_save = $mapper->save($user);
 
-        $this->assertEquals(
-            $mapper->save($user),
-            1
-        );
-
-        $id = $this->adapter->getConnection()->lastInsertId();
+        $id = $mapper->getConnection()->lastInsertId();
         $user->id = $id;
         $user->name = 'model update';
+        $result_update = $mapper->save($user);
 
-        $this->assertEquals(
-            $mapper->save($user),
-            1
-        );
+        $result_load = $mapper->loadById($id);
+        $result_delete = $mapper->delete($user);
+        $result_delete_load = $mapper->loadById($id);
 
-//        $this->assertEquals(
-//            (bool)$mapper->loadById($id),
-//            true
-//        );
-
-//        $this->assertEquals(
-//            $mapper->delete($user),
-//            1
-//        );
+        $this->assertEquals($result_save, 1);
+        $this->assertEquals($result_update, 1);
+        $this->assertEquals((bool)$result_load, true);
+        $this->assertEquals($result_delete, 1);
+        $this->assertEquals((bool)$result_delete_load, false);
     }
 
     function testActiveRecord()
     {
-        $user = new UserRecord();
+        $user = new UserRecord($this->adapter);
         $user->name = 'model';
-
-        $this->assertEquals(
-            $user->save(),
-            1
-        );
+        $result_save = $user->save();
 
         $user->name = 'model update';
+        $result_update = $user->save();
+        $id = $user->id;
+        $result_load = $user->loadById($id);
+        $result_delete = $result_load->delete();
+        $result_delete_load = $user->loadById($id);
 
-        $this->assertEquals(
-            $user->save(),
-            1
-        );
-
-//        $this->assertEquals(
-//            (bool)$user->loadById($user->id),
-//            true
-//        );
-
-//        $this->assertEquals(
-//            $user->delete(),
-//            1
-//        );
-//
-//        $this->assertEquals(
-//            (bool)$user->loadById($user->id),
-//            false
-//        );
+        $this->assertEquals($result_save, 1);
+        $this->assertEquals($result_update, 1);
+        $this->assertEquals((bool)$result_load, true);
+        $this->assertEquals($result_delete, 1);
+        $this->assertEquals((bool)$result_delete_load, false);
     }
 }

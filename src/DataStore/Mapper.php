@@ -2,7 +2,6 @@
 
 namespace Bank\DataStore;
 
-use Bank\Bank;
 use Bank\DataStore\Traits\MapperTrait;
 use Bank\Query\Delete;
 use Bank\Query\Select;
@@ -18,12 +17,18 @@ abstract class Mapper implements MapperInterface
     use MapperTrait;
 
     /**
-     * Mapper constructor.
+     * @var ModelInterface
      */
-    public function __construct()
+    protected $model;
+
+    /**
+     * Mapper constructor.
+     * @param AdapterInterface $adapter
+     */
+    public function __construct(AdapterInterface $adapter)
     {
-        $adapter = Bank::adapter($this->adapterName);
-        $this->repo = $adapter->getRepo();
+        $this->adapter = $adapter;
+        $this->repo = $this->adapter->getRepo();
     }
 
     /**

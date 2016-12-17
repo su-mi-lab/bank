@@ -6,8 +6,7 @@ php:
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --prefer-source
-  - mysql -uroot -e "create database bank"
-  - mysql -uroot -e "use bank; create table users (id int(11), name varchar(255))"
+  - mysql -uroot < .travis/schema.sql
 
 script:
   - mkdir -p build/logs
