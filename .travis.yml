@@ -6,8 +6,7 @@ php:
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --prefer-source
-  - mysql -uroot -e "create database bank"
-  - mysql -uroot -e "use bank; CREATE TABLE `users` (  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,  `name` varchar(255) DEFAULT NULL,  PRIMARY KEY (`id`),  UNIQUE KEY `id` (`id`))"
+  - mysql -uroot < .travis/schema.sql
 
 script:
   - mkdir -p build/logs
