@@ -5,7 +5,7 @@
 [![Total Downloads](https://poser.pugx.org/bank-lab/bank/downloads)](https://packagist.org/packages/bank-lab/bank)
 [![Code Climate](https://codeclimate.com/github/bank-lab/bank/badges/gpa.svg)](https://codeclimate.com/github/bank-lab/bank)
 
-PDO Wrapper
+PDO Wrapper (DataMapper and ActiveRecord)
 
 ## Guides
 
