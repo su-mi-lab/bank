@@ -30,6 +30,15 @@ class Mapper implements MapperInterface
     protected $model;
 
     /**
+     * Mapper constructor.
+     */
+    public function __construct()
+    {
+        $adapter = Bank::adapter($this->adapterName);
+        $this->repo = $adapter->getRepo();
+    }
+
+    /**
      * @param ModelInterface $model
      * @return int
      */
@@ -112,17 +121,9 @@ class Mapper implements MapperInterface
 
     /**
      * @return RepoInterface
-     * @throws \Exception
      */
     protected function repo(): RepoInterface
     {
-        if ($this->repo) {
-            return $this->repo;
-        }
-
-        $adapter = Bank::adapter($this->adapterName);
-        $this->repo = $adapter->getRepo();
-
         return $this->repo;
     }
 }
