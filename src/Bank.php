@@ -33,7 +33,7 @@ class Bank
      */
     public static function setConfig(array $config)
     {
-        self::$config = $config;
+        static::$config = $config;
     }
 
     /**
@@ -43,15 +43,15 @@ class Bank
      */
     public static function adapter($adapterNamespace = self::ADAPTER_DEFAULT_NAMESPACE): AdapterInterface
     {
-        if (!isset(self::$config['adapter'][$adapterNamespace])) {
+        if (!isset(static::$config['adapter'][$adapterNamespace])) {
             throw new \Exception('not found adapter Query.config');
         }
 
-        if (isset(self::$adapter[$adapterNamespace])) {
-            return self::$adapter[$adapterNamespace];
+        if (isset(static::$adapter[$adapterNamespace])) {
+            return static::$adapter[$adapterNamespace];
         }
 
-        $config = self::$config['adapter'][$adapterNamespace];
+        $config = static::$config['adapter'][$adapterNamespace];
 
         $dns = $config['dns'] ?? null;
         $user = $config['user'] ?? null;
@@ -61,9 +61,9 @@ class Bank
             throw new \Exception('Parameter is invalid');
         }
 
-        self::$adapter[$adapterNamespace] = new Adapter($dns, $user, $password);
+        static::$adapter[$adapterNamespace] = new Adapter($dns, $user, $password);
 
-        return self::$adapter[$adapterNamespace];
+        return static::$adapter[$adapterNamespace];
     }
 
     /**
@@ -73,17 +73,17 @@ class Bank
      */
     public static function schema($schemaName)
     {
-        if (!isset(self::$config['schema'])) {
+        if (!isset(static::$config['schema'])) {
             throw new \Exception('not found schema dir');
         }
 
-        if (isset(self::$schema[$schemaName])) {
-            return self::$schema[$schemaName];
+        if (isset(static::$schema[$schemaName])) {
+            return static::$schema[$schemaName];
         }
 
-        $schemaDir = self::$config['schema'];
-        self::$schema[$schemaName] = include $schemaDir . $schemaName;
+        $schemaDir = static::$config['schema'];
+        static::$schema[$schemaName] = include $schemaDir . $schemaName;
 
-        return self::$schema[$schemaName];
+        return static::$schema[$schemaName];
     }
 }

@@ -52,7 +52,7 @@ class Where
      */
     public function equalTo($col, $val): Where
     {
-        $this->addConditions($col, self::OPERATOR_EQUAL, $val);
+        $this->addConditions($col, static::OPERATOR_EQUAL, $val);
         return $this;
     }
 
@@ -63,7 +63,7 @@ class Where
      */
     public function notEqualTo($col, $val): Where
     {
-        $this->addConditions($col, self::OPERATOR_NOT_EQUAL, $val);
+        $this->addConditions($col, static::OPERATOR_NOT_EQUAL, $val);
         return $this;
     }
 
@@ -74,7 +74,7 @@ class Where
      */
     public function greaterThan($col, $val): Where
     {
-        $this->addConditions($col, self::OPERATOR_GREATER_THAN, $val);
+        $this->addConditions($col, static::OPERATOR_GREATER_THAN, $val);
         return $this;
     }
 
@@ -85,7 +85,7 @@ class Where
      */
     public function greaterThanOrEqualTo($col, $val): Where
     {
-        $this->addConditions($col, self::OPERATOR_GREATER_THAN_OR_EQUAL, $val);
+        $this->addConditions($col, static::OPERATOR_GREATER_THAN_OR_EQUAL, $val);
         return $this;
     }
 
@@ -96,7 +96,7 @@ class Where
      */
     public function lessThan($col, $val): Where
     {
-        $this->addConditions($col, self::OPERATOR_LESS_THAN, $val);
+        $this->addConditions($col, static::OPERATOR_LESS_THAN, $val);
         return $this;
     }
 
@@ -107,7 +107,7 @@ class Where
      */
     public function lessThanOrEqualTo($col, $val): Where
     {
-        $this->addConditions($col, self::OPERATOR_LESS_THAN_OR_EQUAL, $val);
+        $this->addConditions($col, static::OPERATOR_LESS_THAN_OR_EQUAL, $val);
         return $this;
     }
 
@@ -118,7 +118,7 @@ class Where
      */
     public function equalIn($col, $items): Where
     {
-        $this->addConditions($col, self::OPERATOR_INCLUDE, $items);
+        $this->addConditions($col, static::OPERATOR_INCLUDE, $items);
         return $this;
     }
 
@@ -128,7 +128,7 @@ class Where
      */
     public function isNull($col): Where
     {
-        $this->addConditions($col, self::OPERATOR_IS_NULL);
+        $this->addConditions($col, static::OPERATOR_IS_NULL);
         return $this;
     }
 
@@ -138,7 +138,7 @@ class Where
      */
     public function isNotNull($col): Where
     {
-        $this->addConditions($col, self::OPERATOR_IS_NOT_NULL);
+        $this->addConditions($col, static::OPERATOR_IS_NOT_NULL);
         return $this;
     }
 
@@ -149,7 +149,7 @@ class Where
      */
     public function like($col, $val): Where
     {
-        $this->addConditions($col, self::OPERATOR_LIKE, $val);
+        $this->addConditions($col, static::OPERATOR_LIKE, $val);
         return $this;
     }
 
@@ -160,7 +160,7 @@ class Where
      */
     public function notLike($col, $val): Where
     {
-        $this->addConditions($col, self::OPERATOR_NOT_LIKE, $val);
+        $this->addConditions($col, static::OPERATOR_NOT_LIKE, $val);
         return $this;
     }
 

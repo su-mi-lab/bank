@@ -5,6 +5,7 @@ namespace Bank\DataStore;
 use Bank\Bank;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
+use Bank\Query\Select;
 use Bank\Query\Update;
 
 /**
@@ -22,6 +23,11 @@ class Mapper implements MapperInterface
      * @var string
      */
     protected $adapterName = Bank::ADAPTER_DEFAULT_NAMESPACE;
+
+    /**
+     * @var ModelInterface
+     */
+    protected $model;
 
     /**
      * @param ModelInterface $model
@@ -46,10 +52,37 @@ class Mapper implements MapperInterface
             return 0;
         }
 
-        $delete = new Delete($model->getTableName());
+        $delete = new Delete($model::getTableName());
         $delete->where->equalTo($model->getPrimaryCol(), $model->getPrimaryKey());
 
         return $this->repo()->delete($delete);
+    }
+
+    /**
+     * @return Select
+     */
+    public function select(): Select
+    {
+        $model = $this->model;
+        return new Select($model::getTableName());
+    }
+
+    /**
+     * @param Select $query
+     * @return ModelInterface
+     */
+    public function load(Select $query): ModelInterface
+    {
+        return $this->repo()->find($query, $this->model);
+    }
+
+    /**
+     * @param Select $query
+     * @return array
+     */
+    public function loadAll(Select $query): array
+    {
+        return $this->repo()->findAll($query, $this->model);
     }
 
     /**
@@ -58,7 +91,7 @@ class Mapper implements MapperInterface
      */
     protected function insert(ModelInterface $model): int
     {
-        $insert = new Insert($model->getTableName());
+        $insert = new Insert($model::getTableName());
         $insert->values($model->getTableRowData());
         return $this->repo()->insert($insert);
     }
@@ -69,7 +102,7 @@ class Mapper implements MapperInterface
      */
     protected function update(ModelInterface $model): int
     {
-        $update = new Update($model->getTableName());
+        $update = new Update($model::getTableName());
         $update
             ->set($model->getTableRowData())
             ->where
@@ -92,4 +125,6 @@ class Mapper implements MapperInterface
 
         return $this->repo;
     }
+
+
 }

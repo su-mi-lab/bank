@@ -13,12 +13,17 @@ abstract class Model implements ModelInterface
     /**
      * @var string
      */
-    protected $tableName = null;
+    protected static $tableName = null;
+
+    /**
+     * @var string
+     */
+    protected static $primaryKey = null;
 
     /**
      * @var array
      */
-    protected $tableSchema = [];
+    protected static $tableSchema = [];
 
     /**
      * @var array
@@ -26,26 +31,19 @@ abstract class Model implements ModelInterface
     protected $tableRowData = [];
 
     /**
-     * @var string
+     * Model constructor.
      */
-    protected $primaryKey = null;
-
-    /**
-     * @var string
-     */
-    protected $schema = null;
-
     public function __construct()
     {
-        $this->injectionSchema();
+        self::injectionSchema();
     }
 
     /**
      * @return string
      */
-    public function getTableName(): string
+    public static function getTableName(): string
     {
-        return $this->tableName;
+        return static::$tableName;
     }
 
     /**
@@ -53,7 +51,7 @@ abstract class Model implements ModelInterface
      */
     public function getPrimaryCol(): string
     {
-        return $this->primaryKey;
+        return static::$primaryKey;
     }
 
     /**
@@ -61,7 +59,7 @@ abstract class Model implements ModelInterface
      */
     public function getPrimaryKey(): int
     {
-        $primaryKey = $this->primaryKey;
+        $primaryKey = static::$primaryKey;
         return (int)$this->{$primaryKey};
     }
 
@@ -79,7 +77,7 @@ abstract class Model implements ModelInterface
      */
     public function __set($name, $value)
     {
-        if (array_search($name, $this->tableSchema) !== false) {
+        if (array_search($name, static::$tableSchema) !== false) {
             $this->tableRowData[$name] = $value;
         }
     }
@@ -97,12 +95,14 @@ abstract class Model implements ModelInterface
         return null;
     }
 
-    protected function injectionSchema()
+    /**
+     * @throws \Exception
+     */
+    protected static function injectionSchema()
     {
-        $schema = Bank::schema($this->schema);
+        $schema = Bank::schema(static::$tableName . ".php");
 
-        $this->tableName = $schema["table_name"] ?? null;
-        $this->primaryKey = $schema["primary_key"] ?? null;
-        $this->tableSchema = $schema["record"] ?? null;
+        static::$primaryKey = $schema["primary_key"] ?? null;
+        static::$tableSchema = $schema["record"] ?? null;
     }
 }

@@ -22,10 +22,16 @@ class ModelTest extends Query
         $user->id = $id;
         $user->name = 'model update';
 
+
         $this->assertEquals(
             $mapper->save($user),
             1
         );
+
+//        $this->assertEquals(
+//            (bool)$mapper->loadById($id),
+//            true
+//        );
 
 //        $this->assertEquals(
 //            $mapper->delete($user),

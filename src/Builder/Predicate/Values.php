@@ -33,7 +33,7 @@ class Values extends PredicateBuilder
 
         $items = $this->buildValuesItem($val);
 
-        return $this->enclosedInBracket(implode(',', $cols)) . ' ' . self::VALUES_CLAUSE . ' ' . implode(',', $items) . ';';
+        return $this->enclosedInBracket(implode(',', $cols)) . ' ' . static::VALUES_CLAUSE . ' ' . implode(',', $items) . ';';
     }
 
     /**
