@@ -6,3 +6,8 @@
 #### ・[Adapter](page/Adapter.md)
 #### ・[Connection](page/Connection.md)
 #### ・[Repo](page/Repo.md)
+#### ・[Select](page/Select.md)
+#### ・[Insert](page/Insert.md)
+#### ・[Update](page/Update.md)
+#### ・[Delete](page/Delete.md)
+#### ・[DataMapper, ActiveRecord](page/ORM.md)
