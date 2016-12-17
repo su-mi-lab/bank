@@ -9,7 +9,7 @@ PDO Wrapper
 
 ## Guides
 
-[Guides](docs/READMEME.md)
+[Guides](https://github.com/bank-lab/bank/tree/1.0.0-beta.1/docs)
 
 
 ## Support DB
