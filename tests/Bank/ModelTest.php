@@ -39,9 +39,11 @@ class ModelTest extends Query
         $user->name = 'model update';
         $result_update = $user->save();
         $id = $user->id;
-        $result_load = $user->loadById($id);
+        $result_load = UserRecord::loadById($this->adapter, $id);
         $result_delete = $result_load->delete();
-        $result_delete_load = $user->loadById($id);
+        $result_delete_load = UserRecord::loadById($this->adapter, $id);
+
+        UserRecord::findAll($this->adapter);
 
         $this->assertEquals($result_save, 1);
         $this->assertEquals($result_update, 1);

@@ -110,14 +110,15 @@ class User extends \Bank\DataStore\ActiveRecord
     protected static $tableName = 'users';
 
     /**
+     * @param $adapter
      * @param $id
-     * @return \Bank\DataStore\ActiveRecordInterface
+     * @return \Bank\DataStore\ActiveRecordInterface|null
      */
-    public function loadById($id)
+    public static function loadById($adapter, $id)
     {
-        $select = $this->select();
+        $select = self::select();
         $select->where->equalTo('id', $id);
-        return $this->load($select);
+        return self::load($adapter, $select);
     }
 }
 
@@ -134,14 +135,13 @@ $user->save();
 Find
 
 ```
-$user = new User($adapter);
-$user->loadById($id);
+User::loadById($adapter, $id);
 ```
 
 Update OR Delete
 
 ```
-$user = $user->loadById($id);;
+$user = User::loadById($adapter, $id);
 $user->name = 'update';
 
 $user->save();

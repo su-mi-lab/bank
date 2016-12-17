@@ -72,39 +72,41 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
     /**
      * @return Select
      */
-    public function select(): Select
+    public static function select(): Select
     {
-        return new Select($this::getTableName());
+        return new Select(static::getTableName());
     }
 
     /**
+     * @param AdapterInterface $adapter
      * @param Select $query
-     * @return ModelInterface
+     * @return null|ActiveRecordInterface
      */
-    public function load(Select $query)
+    public static function load(AdapterInterface $adapter, Select $query)
     {
         /** @var ActiveRecordInterface $result */
-        $result = $this->repo()->find($query, static::class);
+        $result = $adapter->getRepo()->find($query, static::class);
 
         if ($result) {
-            $result->injectionAdapter($this->adapter);
+            $result->injectionAdapter($adapter);
         }
 
         return $result;
     }
 
     /**
+     * @param AdapterInterface $adapter
      * @param Select $query
      * @return array
      */
-    public function loadAll(Select $query): array
+    public static function loadAll(AdapterInterface $adapter, Select $query): array
     {
-        $result = $this->repo()->findAll($query, static::class);
+        $result = $adapter->getRepo()->findAll($query, static::class);
 
         if ($result) {
-            $result = array_map(function ($model) {
+            $result = array_map(function ($model) use ($adapter) {
                 /** @var ActiveRecordInterface $model */
-                return $model->injectionAdapter($this->adapter);
+                return $model->injectionAdapter($adapter);
             }, $result);
         }
 
