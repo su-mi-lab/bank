@@ -5,23 +5,21 @@ namespace Bank\DataStore;
 use Bank\Query\Select;
 
 /**
- * Interface MapperInterface
+ * Interface ActiveRecordInterface
  * @package Bank\DataStore
  */
-interface MapperInterface
+interface ActiveRecordInterface
 {
 
     /**
-     * @param ModelInterface $model
      * @return int
      */
-    public function save(ModelInterface $model): int;
+    public function save(): int;
 
     /**
-     * @param ModelInterface $model
      * @return int
      */
-    public function delete(ModelInterface $model): int;
+    public function delete(): int;
 
     /**
      * @param Select $query

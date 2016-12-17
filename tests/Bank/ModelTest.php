@@ -3,6 +3,7 @@
 require_once 'Query.php';
 require_once 'Model/User.php';
 require_once 'Model/UserMapper.php';
+require_once 'Model/UserRecord.php';
 
 class ModelTest extends Query
 {
@@ -36,5 +37,38 @@ class ModelTest extends Query
 //            $mapper->delete($user),
 //            1
 //        );
+    }
+
+    function testActiveRecord()
+    {
+        $user = new UserRecord();
+        $user->name = 'model';
+
+        $this->assertEquals(
+            $user->save(),
+            1
+        );
+
+        $user->name = 'model update';
+
+        $this->assertEquals(
+            $user->save(),
+            1
+        );
+
+        $this->assertEquals(
+            (bool)$user->loadById($user->id),
+            true
+        );
+
+        $this->assertEquals(
+            $user->delete(),
+            1
+        );
+
+        $this->assertEquals(
+            (bool)$user->loadById($user->id),
+            false
+        );
     }
 }
