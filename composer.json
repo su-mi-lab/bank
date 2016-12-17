@@ -1,5 +1,5 @@
 {
-    "name": "bank-lab/bank",
+    "name": "bank/bank-db",
     "description": "PDO Wrapper (DataMapper and ActiveRecord) ",
     "keywords": ["PDO Wrapper", "ActiveRecord", "DataMapper"],
     "license": "MIT",
