@@ -48,8 +48,8 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
         }
 
         $res = $this->insert($this);
-        $id = $this->getConnection()->lastInsertId();
-        $this->{$this->getPrimaryCol()} = $id;
+        $lastInsertId = $this->getConnection()->lastInsertId();
+        $this->{$this->getPrimaryCol()} = $lastInsertId;
 
         return $res;
     }
