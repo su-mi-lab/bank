@@ -34,5 +34,4 @@ class Join extends PredicateBuilder
 
         return implode('', $query);
     }
-
 }

@@ -38,5 +38,4 @@ class Join
     {
         return $this->joins;
     }
-
 }

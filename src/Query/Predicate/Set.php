@@ -30,6 +30,4 @@ class Set
     {
         return $this->sets;
     }
-
-
 }

@@ -28,5 +28,4 @@ class From extends PredicateBuilder
 
         return $this->castTablePredicate($table);
     }
-
 }

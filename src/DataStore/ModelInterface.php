@@ -27,5 +27,4 @@ interface ModelInterface
      * @return array
      */
     public function getTableRowData(): array;
-
 }

@@ -32,5 +32,4 @@ class Set extends PredicateBuilder
 
         return implode(',', $query);
     }
-
 }

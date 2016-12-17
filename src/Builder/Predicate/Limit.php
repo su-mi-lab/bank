@@ -39,5 +39,4 @@ class Limit extends PredicateBuilder
 
         return $query;
     }
-
 }

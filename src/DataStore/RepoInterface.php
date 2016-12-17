@@ -45,6 +45,4 @@ interface RepoInterface
      * @return int
      */
     public function delete(Delete $query): int;
-
-
 }

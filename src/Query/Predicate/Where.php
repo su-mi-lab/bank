@@ -25,7 +25,6 @@ class Where
     const OPERATOR_LIKE = "LIKE";
     const OPERATOR_NOT_LIKE = "NOT LIKE";
 
-
     /**
      * @var array
      */
@@ -225,5 +224,4 @@ class Where
 
         return $returnObj;
     }
-
 }

@@ -104,5 +104,9 @@ abstract class Model implements ModelInterface
 
         static::$primaryKey = $schema["primary_key"] ?? null;
         static::$tableSchema = $schema["record"] ?? null;
+
+        if (is_null(static::$primaryKey) || is_null(static::$tableSchema)) {
+            throw new \Exception('Parameter is invalid');
+        }
     }
 }

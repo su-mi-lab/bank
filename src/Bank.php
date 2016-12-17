@@ -82,7 +82,7 @@ class Bank
         }
 
         $schemaDir = static::$config['schema'];
-        static::$schema[$schemaName] = include $schemaDir . $schemaName;
+        static::$schema[$schemaName] = include ($schemaDir . $schemaName);
 
         return static::$schema[$schemaName];
     }

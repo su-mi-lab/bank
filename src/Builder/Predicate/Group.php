@@ -31,5 +31,4 @@ class Group extends PredicateBuilder
 
         return implode(',', $query);
     }
-
 }

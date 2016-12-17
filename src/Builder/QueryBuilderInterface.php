@@ -41,5 +41,4 @@ interface QueryBuilderInterface
      * @return array
      */
     public function getBindValue(): array;
-
 }

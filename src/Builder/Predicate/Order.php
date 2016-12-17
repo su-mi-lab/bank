@@ -31,5 +31,4 @@ class Order extends PredicateBuilder
 
         return implode(',', $query);
     }
-
 }

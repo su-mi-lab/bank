@@ -74,5 +74,4 @@ class Column extends PredicateBuilder
         $list[] = $query;
         return $list;
     }
-
 }

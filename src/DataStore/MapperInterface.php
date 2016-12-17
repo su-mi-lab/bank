@@ -39,5 +39,4 @@ interface MapperInterface
      * @return array
      */
     public function loadAll(Select $query): array;
-
 }
