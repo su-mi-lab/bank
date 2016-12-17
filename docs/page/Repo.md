@@ -19,7 +19,7 @@ public function find(Select $query, $fetchClass = null);
  * @param string $fetchClass
  * @return array
  */
-public function findAll(Select $query, $fetchClass = null): ar
+public function findAll(Select $query, $fetchClass = null): array
 
 /**
  * @param Insert $query
