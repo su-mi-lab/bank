@@ -56,19 +56,19 @@ class ModelTest extends Query
             1
         );
 
-        $this->assertEquals(
-            (bool)$user->loadById($user->id),
-            true
-        );
+//        $this->assertEquals(
+//            (bool)$user->loadById($user->id),
+//            true
+//        );
 
-        $this->assertEquals(
-            $user->delete(),
-            1
-        );
-
-        $this->assertEquals(
-            (bool)$user->loadById($user->id),
-            false
-        );
+//        $this->assertEquals(
+//            $user->delete(),
+//            1
+//        );
+//
+//        $this->assertEquals(
+//            (bool)$user->loadById($user->id),
+//            false
+//        );
     }
 }
