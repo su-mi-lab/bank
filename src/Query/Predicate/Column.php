@@ -21,7 +21,6 @@ class Column
     public function addColumn(array $column, string $table = null): Column
     {
         $column = [$table => $column];
-
         $this->columns[] = $column;
         return $this;
     }

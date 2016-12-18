@@ -98,12 +98,11 @@ class Connection implements ConnectionInterface
      */
     public function prepare(string $sql, array $bindValue): \PDOStatement
     {
-        /** @var \PDOStatement $statement */
-        $statement = $this->pdo->prepare($sql);
-
-        foreach ($bindValue as $key => &$item) {
-            $statement->bindParam($key, $item);
-        }
+        $statement = array_reduce(array_keys($bindValue), function ($statement, $key) use ($bindValue) {
+            /** @var \PDOStatement $statement */
+            $statement->bindParam($key, $bindValue[$key]);
+            return $statement;
+        }, $this->pdo->prepare($sql));
 
         return $statement;
     }

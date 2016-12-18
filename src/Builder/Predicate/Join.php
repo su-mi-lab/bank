@@ -23,15 +23,21 @@ class Join extends PredicateBuilder
             return '';
         }
 
-        $query = array_map(function ($row) {
-            $table = $row['table'] ?? null;
-            $conditions = $row['conditions'] ?? null;
-            $join = $row['join'] ?? null;
-
-            return ' ' . $join . ' ' . $this->castTablePredicate($table) . ' ON ' . $this->quote($conditions, '');
-        }, $joins);
-
+        $query = array_map('self::doBuildJoin', $joins);
 
         return implode('', $query);
+    }
+
+    /**
+     * @param $row
+     * @return string
+     */
+    protected function doBuildJoin($row): string
+    {
+        $table = $row['table'] ?? null;
+        $conditions = $row['conditions'] ?? null;
+        $join = $row['join'] ?? null;
+
+        return ' ' . $join . ' ' . $this->castTablePredicate($table) . ' ON ' . $this->quote($conditions, '');
     }
 }

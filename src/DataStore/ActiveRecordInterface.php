@@ -2,7 +2,6 @@
 
 namespace Bank\DataStore;
 
-use Bank\DataStore\Traits\ModelTrait;
 use Bank\Query\Select;
 
 /**
