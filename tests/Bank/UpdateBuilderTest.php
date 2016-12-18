@@ -21,7 +21,7 @@ class UpdateBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildUpdateQuery($update)
         );
 
-        $this->repo->update($update);
+        $this->gateway->update($update);
     }
 
 }

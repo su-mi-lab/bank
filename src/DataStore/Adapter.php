@@ -22,9 +22,9 @@ class Adapter implements AdapterInterface
     private $queryBuilder;
 
     /**
-     * @var RepoInterface
+     * @var GatewayInterface
      */
-    private $repo;
+    private $gateway;
 
     /**
      * Adapter constructor.
@@ -44,7 +44,7 @@ class Adapter implements AdapterInterface
 
         $this->conn = new Connection($dns, $user, $password);
         $this->queryBuilder = new $queryBuilder($this->conn);
-        $this->repo = new Repo($this->conn, $this->queryBuilder);
+        $this->gateway = new Gateway($this->conn, $this->queryBuilder);
     }
 
     /**
@@ -64,10 +64,10 @@ class Adapter implements AdapterInterface
     }
 
     /**
-     * @return RepoInterface
+     * @return GatewayInterface
      */
-    public function getRepo(): RepoInterface
+    public function getGateway(): GatewayInterface
     {
-        return $this->repo;
+        return $this->gateway;
     }
 }

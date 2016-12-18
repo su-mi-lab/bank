@@ -5,7 +5,7 @@
 #### ・[Start using](page/Start.md)
 #### ・[Adapter](page/Adapter.md)
 #### ・[Connection](page/Connection.md)
-#### ・[Repo](page/Repo.md)
+#### ・[Gateway](page/Gateway.md)
 #### ・[Select](page/Select.md)
 #### ・[Insert](page/Insert.md)
 #### ・[Update](page/Update.md)

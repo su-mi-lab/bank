@@ -20,7 +20,7 @@ class InsertBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildInsertQuery($insert)
         );
 
-        $this->repo->insert($insert);
+        $this->gateway->insert($insert);
     }
 
 }

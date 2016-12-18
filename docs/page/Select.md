@@ -6,9 +6,9 @@
 ```
 $select = Bank\Query\Select('users')
 
-$adapter->getRepo();
-$repo->find($select);
-$repo->findAll($select);
+$adapter->getGateway();
+$gateway->find($select);
+$gateway->findAll($select);
 ```
 
 ### QueryBuilder

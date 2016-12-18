@@ -28,7 +28,7 @@ abstract class Mapper implements MapperInterface
     public function __construct(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
-        $this->repo = $this->adapter->getRepo();
+        $this->gateway = $this->adapter->getGateway();
     }
 
     /**
@@ -57,7 +57,7 @@ abstract class Mapper implements MapperInterface
         $delete = new Delete($model::getTableName());
         $delete->where->equalTo($model->getPrimaryCol(), $model->getPrimaryKey());
 
-        return $this->repo()->delete($delete);
+        return $this->gateway()->delete($delete);
     }
 
     /**
@@ -75,7 +75,7 @@ abstract class Mapper implements MapperInterface
      */
     public function load(Select $query)
     {
-        return $this->repo()->find($query, $this->model);
+        return $this->gateway()->find($query, $this->model);
     }
 
     /**
@@ -84,7 +84,7 @@ abstract class Mapper implements MapperInterface
      */
     public function loadAll(Select $query): array
     {
-        return $this->repo()->findAll($query, $this->model);
+        return $this->gateway()->findAll($query, $this->model);
     }
 
 }

@@ -33,7 +33,7 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
     public function injectionAdapter(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
-        $this->repo = $this->adapter->getRepo();
+        $this->gateway = $this->adapter->getGateway();
 
         return $this;
     }
@@ -66,7 +66,7 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
         $delete = new Delete($this::getTableName());
         $delete->where->equalTo($this->getPrimaryCol(), $this->getPrimaryKey());
 
-        return $this->repo()->delete($delete);
+        return $this->gateway()->delete($delete);
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
     public static function load(AdapterInterface $adapter, Select $query)
     {
         /** @var ActiveRecordInterface $result */
-        $result = $adapter->getRepo()->find($query, static::class);
+        $result = $adapter->getGateway()->find($query, static::class);
 
         if ($result) {
             $result->injectionAdapter($adapter);
@@ -101,7 +101,7 @@ abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
      */
     public static function loadAll(AdapterInterface $adapter, Select $query): array
     {
-        $result = $adapter->getRepo()->findAll($query, static::class);
+        $result = $adapter->getGateway()->findAll($query, static::class);
 
         if ($result) {
             $result = array_map(function ($model) use ($adapter) {

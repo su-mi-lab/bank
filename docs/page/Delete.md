@@ -7,8 +7,8 @@
 $delete = new Delete("users");
 $delete->where->equalTo('id', 1);
 
-$adapter->getRepo();
-$repo->delete($delete);
+$adapter->getGateway();
+$gateway->delete($delete);
 ```
 
 ### QueryBuilder
