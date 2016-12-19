@@ -2,6 +2,7 @@
 
 namespace Bank\Builder\Predicate;
 
+use Bank\Builder\Predicate\Parts\SimplePredicate;
 use Bank\Builder\PredicateBuilder;
 use Bank\Query\Predicate\Group as GroupQuery;
 
@@ -11,6 +12,8 @@ use Bank\Query\Predicate\Group as GroupQuery;
  */
 class Group extends PredicateBuilder
 {
+    use SimplePredicate;
+
     const GROUP_CLAUSE = "GROUP BY";
 
     /**
@@ -20,15 +23,6 @@ class Group extends PredicateBuilder
     public function build($group): string
     {
         $group = $group->getGroup();
-
-        if (!$group) {
-            return "";
-        }
-
-        $query = array_map(function ($row) {
-            return $this->quote($row);
-        }, $group);
-
-        return implode(',', $query);
+        return $this->doBuild($group);
     }
 }

@@ -2,16 +2,16 @@
 
 namespace Bank\Query\Predicate;
 
+use Bank\Query\Predicate\Parts\SimplePredicate;
+
 /**
  * Class Group
  * @package Bank\Query\Predicate
  */
 class Group
 {
-    /**
-     * @var array
-     */
-    private $groupBy = [];
+
+    use SimplePredicate;
 
     /**
      * @param $groupBy
@@ -19,12 +19,7 @@ class Group
      */
     public function addGroup($groupBy): Group
     {
-        if (is_array($groupBy)) {
-            $this->groupBy = array_merge($groupBy, $this->groupBy);
-        } else if (is_string($groupBy)) {
-            $this->groupBy[] = $groupBy;
-        }
-
+        $this->addPredicate($groupBy);
         return $this;
     }
 
@@ -33,6 +28,6 @@ class Group
      */
     public function getGroup(): array
     {
-        return $this->groupBy;
+        return $this->getPredicate();
     }
 }

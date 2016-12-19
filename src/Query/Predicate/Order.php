@@ -2,16 +2,15 @@
 
 namespace Bank\Query\Predicate;
 
+use Bank\Query\Predicate\Parts\SimplePredicate;
+
 /**
  * Class Order
  * @package Bank\Query\Predicate
  */
 class Order
 {
-    /**
-     * @var array
-     */
-    private $orderBy = [];
+    use SimplePredicate;
 
     /**
      * @param $orderBy
@@ -19,11 +18,7 @@ class Order
      */
     public function addOrder($orderBy): Order
     {
-        if (is_string($orderBy)) {
-            $this->orderBy[] = $orderBy;
-        } else if (is_array($orderBy)) {
-            $this->orderBy = array_merge($orderBy, $this->orderBy);
-        }
+        $this->addPredicate($orderBy);
 
         return $this;
     }
@@ -33,6 +28,6 @@ class Order
      */
     public function getOrder(): array
     {
-        return $this->orderBy;
+        return $this->getPredicate();
     }
 }
