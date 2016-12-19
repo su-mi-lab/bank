@@ -3,15 +3,6 @@
 namespace Bank\Builder\Platform\Mysql;
 
 use Bank\Builder\QueryBuilderInterface;
-use Bank\Builder\Predicate\From;
-use Bank\Builder\Predicate\Values;
-use Bank\Builder\Predicate\Column;
-use Bank\Builder\Predicate\Group;
-use Bank\Builder\Predicate\Join;
-use Bank\Builder\Predicate\Limit;
-use Bank\Builder\Predicate\Order;
-use Bank\Builder\Predicate\Set;
-use Bank\Builder\Predicate\Where;
 use Bank\DataStore\ConnectionInterface;
 use Bank\Query\Delete;
 use Bank\Query\Insert;
@@ -51,28 +42,29 @@ class Builder implements QueryBuilderInterface
         return $this->bindValue;
     }
 
+
     /**
      * @param Select $query
      * @return string
      */
     public function buildSelectQuery(Select $query): string
     {
-        $form = new From($this->connection);
-        $column = new Column($this->connection);
-        $group = new Group($this->connection);
-        $join = new Join($this->connection);
-        $limit = new Limit($this->connection);
-        $order = new Order($this->connection);
-        $where = new Where($this->connection);
+        $from = $this->from;
+        $column = $this->column;
+        $group = $this->group;
+        $join = $this->join;
+        $limit = $this->limit;
+        $order = $this->order;
+        $where = $this->where;
 
-        $sql = $form::SELECT_CLAUSE;
+        $sql = $from::SELECT_CLAUSE;
 
         if ($queryString = $column->build($query->getColumn())) {
             $sql .= $queryString;
         }
 
-        if ($queryString = $form->build($query->getFrom())) {
-            $sql .= " " . $form::FROM_CLAUSE . " " . $queryString;
+        if ($queryString = $from->build($query->getFrom())) {
+            $sql .= " " . $from::FROM_CLAUSE . " " . $queryString;
         }
 
         if ($queryString = $join->build($query->getJoin())) {
@@ -106,12 +98,12 @@ class Builder implements QueryBuilderInterface
      */
     public function buildInsertQuery(Insert $query): string
     {
-        $form = new From($this->connection);
-        $values = new Values($this->connection);
+        $from = $this->from;
+        $values = $this->values;
 
-        $sql = $form::INSERT_CLAUSE;
+        $sql = $from::INSERT_CLAUSE;
 
-        if ($queryString = $form->build($query->getFrom())) {
+        if ($queryString = $from->build($query->getFrom())) {
             $sql .= " " . $queryString;
         }
 
@@ -128,14 +120,14 @@ class Builder implements QueryBuilderInterface
      */
     public function buildUpdateQuery(Update $query): string
     {
-        $form = new From($this->connection);
-        $join = new Join($this->connection);
-        $set = new Set($this->connection);
-        $where = new Where($this->connection);
+        $from = $this->from;
+        $join = $this->join;
+        $set = $this->set;
+        $where = $this->where;
 
-        $sql = $form::UPDATE_CLAUSE;
+        $sql = $from::UPDATE_CLAUSE;
 
-        if ($queryString = $form->build($query->getFrom())) {
+        if ($queryString = $from->build($query->getFrom())) {
             $sql .= " " . $queryString;
         }
 
@@ -162,11 +154,11 @@ class Builder implements QueryBuilderInterface
      */
     public function buildDeleteQuery(Delete $query): string
     {
-        $form = new From($this->connection);
-        $where = new Where($this->connection);
-        $sql = $form::DELETE_CLAUSE;
+        $from = $this->from;
+        $where = $this->where;
+        $sql = $from::DELETE_CLAUSE;
 
-        if ($queryString = $form->build($query->getFrom())) {
+        if ($queryString = $from->build($query->getFrom())) {
             $sql .= " " . $queryString;
         }
 
@@ -177,5 +169,15 @@ class Builder implements QueryBuilderInterface
         $this->bindValue = $where->getBindValue();
 
         return $sql;
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        $name = '\\Bank\\Builder\\Predicate\\' . ucfirst($name);
+        return new $name($this->connection);
     }
 }

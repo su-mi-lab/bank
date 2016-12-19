@@ -32,4 +32,9 @@ class Column
     {
         return $this->columns;
     }
+
+    public function reset()
+    {
+        $this->columns = [];
+    }
 }

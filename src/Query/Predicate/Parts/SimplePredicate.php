@@ -34,4 +34,9 @@ trait SimplePredicate
         return $this->predicate;
     }
 
+    public function reset()
+    {
+        $this->predicate = [];
+    }
+
 }
