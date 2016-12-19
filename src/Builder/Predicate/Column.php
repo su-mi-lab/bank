@@ -52,26 +52,44 @@ class Column extends PredicateBuilder
         if (is_array($column)) {
             return array_reduce(array_keys($column), function ($list, $key) use ($table, $column) {
                 $col = $column[$key];
-
-                $alias = null;
-                if (!is_numeric($key)) {
-                    $alias = $key;
-                }
-
+                $alias = (!is_numeric($key)) ? $key : null;
                 return $this->quoteSelectPredicate($col, $table, $alias, $list);
             }, $list);
         }
 
         $query = $this->quote($column, '`');
+        $query = $this->addTable($query, $table);
+        $query = $this->addAlias($query, $alias);
+
+        $list[] = $query;
+        return $list;
+    }
+
+    /**
+     * @param $query
+     * @param $table
+     * @return string
+     */
+    protected function addTable($query, $table): string
+    {
         if ($table) {
             $query = $this->quote($table, '`') . '.' . $query;
         }
 
+        return $query;
+    }
+
+    /**
+     * @param $query
+     * @param $alias
+     * @return string
+     */
+    protected function addAlias($query, $alias) : string
+    {
         if ($alias) {
             $query = $query . ' AS ' . $this->quote($alias, '`');
         }
 
-        $list[] = $query;
-        return $list;
+        return $query;
     }
 }

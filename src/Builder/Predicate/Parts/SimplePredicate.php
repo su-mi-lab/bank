@@ -29,5 +29,4 @@ trait SimplePredicate
         return implode(',', $query);
     }
 
-
 }

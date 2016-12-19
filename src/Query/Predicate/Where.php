@@ -43,6 +43,12 @@ class Where
     {
         $this->parent = $parent;
     }
+    
+    public function rest()
+    {
+        $this->conditions = [];
+        $this->parent = null;
+    }
 
     /**
      * @param $col

@@ -2,7 +2,6 @@
 
 namespace Bank\Generator;
 
-use Bank\Bank;
 use Bank\DataStore\AdapterInterface;
 
 /**

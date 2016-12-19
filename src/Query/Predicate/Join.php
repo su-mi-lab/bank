@@ -38,4 +38,9 @@ class Join
     {
         return $this->joins;
     }
+
+    public function reset()
+    {
+        $this->joins = [];
+    }
 }

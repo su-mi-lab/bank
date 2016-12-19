@@ -170,19 +170,19 @@ class Select
     {
         switch ($predicate) {
             case "where":
-                $this->where = new Where;
+                $this->where->rest();
                 break;
             case "column":
-                $this->column = new Column;
+                $this->column->reset();
                 break;
             case "group":
-                $this->group = new Group;
+                $this->group->reset();
                 break;
             case "order":
-                $this->order = new Order;
+                $this->order->reset();
                 break;
             case "join":
-                $this->join = new Join;
+                $this->join->reset();
                 break;
             default:
                 break;
