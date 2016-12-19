@@ -8,5 +8,5 @@ return [
             'password' => '',
         ]
     ],
-    'schema' => __DIR__ . '/../schema/'
+    'schema' => __DIR__ . '/../schema/',
 ];

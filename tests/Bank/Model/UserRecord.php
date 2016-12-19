@@ -23,6 +23,7 @@ class UserRecord extends \Bank\DataStore\ActiveRecord
     }
 
     /**
+     * @param $adapter
      * @return array
      */
     public static function findAll($adapter)
