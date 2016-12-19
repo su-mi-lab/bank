@@ -8,11 +8,11 @@ class GeneratorTest extends Query
 
     function testSchema()
     {
-        $schema = new \Bank\Generator\Schema();
-
+        $schema = new \Bank\Generator\Schema($this->adapter);
+        $schemaDir = \Bank\Bank::getConfig('schema');
         $this->assertEquals(
             true,
-            $schema->run()
+            $schema->run($schemaDir)
         );
 
     }

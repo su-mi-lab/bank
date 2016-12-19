@@ -3,6 +3,7 @@
 namespace Bank\Generator;
 
 use Bank\Bank;
+use Bank\DataStore\AdapterInterface;
 
 /**
  * Class Schema
@@ -18,10 +19,10 @@ class Schema
 
     /**
      * Schema constructor.
+     * @param AdapterInterface $adapter
      */
-    public function __construct()
+    public function __construct(AdapterInterface $adapter)
     {
-        $adapter = Bank::adapter();
         $this->conn = $adapter->getConnection();
     }
 
@@ -29,7 +30,7 @@ class Schema
      * @return bool
      * @throws \Exception
      */
-    public function run(): bool
+    public function run($schema): bool
     {
         $tables = $this->getTable();
 
@@ -37,12 +38,10 @@ class Schema
             return true;
         }
 
-        $schema = Bank::getConfig('schema');
-
         foreach ($tables as $table) {
             $name = $table . '.php';
             $columns = $this->getColumns($table);
-            $this->output($schema . $name, $this->getTemplate($columns), true);
+            $this->output($schema . $name, $this->getTemplate($columns));
         }
 
         return true;
@@ -122,16 +121,13 @@ EOD;
     /**
      * @param $file
      * @param $code
-     * @param bool|false $override
      */
-    private function output($file, $code, $override = false)
+    private function output($file, $code)
     {
-        if (file_exists($file) && $override === false) {
-            return;
-        }
-        $fp = fopen($file, 'w+');
-        fwrite($fp, $code);
-        fclose($fp);
+
+        $filePoint = fopen($file, 'w+');
+        fwrite($filePoint, $code);
+        fclose($filePoint);
     }
 
 
