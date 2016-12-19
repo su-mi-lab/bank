@@ -1,14 +1,15 @@
 <?php
 
-namespace Bank\DataStore;
+namespace Bank\ORM;
 
-use Bank\DataStore\Traits\MapperTrait;
+use Bank\DataStore\AdapterInterface;
+use Bank\ORM\Traits\MapperTrait;
 use Bank\Query\Delete;
 use Bank\Query\Select;
 
 /**
  * Class Mapper
- * @package Bank\DataStore
+ * @package Bank\ORM
  *
  * @property  string adapterName
  */

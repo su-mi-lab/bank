@@ -2,9 +2,7 @@
 
 use Bank\Query\Select;
 
-require_once 'Query.php';
-
-class SelectBuilderTest extends Query
+class SelectBuilderTest extends Mysql
 {
 
     function testFromQuery()

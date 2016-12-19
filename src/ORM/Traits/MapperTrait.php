@@ -1,17 +1,17 @@
 <?php
 
-namespace Bank\DataStore\Traits;
+namespace Bank\ORM\Traits;
 
 use Bank\DataStore\AdapterInterface;
 use Bank\DataStore\ConnectionInterface;
-use Bank\DataStore\ModelInterface;
 use Bank\DataStore\GatewayInterface;
+use Bank\ORM\ModelInterface;
 use Bank\Query\Insert;
 use Bank\Query\Update;
 
 /**
  * Class MapperTrait
- * @package Bank\DataStore\Traits
+ * @package Bank\ORM\Traits
  */
 trait MapperTrait
 {

@@ -1,29 +1,8 @@
 <?php
 
-use Bank\DataStore\Adapter;
 
-/**
- * Class Query
- */
-abstract class Query extends PHPUnit_Framework_TestCase
+abstract class Mysql extends TestCase
 {
-    /**
-     * @var Adapter
-     */
-    protected $adapter;
-
-    /**
-     * @var Bank\DataStore\GatewayInterface
-     */
-    protected $gateway;
-
-    protected function setUp()
-    {
-        \Bank\Bank::setConfig(include __DIR__ . '/config/bank.php');
-        $this->adapter = \Bank\Bank::adapter();
-        $this->gateway = $this->adapter->getGateway();
-    }
-
     const FROM_TEST_QUERY = "SELECT * FROM `users`";
     const COLUMN_TEST_QUERY = "SELECT `id`,`name` FROM `users`";
     const ALIAS_TEST_QUERY = "SELECT `u`.`id` AS `users_id` FROM `users` AS `u` WHERE u.id = :b0";

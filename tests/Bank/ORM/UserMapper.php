@@ -3,13 +3,13 @@
 /**
  * Class UserMapper
  */
-class UserMapper extends \Bank\DataStore\Mapper
+class UserMapper extends \Bank\ORM\Mapper
 {
     protected $model = User::class;
 
     /**
      * @param $id
-     * @return \Bank\DataStore\ModelInterface
+     * @return \Bank\ORM\ModelInterface
      */
     public function loadById($id)
     {

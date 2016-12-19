@@ -3,7 +3,7 @@
 /**
  * Class UserRecord
  */
-class UserRecord extends \Bank\DataStore\ActiveRecord
+class UserRecord extends \Bank\ORM\ActiveRecord
 {
     /**
      * @var string
@@ -13,7 +13,7 @@ class UserRecord extends \Bank\DataStore\ActiveRecord
     /**
      * @param $adapter
      * @param $id
-     * @return \Bank\DataStore\ActiveRecordInterface|null
+     * @return \Bank\ORM\ActiveRecordInterface|null
      */
     public static function loadById($adapter, $id)
     {

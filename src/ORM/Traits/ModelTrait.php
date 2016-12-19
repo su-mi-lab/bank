@@ -1,12 +1,12 @@
 <?php
 
-namespace Bank\DataStore\Traits;
+namespace Bank\ORM\Traits;
 
 use Bank\Bank;
 
 /**
  * Class ModelTrait
- * @package Bank\DataStore\Traits
+ * @package Bank\ORM\Traits
  */
 trait ModelTrait
 {

@@ -1,15 +1,16 @@
 <?php
 
-namespace Bank\DataStore;
+namespace Bank\ORM;
 
-use Bank\DataStore\Traits\MapperTrait;
-use Bank\DataStore\Traits\ModelTrait;
+use Bank\DataStore\AdapterInterface;
+use Bank\ORM\Traits\MapperTrait;
+use Bank\ORM\Traits\ModelTrait;
 use Bank\Query\Delete;
 use Bank\Query\Select;
 
 /**
  * Class ActiveRecord
- * @package Bank\DataStore
+ * @package Bank\ORM
  */
 abstract class ActiveRecord implements ActiveRecordInterface, ModelInterface
 {

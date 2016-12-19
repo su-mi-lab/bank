@@ -2,9 +2,7 @@
 
 use Bank\Query\Insert;
 
-require_once 'Query.php';
-
-class InsertBuilderTest extends Query
+class InsertBuilderTest extends Mysql
 {
 
     function testFromQuery()

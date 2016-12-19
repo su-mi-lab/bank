@@ -2,9 +2,7 @@
 
 use Bank\Query\Delete;
 
-require_once 'Query.php';
-
-class DeleteBuilderTest extends Query
+class DeleteBuilderTest extends Mysql
 {
 
     function testFromQuery()
