@@ -2,9 +2,7 @@
 
 use Bank\Query\Update;
 
-require_once 'Query.php';
-
-class UpdateBuilderTest extends Query
+class UpdateBuilderTest extends Mysql
 {
 
     function testFromQuery()

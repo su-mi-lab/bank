@@ -25,6 +25,6 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "php vendor/phpunit/phpunit/phpunit --configuration tests/phpunit.xml tests"
     }
 }

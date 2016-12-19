@@ -1,10 +1,12 @@
 <?php
 
-require_once 'Query.php';
-
-
-class GeneratorTest extends Query
+class GeneratorTest extends TestCase
 {
+    protected function setUp()
+    {
+        $this->adapter = \Bank\Bank::adapter();
+        $this->gateway = $this->adapter->getGateway();
+    }
 
     function testSchema()
     {

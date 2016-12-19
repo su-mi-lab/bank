@@ -5,18 +5,13 @@ use Bank\Query\Select;
 use Bank\Query\Update;
 use Bank\Query\Delete;
 
-require_once 'Query.php';
-
-/**
- * Class SimpleQueryTest
- */
-class SimpleQueryTest extends Query
+class GatewayTest extends TestCase
 {
 
     const USER_NAME = 'query test user';
     const USER_NAME_UPDATE = 'query test user update';
 
-    function testQuery()
+    function testGateway()
     {
         $this->assertEquals(
             $this->insertUser(),
