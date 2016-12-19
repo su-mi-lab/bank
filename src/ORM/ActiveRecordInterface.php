@@ -1,12 +1,13 @@
 <?php
 
-namespace Bank\DataStore;
+namespace Bank\ORM;
 
+use Bank\DataStore\AdapterInterface;
 use Bank\Query\Select;
 
 /**
  * Interface ActiveRecordInterface
- * @package Bank\DataStore
+ * @package Bank\ORM
  */
 interface ActiveRecordInterface
 {

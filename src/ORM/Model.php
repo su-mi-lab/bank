@@ -1,12 +1,12 @@
 <?php
 
-namespace Bank\DataStore;
+namespace Bank\ORM;
 
-use Bank\DataStore\Traits\ModelTrait;
+use Bank\ORM\Traits\ModelTrait;
 
 /**
  * Class Model
- * @package Bank\DataStore
+ * @package Bank\ORM
  */
 abstract class Model implements ModelInterface
 {

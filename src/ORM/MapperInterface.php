@@ -1,12 +1,13 @@
 <?php
 
-namespace Bank\DataStore;
+namespace Bank\ORM;
 
+use Bank\DataStore\ConnectionInterface;
 use Bank\Query\Select;
 
 /**
  * Interface MapperInterface
- * @package Bank\DataStore
+ * @package Bank\ORM
  */
 interface MapperInterface
 {

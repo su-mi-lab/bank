@@ -1,10 +1,10 @@
 <?php
 
-namespace Bank\DataStore;
+namespace Bank\ORM;
 
 /**
  * Interface ModelInterface
- * @package Bank\DataStore
+ * @package Bank\ORM
  */
 interface ModelInterface
 {

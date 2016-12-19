@@ -3,7 +3,7 @@
 /**
  * Class User
  */
-class User extends \Bank\DataStore\Model
+class User extends \Bank\ORM\Model
 {
     /**
      * @var string
