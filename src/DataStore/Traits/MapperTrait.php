@@ -5,7 +5,7 @@ namespace Bank\DataStore\Traits;
 use Bank\DataStore\AdapterInterface;
 use Bank\DataStore\ConnectionInterface;
 use Bank\DataStore\ModelInterface;
-use Bank\DataStore\RepoInterface;
+use Bank\DataStore\GatewayInterface;
 use Bank\Query\Insert;
 use Bank\Query\Update;
 
@@ -16,9 +16,9 @@ use Bank\Query\Update;
 trait MapperTrait
 {
     /**
-     * @var RepoInterface
+     * @var GatewayInterface
      */
-    private $repo;
+    private $gateway;
 
     /**
      * @var AdapterInterface
@@ -41,7 +41,7 @@ trait MapperTrait
     {
         $insert = new Insert($model::getTableName());
         $insert->values($model->getTableRowData());
-        return $this->repo()->insert($insert);
+        return $this->gateway()->insert($insert);
     }
 
     /**
@@ -55,14 +55,14 @@ trait MapperTrait
             ->set($model->getTableRowData())
             ->where
             ->equalTo($model->getPrimaryCol(), $model->getPrimaryKey());
-        return $this->repo()->update($update);
+        return $this->gateway()->update($update);
     }
 
     /**
-     * @return RepoInterface
+     * @return GatewayInterface
      */
-    protected function repo(): RepoInterface
+    protected function gateway(): GatewayInterface
     {
-        return $this->repo;
+        return $this->gateway;
     }
 }

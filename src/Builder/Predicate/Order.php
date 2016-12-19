@@ -2,6 +2,7 @@
 
 namespace Bank\Builder\Predicate;
 
+use Bank\Builder\Predicate\Parts\SimplePredicate;
 use Bank\Builder\PredicateBuilder;
 use Bank\Query\Predicate\Order as OrderQuery;
 
@@ -11,6 +12,8 @@ use Bank\Query\Predicate\Order as OrderQuery;
  */
 class Order extends PredicateBuilder
 {
+    use SimplePredicate;
+
     const ORDER_CLAUSE = "ORDER BY";
 
     /**
@@ -20,15 +23,6 @@ class Order extends PredicateBuilder
     public function build($order): string
     {
         $order = $order->getOrder();
-
-        if (!$order) {
-            return "";
-        }
-
-        $query = array_map(function ($row) {
-            return $this->quote($row, "");
-        }, $order);
-
-        return implode(',', $query);
+        return $this->doBuild($order, '');
     }
 }

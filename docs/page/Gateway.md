@@ -1,7 +1,7 @@
-## Repo
+## Gateway
 
 ```php
-$repo = $adapter->getRepo();
+$gateway = $adapter->getGateway();
 ```
 
 interface

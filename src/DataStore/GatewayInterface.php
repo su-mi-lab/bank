@@ -8,10 +8,10 @@ use Bank\Query\Select;
 use Bank\Query\Update;
 
 /**
- * Interface RepoInterface
+ * Interface GatewayInterface
  * @package Bank\DataStore
  */
-interface RepoInterface
+interface GatewayInterface
 {
 
     /**

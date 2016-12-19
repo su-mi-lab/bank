@@ -7,8 +7,8 @@
 $insert = new Insert("users");
 $insert->values(['name' => 'name']);
 
-$adapter->getRepo();
-$repo->insert($insert);
+$adapter->getGateway();
+$gateway->insert($insert);
 ```
 
 ### QueryBuilder

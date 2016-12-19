@@ -15,8 +15,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
     }
 
     function testColumnQuery()
@@ -29,8 +29,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
     }
 
     function testAliasQuery()
@@ -46,8 +46,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
     }
 
     function testWhereQuery()
@@ -70,8 +70,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
     }
 
     function testNestWhereQuery()
@@ -90,8 +90,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
 
         $select = new Select("users");
         $select->where
@@ -107,8 +107,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
 
     }
 
@@ -122,8 +122,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
 
         $select = new Select(['u' => "users"]);
         $select->groupBy(['u.id', 'u.name']);
@@ -133,8 +133,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
     }
 
     function testOrderQuery()
@@ -147,8 +147,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
     }
 
     function testExpressionQuery()
@@ -161,8 +161,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
     }
 
     function testJoin()
@@ -185,8 +185,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
     }
 
     function testReset()
@@ -212,8 +212,8 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
 
     }
 
@@ -229,7 +229,7 @@ class SelectBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildSelectQuery($select)
         );
 
-        $this->repo->find($select);
-        $this->repo->findAll($select);
+        $this->gateway->find($select);
+        $this->gateway->findAll($select);
     }
 }

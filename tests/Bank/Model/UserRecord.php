@@ -11,21 +11,23 @@ class UserRecord extends \Bank\DataStore\ActiveRecord
     protected static $tableName = 'users';
 
     /**
+     * @param $adapter
      * @param $id
-     * @return \Bank\DataStore\ActiveRecordInterface
+     * @return \Bank\DataStore\ActiveRecordInterface|null
      */
-    public function loadById($id)
+    public static function loadById($adapter, $id)
     {
-        $select = $this->select();
+        $select = self::select();
         $select->where->equalTo('id', $id);
-        return $this->load($select);
+        return self::load($adapter, $select);
     }
 
     /**
+     * @param $adapter
      * @return array
      */
-    public function findAll()
+    public static function findAll($adapter)
     {
-        return $this->loadAll($this->select());
+        return self::loadAll($adapter, self::select());
     }
 }

@@ -164,6 +164,14 @@ class Where
     }
 
     /**
+     * @return array
+     */
+    public function getConditions(): array
+    {
+        return $this->conditions;
+    }
+
+    /**
      * @param $col
      * @param $operator
      * @param null $val
@@ -186,14 +194,6 @@ class Where
     private function getParent(): Where
     {
         return $this->parent;
-    }
-
-    /**
-     * @return array
-     */
-    public function getConditions(): array
-    {
-        return $this->conditions;
     }
 
     /**

@@ -17,7 +17,7 @@ class DeleteBuilderTest extends Query
             $this->adapter->getQueryBuilder()->buildDeleteQuery($delete)
         );
 
-        $this->repo->delete($delete);
+        $this->gateway->delete($delete);
     }
 
 }

@@ -32,18 +32,7 @@ class Where extends PredicateBuilder
             return "";
         }
 
-        $query = array_reduce($conditions, function ($query, $condition) {
-
-            $value = $condition["value"] ?? null;
-            $join = $condition["join"] ?? null;
-
-            if ($value instanceof WhereQuery) {
-                return $this->buildNestWhere($query, $value, $join);
-            }
-
-            return $this->buildSimpleWhere($query, $condition);
-        }, []);
-
+        $query = array_reduce($conditions, 'self::doBuild', []);
         $where = implode("", $query);
 
         return $where;
@@ -55,6 +44,23 @@ class Where extends PredicateBuilder
     public function getBindValue()
     {
         return $this->bindValue;
+    }
+
+    /**
+     * @param $query
+     * @param $row
+     * @return array
+     */
+    protected function doBuild($query, $row): array
+    {
+        $value = $row["value"] ?? null;
+        $join = $row["join"] ?? null;
+
+        if ($value instanceof WhereQuery) {
+            return $this->buildNestWhere($query, $value, $join);
+        }
+
+        return $this->buildSimpleWhere($query, $row);
     }
 
     /**
@@ -108,22 +114,41 @@ class Where extends PredicateBuilder
      */
     protected function castWhereValue($conditionVal): string
     {
-
         $name = '';
         if (is_array($conditionVal)) {
-            $value = array_map(function ($item) {
-                $name = $this->getBindName();
-                $this->bindValue[$name] = $item;
-                return $name;
-            }, $conditionVal);
-
-            $name = $this->enclosedInBracket(implode(" , ", $value));
+            $name = $this->doCastWhereValues($conditionVal);
         } else if (!empty($conditionVal)) {
-            $name = $this->getBindName();
-            $this->bindValue[$name] = $conditionVal;
+            $name = $this->doCastWhereValue($conditionVal);
         }
 
         return $name;
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    protected function doCastWhereValue($value): string
+    {
+        $name = $this->getBindName();
+        $this->bindValue[$name] = $value;
+
+        return $name;
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    protected function doCastWhereValues($value): string
+    {
+        $value = array_map(function ($item) {
+            $name = $this->getBindName();
+            $this->bindValue[$name] = $item;
+            return $name;
+        }, $value);
+
+        return $this->enclosedInBracket(implode(" , ", $value));
     }
 
     /**

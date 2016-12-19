@@ -60,7 +60,7 @@ class SimpleQueryTest extends Query
         $insert
             ->values(['name' => self::USER_NAME]);
 
-        return $this->repo->insert($insert);
+        return $this->gateway->insert($insert);
     }
 
     /**
@@ -75,7 +75,7 @@ class SimpleQueryTest extends Query
             ->where
             ->equalTo('id', $id);
 
-        return $this->repo->update($update);
+        return $this->gateway->update($update);
     }
 
     /**
@@ -87,7 +87,7 @@ class SimpleQueryTest extends Query
         $delete = new Delete("users");
         $delete->where->equalTo('id', $id);
 
-        return $this->repo->delete($delete);
+        return $this->gateway->delete($delete);
     }
 
     /**
@@ -98,7 +98,7 @@ class SimpleQueryTest extends Query
     {
         $select = new Select("users");
         $select->where->equalTo('id', $id);
-        return $this->repo->find($select);
+        return $this->gateway->find($select);
     }
 
     /**

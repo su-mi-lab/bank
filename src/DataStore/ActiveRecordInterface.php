@@ -22,20 +22,23 @@ interface ActiveRecordInterface
     public function delete(): int;
 
     /**
-     * @param Select $query
-     */
-    public function load(Select $query);
-
-    /**
      * @return Select
      */
-    public function select(): Select;
+    public static function select(): Select;
 
     /**
+     * @param AdapterInterface $adapter
+     * @param Select $query
+     * @return null|ActiveRecordInterface
+     */
+    public static function load(AdapterInterface $adapter, Select $query);
+
+    /**
+     * @param AdapterInterface $adapter
      * @param Select $query
      * @return array
      */
-    public function loadAll(Select $query): array;
+    public static function loadAll(AdapterInterface $adapter, Select $query): array;
 
     /**
      * @throws \Exception

@@ -19,8 +19,8 @@ public function getConnection(): ConnectionInterface;
 public function getQueryBuilder(): QueryBuilderInterface;
 
 /**
- * @return RepoInterface
+ * @return GatewayInterface
  */
-public function getRepo(): RepoInterface;
+public function getGateway(): GatewayInterface;
 
 ```

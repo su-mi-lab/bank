@@ -13,15 +13,15 @@ abstract class Query extends PHPUnit_Framework_TestCase
     protected $adapter;
 
     /**
-     * @var Bank\DataStore\RepoInterface
+     * @var Bank\DataStore\GatewayInterface
      */
-    protected $repo;
+    protected $gateway;
 
     protected function setUp()
     {
         \Bank\Bank::setConfig(include __DIR__ . '/config/bank.php');
         $this->adapter = \Bank\Bank::adapter();
-        $this->repo = $this->adapter->getRepo();
+        $this->gateway = $this->adapter->getGateway();
     }
 
     const FROM_TEST_QUERY = "SELECT * FROM `users`";

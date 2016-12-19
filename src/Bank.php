@@ -67,6 +67,20 @@ class Bank
     }
 
     /**
+     * @param $name
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getConfig($name)
+    {
+        if (!isset(static::$config[$name])) {
+            throw new \Exception('not found config');
+        }
+
+        return static::$config[$name];
+    }
+
+    /**
      * @param $schemaName
      * @return mixed
      * @throws \Exception
@@ -82,7 +96,7 @@ class Bank
         }
 
         $schemaDir = static::$config['schema'];
-        static::$schema[$schemaName] = include ($schemaDir . $schemaName);
+        static::$schema[$schemaName] = include($schemaDir . $schemaName);
 
         return static::$schema[$schemaName];
     }

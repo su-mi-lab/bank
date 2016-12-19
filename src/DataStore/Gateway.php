@@ -9,10 +9,10 @@ use Bank\Query\Select;
 use Bank\Query\Update;
 
 /**
- * Class Repo
+ * Class Gateway
  * @package Bank\DataStore
  */
-class Repo implements RepoInterface
+class Gateway implements GatewayInterface
 {
 
     /**
@@ -26,7 +26,7 @@ class Repo implements RepoInterface
     private $builder;
 
     /**
-     * Repo constructor.
+     * Gateway constructor.
      * @param ConnectionInterface $conn
      * @param QueryBuilderInterface $builder
      */

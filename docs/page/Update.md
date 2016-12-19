@@ -10,8 +10,8 @@ $update
 ->where
 ->equalTo('id', 1);
 
-$adapter->getRepo();
-$repo->update($update);
+$adapter->getGateway();
+$gateway->update($update);
 ```
 
 ### QueryBuilder
