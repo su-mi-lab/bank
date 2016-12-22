@@ -3,7 +3,7 @@
 Add this to your composer.json file, in the require object:
 
 ```php
-"bank-lab/bank": "version"
+"bank/bank-db": "version"
 ```
 
 Alternately, clone the gatewaysitory and manually invoke `composer` using the shipped
